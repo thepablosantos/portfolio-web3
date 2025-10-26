@@ -1,10 +1,17 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User } from 'lucide-react';
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState<'en' | 'pt'>('en');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const skills = {
     languages: ['Solidity', 'JavaScript', 'TypeScript', 'Python', 'SQL', 'NoSQL'],
@@ -71,7 +78,15 @@ function App() {
       },
       contact: {
         title: 'Get In Touch',
-        description: 'I\'m currently open to new opportunities. Whether you have a question or just want to say hi, feel free to reach out!'
+        description: 'I\'m always open to discuss new projects, creative opportunities or simply exchange ideas about blockchain and development.',
+        letsTalk: 'Let\'s Talk',
+        letsTalkDesc: 'Whether for a blockchain project, DApp development or smart contract consulting, I\'m here to help turn your ideas into reality.',
+        sendMessage: 'Send a Message',
+        name: 'Name',
+        email: 'Email',
+        message: 'Message',
+        sendButton: 'Send Message',
+        socialNetworks: 'Social Networks'
       },
       footer: {
         built: 'Built with React & Tailwind CSS'
@@ -135,7 +150,15 @@ function App() {
       },
       contact: {
         title: 'Entre em Contato',
-        description: 'Estou aberto a novas oportunidades. Se você tem uma pergunta ou só quer dizer oi, sinta-se à vontade para entrar em contato!'
+        description: 'Estou sempre aberto para discutir novos projetos, oportunidades criativas ou simplesmente trocar ideias sobre blockchain e desenvolvimento.',
+        letsTalk: 'Vamos Conversar',
+        letsTalkDesc: 'Seja para um projeto blockchain, desenvolvimento de DApp ou consultoria em smart contracts, estou aqui para ajudar a transformar suas ideias em realidade.',
+        sendMessage: 'Enviar Mensagem',
+        name: 'Nome',
+        email: 'Email',
+        message: 'Mensagem',
+        sendButton: 'Enviar Mensagem',
+        socialNetworks: 'Redes Sociais'
       },
       footer: {
         built: 'Construído com React & Tailwind CSS'
@@ -235,6 +258,49 @@ function App() {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Configurações do EmailJS
+      const serviceId = 'portfolio_service';
+      const templateId = 'template_contact';
+      const publicKey = 'Jx9YsR5Yg9_7kHKhO';
+
+      // Parâmetros do template
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_email: 'contactmepablosantos@gmail.com'
+      };
+
+      // Enviar email
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Mostrar mensagem de sucesso
+      alert(language === 'pt' ? 'Mensagem enviada com sucesso!' : 'Message sent successfully!');
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert(language === 'pt' ? 'Erro ao enviar mensagem. Tente novamente.' : 'Error sending message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-black text-gray-100' : 'bg-white text-gray-900'}`}>
       {/* Navigation */}
@@ -322,7 +388,7 @@ function App() {
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <a
-              href="mailto:pablosantos.dev@proton.me"
+              href="mailto:contactmepablosantos@gmail.com"
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
             >
               <Mail size={18} />
@@ -528,38 +594,188 @@ function App() {
 
       {/* Contact Section */}
       <section id="contact" className={`py-20 px-6 ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">{t.contact.title}</h2>
-          <p className={`text-lg mb-12 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-            {t.contact.description}
-          </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">{t.contact.title}</h2>
+            <p className={`text-lg max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              {t.contact.description}
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6 mb-12">
-            <a
-              href="mailto:pablosantos.dev@proton.me"
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              <Mail size={20} />
-              <span>pablosantos.dev@proton.me</span>
-            </a>
-            <a
-              href="http://github.com/thepablosantos"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              <Github size={20} />
-              <span>thepablosantos</span>
-            </a>
-            <a
-              href="http://linkedin.com/in/pablo-sodre"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              <Linkedin size={20} />
-              <span>pablo-sodre</span>
-            </a>
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Left Column - Let's Talk */}
+            <div>
+              <h3 className="text-2xl font-bold mb-6">{t.contact.letsTalk}</h3>
+              <p className={`text-lg mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {t.contact.letsTalkDesc}
+              </p>
+
+              {/* Contact Information */}
+              <div className={`rounded-lg p-6 mb-8 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                <div className="space-y-6">
+                  {/* Email */}
+                  <div className="flex items-center gap-4">
+                    <div className={`p-3 rounded-lg ${isDarkMode ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+                      <Mail size={20} className="text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">Email</p>
+                      <a 
+                        href="mailto:contactmepablosantos@gmail.com"
+                        className={`${isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} transition-colors`}
+                      >
+                        contactmepablosantos@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* WhatsApp */}
+                  <div className="flex items-center gap-4">
+                    <div className={`p-3 rounded-lg ${isDarkMode ? 'bg-green-500/20' : 'bg-green-100'}`}>
+                      <MessageCircle size={20} className="text-green-400" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">WhatsApp</p>
+                      <a 
+                        href="https://wa.me/353857655940"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${isDarkMode ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'} transition-colors`}
+                      >
+                        +353 (85) 765-5940
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Networks */}
+              <div>
+                <h4 className="text-xl font-bold mb-4">{t.contact.socialNetworks}</h4>
+                <div className="flex gap-4">
+                  <a
+                    href="http://github.com/thepablosantos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-100'}`}
+                  >
+                    <Github size={24} />
+                  </a>
+                  <a
+                    href="http://linkedin.com/in/pablo-sodre"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-100'}`}
+                  >
+                    <Linkedin size={24} />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Send Message */}
+            <div>
+              <h3 className="text-2xl font-bold mb-6">{t.contact.sendMessage}</h3>
+              
+              <form onSubmit={handleSubmit} className={`rounded-lg p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+                <div className="space-y-6">
+                  {/* Name Field */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      {t.contact.name} *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                        <User size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                      </div>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        placeholder={language === 'pt' ? 'Seu nome completo' : 'Your full name'}
+                        className={`w-full pl-10 pr-4 py-3 rounded-lg border transition-colors ${
+                          isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500' 
+                            : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500'
+                        } focus:outline-none focus:ring-2 focus:ring-blue-500/20`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      {t.contact.email} *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                        <Mail size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                      </div>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="your@email.com"
+                        className={`w-full pl-10 pr-4 py-3 rounded-lg border transition-colors ${
+                          isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500' 
+                            : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500'
+                        } focus:outline-none focus:ring-2 focus:ring-blue-500/20`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message Field */}
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      {t.contact.message} *
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={5}
+                      placeholder={language === 'pt' ? 'Descreva seu projeto ou pergunta...' : 'Describe your project or question...'}
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors resize-none ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500' 
+                          : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500'
+                      } focus:outline-none focus:ring-2 focus:ring-blue-500/20`}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors ${
+                      isSubmitting
+                        ? 'bg-gray-500 cursor-not-allowed text-white'
+                        : isDarkMode 
+                          ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                          : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        {language === 'pt' ? 'Enviando...' : 'Sending...'}
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} />
+                        {t.contact.sendButton}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </section>
