@@ -282,7 +282,7 @@ function App() {
     try {
       // Configurações do EmailJS
       const serviceId = 'portfolio_service';
-      const templateId = 'template_contact';
+      const templateId = 'template_btjhlaa';
       const publicKey = 'Jx9YsR5Yg9_7kHKhO';
 
       // Parâmetros do template
