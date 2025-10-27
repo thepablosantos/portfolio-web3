@@ -398,7 +398,7 @@ function App() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {/* 🔹 Download CV */}
             <a
-               href="https://drive.google.com/uc?export=download&id=1yNYpUTe9n7rhhQ0HxXkU06P2F3T7mQUT" // coloque o caminho real do seu PDF aqui
+               href="https://drive.google.com/file/d/1yNYpUTe9n7rhhQ0HxXkU06P2F3T7mQUT/view?usp=sharing" // coloque o caminho real do seu PDF aqui
               download
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
               >
