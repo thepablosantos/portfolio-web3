@@ -14,9 +14,6 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Debug: Log to console
-  console.log('App component is rendering');
-
   const skills = {
     languages: ['Solidity', 'JavaScript', 'TypeScript', 'Python', 'SQL', 'NoSQL'],
     frameworks: ['Hardhat', 'Foundry', 'ethers.js', 'web3.js', 'React', 'Docker'],
@@ -55,7 +52,7 @@ function App() {
         description: 'My journey in the blockchain universe began in 2021, when I worked at a Web3 startup, participating in ERC-721 (NFT) projects and improving my skills in Solidity and the Hardhat framework.',
         description2: 'During this period, I also earned the Ancord certification, which allowed me to better understand the traditional financial market and explore ways to integrate its principles into the decentralized environment.',
         description3: 'In 2022, I joined a technology startup, where I worked as a Full Stack Developer and Data Analyst, collaborating on smart contract development and data analysis applied to Web3 solutions.',
-        description4: 'In 2024, I moved to Europe to improve my English and expand my international reach. I continued to dedicate myself to studying blockchain technologies, participating in Web3 communities like NearX and hackathons, consolidating my practical experience in the sector.'
+        description4: 'In 2024, I moved to Europe to improve my English and expand my international reach. I continued studying blockchain technologies, participating in Web3 communities like NearX and hackathons, consolidating my practical experience in the sector.'
       },
       projects: {
         title: 'Featured Projects',
@@ -136,7 +133,7 @@ function App() {
         description: 'Minha trajetória no universo blockchain começou em 2021, quando atuei em uma startup de Web3, participando de projetos ERC-721 (NFTs) e aprimorando minhas habilidades em Solidity e no framework Hardhat.',
         description2: 'Nesse período, conquistei também a certificação Ancord, que me permitiu compreender melhor o mercado financeiro tradicional e explorar formas de integrar seus princípios ao ambiente descentralizado.',
         description3: 'Em 2022, ingressei em uma startup de tecnologia, onde atuei como Full Stack Developer e Analista de Dados, colaborando no desenvolvimento de contratos inteligentes e na análise de dados aplicados a soluções Web3.',
-        description4: 'Já em 2024, me mudei para a Europa para aperfeiçoar meu inglês e expandir minha atuação internacional. Continuei me dedicando ao estudo das tecnologias blockchain, participando de comunidades Web3 como a NearX e de hackathons, consolidando minha experiência prática no setor.'
+        description4: 'Já em 2024, me mudei para a Europa para aperfeiçoar meu inglês e expandir minha atuação internacional. Continuei estudando tecnologias blockchain, participando de comunidades Web3 como a NearX e de hackathons, consolidando minha experiência prática no setor.'
       },
       projects: {
         title: 'Meus Projetos',
@@ -382,7 +379,7 @@ function App() {
       </div>
     </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Pablo Sodré
           </h1>
 
@@ -436,7 +433,7 @@ function App() {
       </section>
 
       {/* About & Skills Section */}
-      <section id="about" className={`py-20 px-6 ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
+      <section id="about" className={`py-20 px-6 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto">
           {/* About Me - Centralized */}
           <div className="text-center mb-16">
@@ -447,21 +444,21 @@ function App() {
         </div>
 
           {/* Two Column Layout: My Journey + Skills Cards */}
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-16">
             {/* Left Column - My Journey */}
             <div>
               <h3 className="text-2xl font-bold mb-6">{t.experience.title}</h3>
-              <div className="space-y-4">
-                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              <div className="space-y-5">
+                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {t.experience.description}
                 </p>
-                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {t.experience.description2}
                 </p>
-                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {t.experience.description3}
                 </p>
-                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {t.experience.description4}
                 </p>
               </div>
@@ -469,51 +466,51 @@ function App() {
 
             {/* Right Column - Skills Cards */}
             <div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className={`border rounded-lg p-4 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-blue-500' : 'border-gray-300 hover:border-blue-400'}`}>
-                  <div className="flex items-center mb-3">
-                    <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center mr-2">
-                      <span className="text-white font-bold text-xs">SC</span>
+              <div className="grid grid-cols-2 gap-6">
+                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-blue-500' : 'border-gray-300 hover:border-blue-400'}`}>
+                  <div className="flex items-center mb-4">
+                    <div className="w-7 h-7 bg-blue-500 rounded flex items-center justify-center mr-3">
+                      <span className="text-white font-bold text-sm">SC</span>
                     </div>
                     <h4 className="text-lg font-bold text-blue-400">{t.skills.smartContracts}</h4>
                   </div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     {t.skills.smartContractsDesc}
                   </p>
                 </div>
 
-                <div className={`border rounded-lg p-4 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-green-500' : 'border-gray-300 hover:border-green-400'}`}>
-                  <div className="flex items-center mb-3">
-                    <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center mr-2">
-                      <span className="text-white font-bold text-xs">DF</span>
+                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-green-500' : 'border-gray-300 hover:border-green-400'}`}>
+                  <div className="flex items-center mb-4">
+                    <div className="w-7 h-7 bg-green-500 rounded flex items-center justify-center mr-3">
+                      <span className="text-white font-bold text-sm">DF</span>
                     </div>
                     <h4 className="text-lg font-bold text-green-400">{t.skills.defiSolutions}</h4>
                   </div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     {t.skills.defiSolutionsDesc}
                   </p>
                 </div>
 
-                <div className={`border rounded-lg p-4 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-purple-500' : 'border-gray-300 hover:border-purple-400'}`}>
-                  <div className="flex items-center mb-3">
-                    <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center mr-2">
-                      <span className="text-white font-bold text-xs">PE</span>
+                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-purple-500' : 'border-gray-300 hover:border-purple-400'}`}>
+                  <div className="flex items-center mb-4">
+                    <div className="w-7 h-7 bg-purple-500 rounded flex items-center justify-center mr-3">
+                      <span className="text-white font-bold text-sm">PE</span>
                     </div>
                     <h4 className="text-lg font-bold text-purple-400">{t.skills.professionalExperience}</h4>
-              </div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  </div>
+                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     {t.skills.professionalExperienceDesc}
                   </p>
-            </div>
+                </div>
 
-                <div className={`border rounded-lg p-4 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-cyan-500' : 'border-gray-300 hover:border-cyan-400'}`}>
-                  <div className="flex items-center mb-3">
-                    <div className="w-6 h-6 bg-cyan-500 rounded flex items-center justify-center mr-2">
-                      <span className="text-white font-bold text-xs">W3</span>
+                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-cyan-500' : 'border-gray-300 hover:border-cyan-400'}`}>
+                  <div className="flex items-center mb-4">
+                    <div className="w-7 h-7 bg-cyan-500 rounded flex items-center justify-center mr-3">
+                      <span className="text-white font-bold text-sm">W3</span>
                     </div>
                     <h4 className="text-lg font-bold text-cyan-400">{t.skills.web3Development}</h4>
                   </div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     {t.skills.web3DevelopmentDesc}
                   </p>
                 </div>
@@ -612,7 +609,7 @@ function App() {
 
 
       {/* Education & Languages Section */}
-      <section id="education" className={`py-20 px-6 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+      <section id="education" className={`py-20 px-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">{t.education.title}</h2>
 
@@ -652,7 +649,7 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={`py-20 px-6 ${isDarkMode ? 'bg-zinc-900' : 'bg-gray-50'}`}>
+      <section id="contact" className={`py-20 px-6 ${isDarkMode ? 'bg-black' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">{t.contact.title}</h2>
@@ -840,7 +837,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className={`py-12 px-6 ${isDarkMode ? 'bg-black border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
+      <footer className={`py-12 px-6 ${isDarkMode ? 'bg-gray-800 border-t border-gray-700' : 'bg-white border-t border-gray-200'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Developer Info */}
