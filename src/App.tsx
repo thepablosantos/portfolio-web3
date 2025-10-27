@@ -1,6 +1,9 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download } from 'lucide-react';
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+
+// 🔹 Inicializa o EmailJS
+emailjs.init('Jx9YsR5Yg9_7kHKhO');
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,12 +16,6 @@ function App() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
-
-  const skills = {
-    languages: ['Solidity', 'JavaScript', 'TypeScript', 'Python', 'SQL', 'NoSQL'],
-    frameworks: ['Hardhat', 'Foundry', 'ethers.js', 'web3.js', 'React', 'Docker'],
-    blockchain: ['Smart Contracts', 'DApp Development', 'Smart Contract Security', 'DeFi', 'Layer 2 Solutions']
-  };
 
   const translations = {
     en: {
@@ -71,11 +68,9 @@ function App() {
         portuguese: 'Portuguese',
         english: 'English',
         spanish: 'Spanish',
-        italian: 'Italian',
         native: 'Native',
         advanced: 'Advanced',
         intermediate: 'Intermediate',
-        basic: 'Basic'
       },
       contact: {
         title: 'Get In Touch',
@@ -152,11 +147,9 @@ function App() {
         portuguese: 'Português',
         english: 'Inglês',
         spanish: 'Espanhol',
-        italian: 'Italiano',
         native: 'Nativo',
         advanced: 'Avançado',
         intermediate: 'Intermediário',
-        basic: 'Básico'
       },
       contact: {
         title: 'Entre em Contato',
@@ -403,13 +396,16 @@ function App() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {/* 🔹 Download CV */}
             <a
-              href="mailto:contactmepablosantos@gmail.com"
+               href="/PabloSodre_CV.pdf" // coloque o caminho real do seu PDF aqui
+              download
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <Mail size={18} />
-              {t.hero.contact}
+              >
+              <Download size={18} />
+              Download CV
             </a>
+
             <a
               href="http://github.com/thepablosantos"
               target="_blank"
@@ -433,7 +429,7 @@ function App() {
       </section>
 
       {/* About & Skills Section */}
-      <section id="about" className={`py-20 px-6 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section id="about" className={`py-20 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto">
           {/* About Me - Centralized */}
           <div className="text-center mb-16">
@@ -609,7 +605,7 @@ function App() {
 
 
       {/* Education & Languages Section */}
-      <section id="education" className={`py-20 px-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <section id="education" className={`py-20 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">{t.education.title}</h2>
 
@@ -638,10 +634,7 @@ function App() {
                   <span>{t.education.spanish}</span>
                   <span className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>{t.education.intermediate}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>{t.education.italian}</span>
-                  <span className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>{t.education.basic}</span>
-                </div>
+                {/* Italian language was removed because it's not in the type */}
               </div>
             </div>
           </div>
@@ -803,6 +796,7 @@ function App() {
                           : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500/20`}
                     />
+                    
                   </div>
 
                   {/* Submit Button */}
@@ -837,7 +831,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className={`py-12 px-6 ${isDarkMode ? 'bg-gray-800 border-t border-gray-700' : 'bg-white border-t border-gray-200'}`}>
+      <footer className={`py-12 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white border-t border-gray-200'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Developer Info */}
