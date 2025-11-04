@@ -873,6 +873,175 @@ Understanding the difference between hub, switch and router is fundamental for d
       category: 'redes',
       date: '2025-11-01',
       author: 'Pablo Sodré'
+    },
+    {
+      id: 5,
+      title: language === 'pt' ? 'Do Domínio ao IP: Entendendo DNS, IPv4 e IPv6' : 'From Domain to IP: Understanding DNS, IPv4 and IPv6',
+      excerpt: language === 'pt' 
+        ? 'Como a internet transforma um nome de domínio em um endereço IP. Entenda o papel do DNS e as diferenças entre IPv4 e IPv6 — os protocolos que tornam a comunicação online possível.' 
+        : 'How the internet transforms a domain name into an IP address. Understand the role of DNS and the differences between IPv4 and IPv6 — the protocols that make online communication possible.',
+      content: language === 'pt' 
+        ? `# Do Domínio ao IP: Entendendo DNS, IPv4 e IPv6
+
+Quando digitamos um site como pablosodre.dev no navegador, parece algo simples. Mas por trás desse gesto existe uma estrutura complexa que envolve tradução de nomes, endereçamento e comunicação entre redes.
+
+Neste artigo, vamos explorar como o DNS (Domain Name System) transforma domínios em endereços IP, e como os protocolos IPv4 e IPv6 permitem que bilhões de dispositivos se conectem entre si.
+
+## O que é o DNS
+
+O DNS (Domain Name System) é o sistema que traduz nomes de domínio legíveis por humanos (como google.com ou pablosodre.dev) em endereços IP, que são os identificadores reais usados pelos computadores para se comunicarem na internet.
+
+Pense no DNS como uma "agenda telefônica" da internet. Você procura o nome, e ele te retorna o número (IP).
+
+## Como o DNS funciona
+
+1. Você digita um endereço no navegador, por exemplo: https://pablosantos.xyz
+2. O navegador consulta o resolvedor DNS (geralmente configurado pelo provedor de internet ou pelo sistema).
+3. O DNS busca o IP correspondente — algo como 192.0.2.45.
+4. O navegador usa esse IP para conectar-se diretamente ao servidor e carregar o site.
+
+O DNS não entrega o conteúdo do site, apenas informa onde ele está.
+
+## IPv4 — O clássico da internet
+
+O IPv4 (Internet Protocol version 4) é o protocolo de endereçamento mais usado desde os anos 1980.
+
+Cada dispositivo conectado à rede recebe um endereço de 32 bits, normalmente representado por quatro números separados por pontos.
+
+**Exemplo:**
+
+\`\`\`
+192.168.0.15
+\`\`\`
+
+### Características principais
+
+- Usa endereços de 32 bits → ~4,3 bilhões de endereços possíveis.
+- Divide o endereço em quatro blocos (octetos).
+- Permite broadcasts, ou seja, envio de pacotes para todos os dispositivos da rede.
+- É simples, rápido e amplamente compatível, mas tem limitação de endereços (a internet já "quase esgotou" o IPv4).
+
+## IPv6 — O futuro da comunicação digital
+
+O IPv6 (Internet Protocol version 6) surgiu para resolver as limitações do IPv4.
+
+Ele usa endereços de 128 bits, oferecendo uma quantidade quase infinita de endereços únicos.
+
+**Exemplo:**
+
+\`\`\`
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+\`\`\`
+
+### Principais vantagens do IPv6
+
+| Característica | IPv4 | IPv6 |
+|----------------|------|------|
+| Tamanho do endereço | 32 bits | 128 bits |
+| Total de endereços | ~4,3 bilhões | ~340 undecilhões |
+| Formato | Decimal (0–255) | Hexadecimal |
+| Broadcast | Suportado | Substituído por Multicast |
+| Segurança (IPSec) | Opcional | Integrada |
+| Configuração | Manual/DHCP | Automática |
+| Desempenho | Simples e compatível | Otimizado e escalável |
+
+### Por que o IPv6 é importante
+
+- Garante que cada dispositivo no planeta possa ter seu próprio endereço IP único.
+- Melhora a segurança e a eficiência das conexões.
+- É fundamental para o crescimento da IoT (Internet das Coisas) e da Web3, onde milhões de nós e dispositivos precisam se comunicar simultaneamente.
+
+## DNS + IP: Como tudo se conecta
+
+Quando você acessa um site:
+
+1. O DNS traduz o nome (pablosodre.dev) para um IP.
+2. Esse IP pode ser IPv4 ou IPv6, dependendo da configuração do servidor e da sua rede.
+3. O navegador então se conecta ao endereço IP e solicita os arquivos do site (HTML, CSS, etc.).
+
+Em termos simples: o DNS é o "tradutor" e o IP é o "endereço real" de onde a informação está hospedada.`
+        : `# From Domain to IP: Understanding DNS, IPv4 and IPv6
+
+When we type a site like pablosodre.dev in the browser, it seems simple. But behind this gesture lies a complex structure involving name translation, addressing and communication between networks.
+
+In this article, we'll explore how DNS (Domain Name System) transforms domains into IP addresses, and how IPv4 and IPv6 protocols allow billions of devices to connect to each other.
+
+## What is DNS
+
+DNS (Domain Name System) is the system that translates human-readable domain names (like google.com or pablosodre.dev) into IP addresses, which are the real identifiers used by computers to communicate on the internet.
+
+Think of DNS as the internet's "phone book". You look up the name, and it returns the number (IP).
+
+## How DNS Works
+
+1. You type an address in the browser, for example: https://pablosantos.xyz
+2. The browser queries the DNS resolver (usually configured by the internet provider or system).
+3. DNS looks up the corresponding IP — something like 192.0.2.45.
+4. The browser uses that IP to connect directly to the server and load the site.
+
+DNS doesn't deliver the site's content, it only tells where it is.
+
+## IPv4 — The internet classic
+
+IPv4 (Internet Protocol version 4) is the most widely used addressing protocol since the 1980s.
+
+Each device connected to the network receives a 32-bit address, typically represented by four numbers separated by dots.
+
+**Example:**
+
+\`\`\`
+192.168.0.15
+\`\`\`
+
+### Main Characteristics
+
+- Uses 32-bit addresses → ~4.3 billion possible addresses.
+- Divides the address into four blocks (octets).
+- Allows broadcasts, i.e., sending packets to all devices on the network.
+- It's simple, fast and widely compatible, but has address limitations (the internet has "almost exhausted" IPv4).
+
+## IPv6 — The future of digital communication
+
+IPv6 (Internet Protocol version 6) emerged to solve IPv4's limitations.
+
+It uses 128-bit addresses, offering an almost infinite number of unique addresses.
+
+**Example:**
+
+\`\`\`
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+\`\`\`
+
+### Main IPv6 Advantages
+
+| Characteristic | IPv4 | IPv6 |
+|----------------|------|------|
+| Address size | 32 bits | 128 bits |
+| Total addresses | ~4.3 billion | ~340 undecillion |
+| Format | Decimal (0–255) | Hexadecimal |
+| Broadcast | Supported | Replaced by Multicast |
+| Security (IPSec) | Optional | Built-in |
+| Configuration | Manual/DHCP | Automatic |
+| Performance | Simple and compatible | Optimized and scalable |
+
+### Why IPv6 is Important
+
+- Ensures that every device on the planet can have its own unique IP address.
+- Improves security and connection efficiency.
+- It's fundamental for the growth of IoT (Internet of Things) and Web3, where millions of nodes and devices need to communicate simultaneously.
+
+## DNS + IP: How Everything Connects
+
+When you access a site:
+
+1. DNS translates the name (pablosodre.dev) to an IP.
+2. This IP can be IPv4 or IPv6, depending on the server and network configuration.
+3. The browser then connects to the IP address and requests the site files (HTML, CSS, etc.).
+
+In simple terms: DNS is the "translator" and IP is the "real address" where the information is hosted.`,
+      category: 'redes',
+      date: '2025-10-31',
+      author: 'Pablo Sodré'
     }
   ];
 
