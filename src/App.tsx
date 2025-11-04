@@ -58,9 +58,12 @@ function App() {
       projects: {
         title: 'Featured Projects',
         all: 'All',
-        smartContracts: 'Smart Contracts',
-        defi: 'DeFi',
-        dapps: 'DApps'
+        redes: 'Redes',
+        web3: 'Web3',
+        hacking: 'Hacking',
+        code: 'Code',
+        data: 'Data',
+        viewOnGitHub: 'View on GitHub'
       },
       blog: {
         title: 'Blog',
@@ -150,9 +153,12 @@ function App() {
       projects: {
         title: 'Meus Projetos',
         all: 'Todos',
-        smartContracts: 'Smart Contracts',
-        defi: 'DeFi',
-        dapps: 'DApps'
+        redes: 'Redes',
+        web3: 'Web3',
+        hacking: 'Hacking',
+        code: 'Code',
+        data: 'Data',
+        viewOnGitHub: 'Ver no GitHub'
       },
       blog: {
         title: 'Blog',
@@ -212,37 +218,52 @@ function App() {
   const projects = [
     {
       name: 'MultiversX Block Explorer',
-      description: 'Blockchain explorer developed with React and TypeScript for the MultiversX network, enabling users to search and visualize blockchain data.',
+      description: language === 'pt' 
+        ? 'Explorador de blockchain desenvolvido com React e TypeScript para a rede MultiversX, permitindo que usuários pesquisem e visualizem dados da blockchain.'
+        : 'Blockchain explorer developed with React and TypeScript for the MultiversX network, enabling users to search and visualize blockchain data.',
       tech: ['TypeScript', 'React', 'Blockchain'],
-      category: 'dapps',
+      category: 'web3',
+      subcategory: 'DApps',
       github: 'https://github.com/thepablosantos/multiversx-block-explorer'
     },
     {
       name: 'Ethereum Network Interactions (Web3.js)',
-      description: 'Comprehensive toolkit to interact with Ethereum blockchain, including account management, transaction handling, and smart contract interactions.',
+      description: language === 'pt'
+        ? 'Kit de ferramentas abrangente para interagir com a blockchain Ethereum, incluindo gerenciamento de contas, tratamento de transações e interações com smart contracts.'
+        : 'Comprehensive toolkit to interact with Ethereum blockchain, including account management, transaction handling, and smart contract interactions.',
       tech: ['JavaScript', 'Web3.js', 'Ethereum'],
-      category: 'dapps',
+      category: 'web3',
+      subcategory: 'DApps',
       github: 'https://github.com/thepablosantos/eth-network-interactions'
     },
     {
       name: 'Ethereum Network Interactions (Ethers.js)',
-      description: 'Alternative implementation using Ethers.js library for Ethereum blockchain interactions, showcasing versatility with different Web3 libraries.',
+      description: language === 'pt'
+        ? 'Implementação alternativa usando a biblioteca Ethers.js para interações com blockchain Ethereum, demonstrando versatilidade com diferentes bibliotecas Web3.'
+        : 'Alternative implementation using Ethers.js library for Ethereum blockchain interactions, showcasing versatility with different Web3 libraries.',
       tech: ['JavaScript', 'Ethers.js', 'Ethereum'],
-      category: 'dapps',
+      category: 'web3',
+      subcategory: 'DApps',
       github: 'https://github.com/thepablosantos/ethers-network-interactions'
     },
     {
       name: 'Ethereum Wallet Manager',
-      description: 'Secure wallet management system for generating Ethereum wallets, encrypting private keys, and handling keystore decryption.',
+      description: language === 'pt'
+        ? 'Sistema seguro de gerenciamento de carteiras para gerar carteiras Ethereum, criptografar chaves privadas e lidar com descriptografia de keystore.'
+        : 'Secure wallet management system for generating Ethereum wallets, encrypting private keys, and handling keystore decryption.',
       tech: ['JavaScript', 'Cryptography', 'Security'],
-      category: 'dapps',
+      category: 'web3',
+      subcategory: 'DApps',
       github: 'https://github.com/thepablosantos/ethereum-wallet-manager'
     },
     {
       name: 'Simple Storage (Solidity)',
-      description: 'Foundational Solidity smart contract project built with Hardhat, demonstrating core blockchain development practices and testing.',
+      description: language === 'pt'
+        ? 'Projeto de smart contract Solidity fundamental construído com Hardhat, demonstrando práticas de desenvolvimento blockchain e testes.'
+        : 'Foundational Solidity smart contract project built with Hardhat, demonstrating core blockchain development practices and testing.',
       tech: ['Solidity', 'Hardhat', 'Smart Contracts'],
-      category: 'smart-contracts',
+      category: 'web3',
+      subcategory: 'Smart Contracts',
       github: 'https://github.com/thepablosantos/simple-storage-solidity'
     }
   ];
@@ -255,9 +276,11 @@ function App() {
   // Count projects by category
   const projectCounts = {
     all: projects.length,
-    'smart-contracts': projects.filter(p => p.category === 'smart-contracts').length,
-    'defi': projects.filter(p => p.category === 'defi').length,
-    'dapps': projects.filter(p => p.category === 'dapps').length
+    'redes': projects.filter(p => p.category === 'redes').length,
+    'web3': projects.filter(p => p.category === 'web3').length,
+    'hacking': projects.filter(p => p.category === 'hacking').length,
+    'code': projects.filter(p => p.category === 'code').length,
+    'data': projects.filter(p => p.category === 'data').length
   };
 
   // Blog articles structure
@@ -384,7 +407,7 @@ This means you can create an object without this property, and TypeScript won't 
 
 TypeScript is a powerful tool that makes JavaScript development more robust and productive. Interfaces, types, and the **?** operator are fundamental concepts every developer should master.`,
       category: 'code',
-      date: '2024-07-01',
+      date: '2025-11-04',
       author: 'Pablo Sodré',
       images: ['https://via.placeholder.com/800x400?text=TypeScript+Code+Example']
     },
@@ -552,7 +575,7 @@ In this example, the \`comprar()\` function will only execute if the sent value 
 
 Modifiers are essential for creating secure and organized smart contracts. They allow reusing common logic and ensuring certain conditions are always checked before function execution.`,
       category: 'web3',
-      date: '2024-07-10',
+      date: '2025-11-03',
       author: 'Pablo Sodré',
       images: ['https://via.placeholder.com/800x400?text=Modifiers+Example+1', 'https://via.placeholder.com/800x400?text=Modifiers+Example+2']
     },
@@ -674,7 +697,7 @@ This data is recorded in the transaction logs, visible even on Etherscan.
 
 Events are a fundamental tool in Solidity for creating transparent and efficient contracts. They allow recording important information without storage costs, making them ideal for auditing and interaction with external interfaces.`,
       category: 'web3',
-      date: '2024-07-15',
+      date: '2025-11-02',
       author: 'Pablo Sodré',
       images: ['https://via.placeholder.com/800x400?text=Events+Example']
     },
@@ -838,7 +861,7 @@ Although useful in certain situations (such as device discovery), excessive use 
 
 Understanding the difference between hub, switch and router is fundamental for designing and managing efficient networks. Each device has its specific role, and choosing the correct one can make all the difference in your network's performance and security.`,
       category: 'redes',
-      date: '2024-07-20',
+      date: '2025-11-01',
       author: 'Pablo Sodré'
     }
   ];
@@ -1198,43 +1221,63 @@ Understanding the difference between hub, switch and router is fundamental for d
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button 
               onClick={() => setActiveFilter('all')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 activeFilter === 'all' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.projects.all} ({projectCounts.all})
             </button>
             <button 
-              onClick={() => setActiveFilter('smart-contracts')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                activeFilter === 'smart-contracts' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              onClick={() => setActiveFilter('redes')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+                activeFilter === 'redes' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
-              {t.projects.smartContracts} ({projectCounts['smart-contracts']})
+              {t.projects.redes} ({projectCounts.redes})
             </button>
             <button 
-              onClick={() => setActiveFilter('defi')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                activeFilter === 'defi' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              onClick={() => setActiveFilter('web3')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+                activeFilter === 'web3' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
-              {t.projects.defi} ({projectCounts.defi})
+              {t.projects.web3} ({projectCounts.web3})
             </button>
             <button 
-              onClick={() => setActiveFilter('dapps')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                activeFilter === 'dapps' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              onClick={() => setActiveFilter('hacking')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+                activeFilter === 'hacking' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
-              {t.projects.dapps} ({projectCounts.dapps})
+              {t.projects.hacking} ({projectCounts.hacking})
+            </button>
+            <button 
+              onClick={() => setActiveFilter('code')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+                activeFilter === 'code' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
+              }`}
+            >
+              {t.projects.code} ({projectCounts.code})
+            </button>
+            <button 
+              onClick={() => setActiveFilter('data')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+                activeFilter === 'data' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
+              }`}
+            >
+              {t.projects.data}
             </button>
           </div>
 
@@ -1242,33 +1285,48 @@ Understanding the difference between hub, switch and router is fundamental for d
             {filteredProjects.map((project) => (
               <div
                 key={project.name}
-                className={`border rounded-lg p-6 transition-all group ${isDarkMode ? 'border-gray-800 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
+                className={`border rounded-lg p-6 transition-all group flex flex-col ${isDarkMode ? 'border-gray-800 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors mb-2">
                     {project.name}
                   </h3>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`transition-colors ${isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}
-                  >
-                    <Github size={20} />
-                  </a>
+                  {project.subcategory && (
+                    <span className={`inline-block px-3 py-1 rounded text-xs font-semibold mb-3 ${
+                      project.subcategory === 'Smart Contracts' ? 'bg-purple-500/20 text-purple-400' :
+                      project.subcategory === 'DeFi' ? 'bg-green-500/20 text-green-400' :
+                      'bg-blue-500/20 text-blue-400'
+                    }`}>
+                      {project.subcategory}
+                    </span>
+                  )}
                 </div>
 
-                <p className={`mb-4 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <p className={`mb-4 leading-relaxed flex-grow min-h-[60px] ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4 min-h-[32px]">
                   {project.tech.map((tech) => (
                     <span key={tech} className={`px-3 py-1 ${getSkillColor(tech)} text-white rounded text-sm`}>
                       {tech}
                     </span>
                   ))}
                 </div>
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-sm font-semibold border mt-auto ${
+                    isDarkMode 
+                      ? 'bg-gray-800/20 border-gray-700 hover:bg-gray-800/40 text-white' 
+                      : 'bg-gray-50/50 border-gray-300 hover:bg-gray-100 text-gray-900'
+                  }`}
+                >
+                  <Github size={18} />
+                  {t.projects.viewOnGitHub}
+                </a>
               </div>
             ))}
           </div>
@@ -1284,60 +1342,60 @@ Understanding the difference between hub, switch and router is fundamental for d
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button 
               onClick={() => setBlogFilter('all')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'all' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.all} ({blogCounts.all})
             </button>
             <button 
               onClick={() => setBlogFilter('redes')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'redes' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.redes} ({blogCounts.redes})
             </button>
             <button 
               onClick={() => setBlogFilter('web3')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'web3' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.web3} ({blogCounts.web3})
             </button>
             <button 
               onClick={() => setBlogFilter('hacking')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'hacking' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.hacking} ({blogCounts.hacking})
             </button>
             <button 
               onClick={() => setBlogFilter('code')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'code' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.code} ({blogCounts.code})
             </button>
             <button 
               onClick={() => setBlogFilter('data')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
                 blogFilter === 'data' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
-                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
               }`}
             >
               {t.blog.data}
