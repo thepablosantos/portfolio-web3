@@ -265,6 +265,15 @@ function App() {
       category: 'web3',
       subcategory: 'Smart Contracts',
       github: 'https://github.com/thepablosantos/simple-storage-solidity'
+    },
+    {
+      name: 'Star Wars Characters Explorer',
+      description: language === 'pt'
+        ? 'Este projeto é uma aplicação web interativa desenvolvida para explorar e exibir informações sobre os personagens do universo Star Wars.'
+        : 'This project is an interactive web application developed to explore and display information about Star Wars universe characters.',
+      tech: ['React', 'TypeScript', 'API'],
+      category: 'code',
+      github: 'https://github.com/thepablosantos/Starwars'
     }
   ];
 
