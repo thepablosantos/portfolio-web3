@@ -1,5 +1,5 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download } from 'lucide-react';
-import { useState } from 'react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
 // 🔹 Inicializa o EmailJS
@@ -16,6 +16,9 @@ function App() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [blogFilter, setBlogFilter] = useState('all');
+  const [selectedArticle, setSelectedArticle] = useState<{ id: number; title: string; content: string; images?: string[]; category?: string; date?: string; author?: string; excerpt?: string } | null>(null);
+  const [articlesToShow, setArticlesToShow] = useState(6);
 
   const translations = {
     en: {
@@ -27,6 +30,7 @@ function App() {
       menu: {
         about: 'About',
         projects: 'Projects',
+        blog: 'Blog',
         contact: 'Contact'
       },
       about: {
@@ -57,6 +61,18 @@ function App() {
         smartContracts: 'Smart Contracts',
         defi: 'DeFi',
         dapps: 'DApps'
+      },
+      blog: {
+        title: 'Blog',
+        all: 'All',
+        redes: 'Redes',
+        web3: 'Web3',
+        hacking: 'Hacking',
+        code: 'Code',
+        data: 'Data',
+        readMore: 'Read More',
+        showMore: 'Show More',
+        close: 'Close'
       },
       education: {
         title: 'Education & Languages',
@@ -106,6 +122,7 @@ function App() {
       menu: {
         about: 'Sobre',
         projects: 'Projetos',
+        blog: 'Blog',
         contact: 'Contato'
       },
       about: {
@@ -136,6 +153,18 @@ function App() {
         smartContracts: 'Smart Contracts',
         defi: 'DeFi',
         dapps: 'DApps'
+      },
+      blog: {
+        title: 'Blog',
+        all: 'Todos',
+        redes: 'Redes',
+        web3: 'Web3',
+        hacking: 'Hacking',
+        code: 'Code',
+        data: 'Data',
+        readMore: 'Ler Mais',
+        showMore: 'Ver Mais',
+        close: 'Fechar'
       },
       education: {
         title: 'Educação & Idiomas',
@@ -231,6 +260,615 @@ function App() {
     'dapps': projects.filter(p => p.category === 'dapps').length
   };
 
+  // Blog articles structure
+  const blogArticles = [
+    {
+      id: 1,
+      title: language === 'pt' ? 'TypeScript: Interfaces, Types e Operador ?' : 'TypeScript: Interfaces, Types and the ? Operator',
+      excerpt: language === 'pt' 
+        ? 'Explore conceitos fundamentais do TypeScript: interfaces, types e o operador ? para tornar atributos opcionais.' 
+        : 'Explore fundamental TypeScript concepts: interfaces, types and the ? operator to make attributes optional.',
+      content: language === 'pt' 
+        ? `# TypeScript: Interfaces, Types e Operador ?
+
+Olá, rede! 🫡
+
+Hoje vim compartilhar um pouco sobre TypeScript, fugindo um pouco dos posts sobre web3 que costumo trazer. 😄
+
+No código abaixo, podemos ver o uso de interfaces, types e do operador **?**, que torna um atributo opcional — ele não precisa obrigatoriamente estar presente no código.
+
+![Exemplo de código TypeScript com interfaces e types](../assets/typescript-example.png)
+
+## Interfaces em TypeScript
+
+Em TypeScript, usamos **interfaces** para definir a estrutura que um objeto deve seguir. Isso ajuda a garantir que os dados tenham sempre o formato esperado.
+
+No exemplo acima, temos duas interfaces:
+
+### interface ocupacao
+- **trabalho**: string (obrigatório)
+- **local?**: string (opcional - graças ao operador **?**)
+
+### interface pessoa
+- **nome**: string (obrigatório)
+- **idade**: number (obrigatório)
+- **cidade**: string (obrigatório)
+
+## Types e Intersection Types
+
+O **type** permite combinar tipos, unir interfaces e deixar o código mais organizado e reutilizável.
+
+No exemplo, usamos o operador **&** (intersection) para criar um novo tipo \`dados\` que combina as propriedades de \`ocupacao\` e \`pessoa\`:
+
+\`\`\`typescript
+type dados = ocupacao & pessoa;
+\`\`\`
+
+Isso significa que um objeto do tipo \`dados\` deve conter todas as propriedades de ambas as interfaces.
+
+## O Operador ?
+
+O operador **?** serve justamente para deixar campos opcionais. No exemplo, o campo \`local\` na interface \`ocupacao\` é opcional:
+
+\`\`\`typescript
+local?: string;
+\`\`\`
+
+Isso significa que você pode criar um objeto sem essa propriedade, e o TypeScript não vai reclamar.
+
+## Benefícios
+
+- **Type Safety**: Erros são detectados em tempo de compilação
+- **Melhor Autocomplete**: IDEs fornecem sugestões inteligentes
+- **Documentação**: Código auto-documentado através dos tipos
+- **Refatoração Segura**: Mudanças são mais seguras com tipos explícitos
+
+## Conclusão
+
+TypeScript é uma ferramenta poderosa que torna o desenvolvimento JavaScript mais robusto e produtivo. Interfaces, types e o operador **?** são conceitos fundamentais que todo desenvolvedor deve dominar.`
+        : `# TypeScript: Interfaces, Types and the ? Operator
+
+Hello, network! 🫡
+
+Today I'm sharing a bit about TypeScript, stepping away from the usual web3 posts. 😄
+
+In the code below, we can see the use of interfaces, types, and the **?** operator, which makes an attribute optional — it doesn't need to be present in the code.
+
+![TypeScript code example with interfaces and types](../assets/typescript-example.png)
+
+## Interfaces in TypeScript
+
+In TypeScript, we use **interfaces** to define the structure that an object must follow. This helps ensure data always has the expected format.
+
+In the example above, we have two interfaces:
+
+### interface ocupacao
+- **trabalho**: string (required)
+- **local?**: string (optional - thanks to the **?** operator)
+
+### interface pessoa
+- **nome**: string (required)
+- **idade**: number (required)
+- **cidade**: string (required)
+
+## Types and Intersection Types
+
+**Type** allows combining types, merging interfaces and making code more organized and reusable.
+
+In the example, we use the **&** (intersection) operator to create a new type \`dados\` that combines properties from \`ocupacao\` and \`pessoa\`:
+
+\`\`\`typescript
+type dados = ocupacao & pessoa;
+\`\`\`
+
+This means an object of type \`dados\` must contain all properties from both interfaces.
+
+## The ? Operator
+
+The **?** operator is used to make fields optional. In the example, the \`local\` field in the \`ocupacao\` interface is optional:
+
+\`\`\`typescript
+local?: string;
+\`\`\`
+
+This means you can create an object without this property, and TypeScript won't complain.
+
+## Benefits
+
+- **Type Safety**: Errors are detected at compile time
+- **Better Autocomplete**: IDEs provide intelligent suggestions
+- **Documentation**: Self-documenting code through types
+- **Safe Refactoring**: Changes are safer with explicit types
+
+## Conclusion
+
+TypeScript is a powerful tool that makes JavaScript development more robust and productive. Interfaces, types, and the **?** operator are fundamental concepts every developer should master.`,
+      category: 'code',
+      date: '2024-07-01',
+      author: 'Pablo Sodré',
+      images: ['https://via.placeholder.com/800x400?text=TypeScript+Code+Example']
+    },
+    {
+      id: 2,
+      title: language === 'pt' ? 'Modifiers em Solidity: Segurança e Reutilização de Código' : 'Modifiers in Solidity: Security and Code Reusability',
+      excerpt: language === 'pt' 
+        ? 'Entenda como usar modifiers em Solidity para criar verificações reutilizáveis e proteger seus smart contracts.' 
+        : 'Learn how to use modifiers in Solidity to create reusable checks and protect your smart contracts.',
+      content: language === 'pt' 
+        ? `# Modifiers em Solidity: Segurança e Reutilização de Código
+
+Olá, rede! 🫡
+
+Em continuação das aulas da NearX sobre Solidity, hoje quero compartilhar com vocês o uso dos **modifiers**, ajudando a entender melhor o uso em Solidity.
+
+## O que é um Modifier?
+
+Um **modifier** é um recurso do Solidity que permite reutilizar verificações ou pré-condições em diferentes funções, para não precisar repetir o mesmo **require** toda hora. São bons para aplicar:
+
+- Regras de acesso
+- Validações de valor
+- Proteções de segurança
+- Outras funções
+
+![Exemplo de modifiers em Solidity](../assets/modifiers-example-1.png)
+
+No primeiro exemplo, temos três exemplos simples:
+
+### 1. ownerOnly
+
+Garante que apenas o dono (owner) pode executar certas funções do contrato.
+
+\`\`\`solidity
+modifier ownerOnly() {
+    require(msg.sender == owner, "Apenas o dono do contrato pode executar");
+    _;
+}
+\`\`\`
+
+### 2. minValue
+
+Verifica se o valor enviado (msg.value) é maior ou igual ao mínimo exigido.
+
+![Exemplo de minValue e noReentrancy](../assets/modifiers-example-2.png)
+
+\`\`\`solidity
+modifier minValue(uint256 _valor) {
+    require(msg.value >= _valor, "Valor enviado e insuficiente");
+    _;
+}
+\`\`\`
+
+### 3. noReentrancy
+
+Para implementar um reentrancy guard, uma forma simples e eficiente de proteger contra ataques de reentrância, travando a execução até que a função termine.
+
+\`\`\`solidity
+modifier noReentrancy() {
+    require(!locked, "Sem reentrancia.");
+    locked = true;
+    _;
+    locked = false;
+}
+\`\`\`
+
+## O Símbolo _;
+
+O símbolo **_;** indica onde o corpo da função será executado. Por exemplo:
+
+- Tudo **antes** do símbolo é executado **antes** da função
+- Tudo **depois** do símbolo é executado **depois** da função
+
+Essa é a lógica básica dessa função, simples porém muito útil na criação de smart contracts.
+
+## Exemplo Prático
+
+\`\`\`solidity
+function comprar() public payable minValue(1 ether) {
+    // lógica de compra
+}
+\`\`\`
+
+Neste exemplo, a função \`comprar()\` só será executada se o valor enviado for pelo menos 1 ether.
+
+## Conclusão
+
+Modifiers são essenciais para criar smart contracts seguros e organizados. Eles permitem reutilizar lógica comum e garantir que certas condições sejam sempre verificadas antes da execução das funções.`
+        : `# Modifiers in Solidity: Security and Code Reusability
+
+Hello, network! 🫡
+
+Continuing the NearX lessons on Solidity, today I want to share with you the use of **modifiers**, helping to better understand their use in Solidity.
+
+## What is a Modifier?
+
+A **modifier** is a Solidity feature that allows reusing checks or preconditions in different functions, so you don't need to repeat the same **require** all the time. They're good for applying:
+
+- Access rules
+- Value validations
+- Security protections
+- Other functions
+
+![Example of modifiers in Solidity](../assets/modifiers-example-1.png)
+
+In the first example, we have three simple examples:
+
+### 1. ownerOnly
+
+Ensures that only the owner can execute certain contract functions.
+
+\`\`\`solidity
+modifier ownerOnly() {
+    require(msg.sender == owner, "Only the contract owner can execute");
+    _;
+}
+\`\`\`
+
+### 2. minValue
+
+Checks if the sent value (msg.value) is greater than or equal to the required minimum.
+
+![Example of minValue and noReentrancy](../assets/modifiers-example-2.png)
+
+\`\`\`solidity
+modifier minValue(uint256 _valor) {
+    require(msg.value >= _valor, "Sent value is insufficient");
+    _;
+}
+\`\`\`
+
+### 3. noReentrancy
+
+To implement a reentrancy guard, a simple and efficient way to protect against reentrancy attacks, locking execution until the function completes.
+
+\`\`\`solidity
+modifier noReentrancy() {
+    require(!locked, "No reentrancy.");
+    locked = true;
+    _;
+    locked = false;
+}
+\`\`\`
+
+## The _ Symbol
+
+The **_;** symbol indicates where the function body will be executed. For example:
+
+- Everything **before** the symbol executes **before** the function
+- Everything **after** the symbol executes **after** the function
+
+This is the basic logic of this function, simple yet very useful in creating smart contracts.
+
+## Practical Example
+
+\`\`\`solidity
+function comprar() public payable minValue(1 ether) {
+    // purchase logic
+}
+\`\`\`
+
+In this example, the \`comprar()\` function will only execute if the sent value is at least 1 ether.
+
+## Conclusion
+
+Modifiers are essential for creating secure and organized smart contracts. They allow reusing common logic and ensuring certain conditions are always checked before function execution.`,
+      category: 'web3',
+      date: '2024-07-10',
+      author: 'Pablo Sodré',
+      images: ['https://via.placeholder.com/800x400?text=Modifiers+Example+1', 'https://via.placeholder.com/800x400?text=Modifiers+Example+2']
+    },
+    {
+      id: 3,
+      title: language === 'pt' ? 'Events em Solidity: Registrando Ações na Blockchain' : 'Events in Solidity: Recording Actions on the Blockchain',
+      excerpt: language === 'pt' 
+        ? 'Aprenda como usar events em Solidity para registrar informações na blockchain sem armazenar no contrato.' 
+        : 'Learn how to use events in Solidity to record information on the blockchain without storing it in the contract.',
+      content: language === 'pt' 
+        ? `# Events em Solidity: Registrando Ações na Blockchain
+
+Olá, rede! 🫡
+
+Hoje vim apresentar um pequeno contrato para entendermos melhor como funcionam os \`events\` em Solidity.
+
+## O que é um Event?
+
+Basicamente o **event** serve para registrar informações importantes na blockchain, sem precisar armazenar no contrato. É uma forma eficiente de emitir logs que são facilmente lidos por interfaces como dApps ou scripts.
+
+![Exemplo de contrato com events](../assets/events-example.png)
+
+## Na Prática
+
+Events são úteis para:
+
+- **Registrar ações** (transferências, votos, mensagens...)
+- **Notificar o front-end** que algo aconteceu
+- **Criar histórico de eventos** on-chain
+
+## Exemplo de Contrato
+
+\`\`\`solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract RegistroDeMensagem {
+    event NovaMensagem(address remetente, string mensagem, uint256 timestamp);
+    
+    function registrarMensagem(string memory _mensagem) public {
+        emit NovaMensagem(msg.sender, _mensagem, block.timestamp);
+    }
+}
+\`\`\`
+
+## Como Funciona?
+
+O contrato acima, cada vez que alguém chama \`registrarMensagem\`, o contrato emite o evento \`NovaMensagem\` com as informações definidas:
+
+- **O endereço de quem enviou** (msg.sender)
+- **A mensagem**
+- **O timestamp do bloco**
+
+Esses dados ficam gravados nos logs da transação, visíveis até no Etherscan.
+
+## Benefícios dos Events
+
+1. **Economia de Gas**: Muito mais barato que armazenar dados no storage
+2. **Histórico Permanente**: Eventos são indexados e permanecem na blockchain
+3. **Integração com Front-end**: Fácil de escutar e reagir em dApps
+4. **Transparência**: Todas as ações importantes ficam registradas
+
+## Conclusão
+
+Events são uma ferramenta fundamental em Solidity para criar contratos transparentes e eficientes. Eles permitem registrar informações importantes sem o custo de armazenamento, tornando-os ideais para auditoria e interação com interfaces externas.`
+        : `# Events in Solidity: Recording Actions on the Blockchain
+
+Hello, network! 🫡
+
+Today I'm presenting a small contract to better understand how \`events\` work in Solidity.
+
+## What is an Event?
+
+Basically, an **event** serves to record important information on the blockchain without needing to store it in the contract. It's an efficient way to emit logs that are easily read by interfaces like dApps or scripts.
+
+![Example contract with events](../assets/events-example.png)
+
+## In Practice
+
+Events are useful for:
+
+- **Recording actions** (transfers, votes, messages...)
+- **Notifying the front-end** that something happened
+- **Creating on-chain event history**
+
+## Contract Example
+
+\`\`\`solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract RegistroDeMensagem {
+    event NovaMensagem(address remetente, string mensagem, uint256 timestamp);
+    
+    function registrarMensagem(string memory _mensagem) public {
+        emit NovaMensagem(msg.sender, _mensagem, block.timestamp);
+    }
+}
+\`\`\`
+
+## How It Works?
+
+In the contract above, every time someone calls \`registrarMensagem\`, the contract emits the \`NovaMensagem\` event with the defined information:
+
+- **The sender's address** (msg.sender)
+- **The message**
+- **The block timestamp**
+
+This data is recorded in the transaction logs, visible even on Etherscan.
+
+## Benefits of Events
+
+1. **Gas Savings**: Much cheaper than storing data in storage
+2. **Permanent History**: Events are indexed and remain on the blockchain
+3. **Front-end Integration**: Easy to listen and react in dApps
+4. **Transparency**: All important actions are recorded
+
+## Conclusion
+
+Events are a fundamental tool in Solidity for creating transparent and efficient contracts. They allow recording important information without storage costs, making them ideal for auditing and interaction with external interfaces.`,
+      category: 'web3',
+      date: '2024-07-15',
+      author: 'Pablo Sodré',
+      images: ['https://via.placeholder.com/800x400?text=Events+Example']
+    },
+    {
+      id: 4,
+      title: language === 'pt' ? 'Redes de Computadores: Hub, Switch, Roteador e Broadcast' : 'Computer Networks: Hub, Switch, Router and Broadcast',
+      excerpt: language === 'pt' 
+        ? 'Explore de forma prática o que são hubs, switches, roteadores e o conceito de broadcast em redes de computadores.' 
+        : 'Explore in a practical way what hubs, switches, routers and the broadcast concept are in computer networks.',
+      content: language === 'pt' 
+        ? `# Redes de Computadores: Hub, Switch, Roteador e Broadcast
+
+Olá, rede! 🫡
+
+Neste artigo, vamos explorar de forma prática o que são hubs, switches, roteadores e o conceito de broadcast, explicando como cada um influencia o tráfego e a eficiência de uma rede.
+
+## 🌐 O que é uma Rede de Computadores
+
+Uma rede é um conjunto de dispositivos (como computadores, servidores e impressoras) conectados entre si para compartilhar dados e recursos.
+
+Ela pode ser local (LAN), metropolitana (MAN) ou ampla (WAN), dependendo da distância entre os dispositivos e da infraestrutura usada.
+
+Para que essa comunicação aconteça, existem **protocolos** — conjuntos de regras que determinam como os dados são enviados, recebidos e interpretados.
+
+💡 O mais conhecido é o **TCP/IP**, base da internet, que define como pacotes de dados são endereçados e transmitidos.
+
+⸻
+
+## ⚙️ Hub — o mais simples (e menos inteligente)
+
+O hub é o dispositivo de rede mais básico. Ele replica o sinal recebido para todas as portas conectadas, sem distinguir quem deve receber a informação.
+
+### Características
+
+🔹 **Vantagem**: simples e barato  
+🔹 **Desvantagem**: ineficiente — todos os dispositivos recebem todos os dados (muito broadcast)
+
+🧠 Em outras palavras, o hub é como gritar em uma sala: todos ouvem, mas só um precisava da mensagem.
+
+⸻
+
+## 🔀 Switch — o intermediário inteligente
+
+O switch é uma evolução do hub. Ele consegue identificar os dispositivos conectados através dos endereços MAC e enviar os pacotes apenas para o destino correto.
+
+### Características
+
+🔹 **Vantagem**: reduz o tráfego desnecessário  
+🔹 **Desvantagem**: opera apenas na camada 2 (enlace) — não entende IPs nem faz roteamento
+
+💡 O switch torna a comunicação dentro da rede local (LAN) muito mais eficiente.
+
+⸻
+
+## 🌍 Roteador — o cérebro da comunicação entre redes
+
+O roteador (router) é responsável por conectar redes diferentes, como sua rede doméstica à internet. Ele opera na camada 3 (rede) do modelo OSI e decide o melhor caminho para enviar cada pacote.
+
+### Características
+
+🔹 **Vantagem**: roteia dados entre diferentes redes  
+🔹 **Desvantagem**: configuração mais complexa
+
+🧭 O roteador é como um carteiro que escolhe o melhor caminho para entregar a correspondência.
+
+⸻
+
+## 📡 Broadcast — quando todos ouvem a mensagem
+
+O broadcast acontece quando um pacote é enviado para todos os dispositivos de uma rede.
+
+Embora útil em certas situações (como descoberta de dispositivos), o uso excessivo gera tráfego desnecessário e pode congestionar a rede.
+
+⚠️ Por isso, switches e roteadores modernos limitam ou segmentam o broadcast em domínios menores.
+
+## Comparação Rápida
+
+| Dispositivo | Camada OSI | Inteligência | Uso Ideal |
+|------------|------------|--------------|-----------|
+| **Hub** | Camada 1 (Física) | Nenhuma | Redes muito pequenas |
+| **Switch** | Camada 2 (Enlace) | Média | Redes locais (LAN) |
+| **Roteador** | Camada 3 (Rede) | Alta | Conexão entre redes |
+
+## Conclusão
+
+Entender a diferença entre hub, switch e roteador é fundamental para projetar e administrar redes eficientes. Cada dispositivo tem seu papel específico, e escolher o correto pode fazer toda a diferença na performance e segurança da sua rede.`
+        : `# Computer Networks: Hub, Switch, Router and Broadcast
+
+Hello, network! 🫡
+
+In this article, we'll explore in a practical way what hubs, switches, routers and the broadcast concept are, explaining how each influences traffic and network efficiency.
+
+## 🌐 What is a Computer Network
+
+A network is a set of devices (such as computers, servers and printers) connected to each other to share data and resources.
+
+It can be local (LAN), metropolitan (MAN) or wide (WAN), depending on the distance between devices and the infrastructure used.
+
+For this communication to happen, there are **protocols** — sets of rules that determine how data is sent, received and interpreted.
+
+💡 The best known is **TCP/IP**, the foundation of the internet, which defines how data packets are addressed and transmitted.
+
+⸻
+
+## ⚙️ Hub — the simplest (and least intelligent)
+
+The hub is the most basic network device. It replicates the received signal to all connected ports, without distinguishing who should receive the information.
+
+### Characteristics
+
+🔹 **Advantage**: simple and cheap  
+🔹 **Disadvantage**: inefficient — all devices receive all data (too much broadcast)
+
+🧠 In other words, the hub is like shouting in a room: everyone hears, but only one needed the message.
+
+⸻
+
+## 🔀 Switch — the intelligent intermediary
+
+The switch is an evolution of the hub. It can identify connected devices through MAC addresses and send packets only to the correct destination.
+
+### Characteristics
+
+🔹 **Advantage**: reduces unnecessary traffic  
+🔹 **Disadvantage**: operates only at layer 2 (data link) — doesn't understand IPs or route
+
+💡 The switch makes communication within the local network (LAN) much more efficient.
+
+⸻
+
+## 🌍 Router — the brain of communication between networks
+
+The router is responsible for connecting different networks, such as your home network to the internet. It operates at layer 3 (network) of the OSI model and decides the best path to send each packet.
+
+### Characteristics
+
+🔹 **Advantage**: routes data between different networks  
+🔹 **Disadvantage**: more complex configuration
+
+🧭 The router is like a mail carrier who chooses the best path to deliver the mail.
+
+⸻
+
+## 📡 Broadcast — when everyone hears the message
+
+Broadcast happens when a packet is sent to all devices on a network.
+
+Although useful in certain situations (such as device discovery), excessive use generates unnecessary traffic and can congest the network.
+
+⚠️ That's why modern switches and routers limit or segment broadcast into smaller domains.
+
+## Quick Comparison
+
+| Device | OSI Layer | Intelligence | Ideal Use |
+|--------|-----------|--------------|-----------|
+| **Hub** | Layer 1 (Physical) | None | Very small networks |
+| **Switch** | Layer 2 (Data Link) | Medium | Local networks (LAN) |
+| **Router** | Layer 3 (Network) | High | Connection between networks |
+
+## Conclusion
+
+Understanding the difference between hub, switch and router is fundamental for designing and managing efficient networks. Each device has its specific role, and choosing the correct one can make all the difference in your network's performance and security.`,
+      category: 'redes',
+      date: '2024-07-20',
+      author: 'Pablo Sodré'
+    }
+  ];
+
+  // Filter blog articles based on active filter
+  const filteredBlogArticles = blogFilter === 'all' 
+    ? [...blogArticles].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    : blogFilter === 'data'
+    ? [...blogArticles].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    : blogArticles.filter(article => article.category === blogFilter).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // Count blog articles by category
+  const blogCounts = {
+    all: blogArticles.length,
+    'redes': blogArticles.filter(a => a.category === 'redes').length,
+    'web3': blogArticles.filter(a => a.category === 'web3').length,
+    'hacking': blogArticles.filter(a => a.category === 'hacking').length,
+    'code': blogArticles.filter(a => a.category === 'code').length,
+    'data': blogArticles.length
+  };
+
+  // Get articles to display (paginated)
+  const displayedArticles = filteredBlogArticles.slice(0, articlesToShow);
+  const hasMoreArticles = filteredBlogArticles.length > articlesToShow;
+
+  // Reset articles to show when filter changes
+  useEffect(() => {
+    setArticlesToShow(6);
+  }, [blogFilter]);
+
   const skillColors: { [key: string]: string } = {
     'Solidity': 'bg-purple-500',
     'JavaScript': 'bg-yellow-500',
@@ -266,6 +904,40 @@ function App() {
       setIsMenuOpen(false);
     }
   };
+
+  // Handle ESC key to close modal and prevent body scroll when modal is open
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedArticle) {
+        setSelectedArticle(null);
+      }
+    };
+
+    if (selectedArticle) {
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', handleEscape);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedArticle]);
+
+  // Update selected article when language changes
+  useEffect(() => {
+    if (selectedArticle) {
+      // Find the article with the same ID in the current language
+      const articleId = selectedArticle.id;
+      const updatedArticle = blogArticles.find(a => a.id === articleId);
+      if (updatedArticle) {
+        setSelectedArticle(updatedArticle);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -532,7 +1204,7 @@ function App() {
                   : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
               }`}
             >
-              {t.projects.all} {projectCounts.all}
+              {t.projects.all} ({projectCounts.all})
             </button>
             <button 
               onClick={() => setActiveFilter('smart-contracts')}
@@ -542,7 +1214,7 @@ function App() {
                   : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
               }`}
             >
-              {t.projects.smartContracts} {projectCounts['smart-contracts']}
+              {t.projects.smartContracts} ({projectCounts['smart-contracts']})
             </button>
             <button 
               onClick={() => setActiveFilter('defi')}
@@ -552,7 +1224,7 @@ function App() {
                   : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
               }`}
             >
-              {t.projects.defi} {projectCounts.defi}
+              {t.projects.defi} ({projectCounts.defi})
             </button>
             <button 
               onClick={() => setActiveFilter('dapps')}
@@ -562,7 +1234,7 @@ function App() {
                   : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
               }`}
             >
-              {t.projects.dapps} {projectCounts.dapps}
+              {t.projects.dapps} ({projectCounts.dapps})
             </button>
           </div>
 
@@ -603,6 +1275,255 @@ function App() {
         </div>
       </section>
 
+      {/* Blog Section */}
+      <section id="blog" className={`py-20 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-gray-50'}`}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold mb-12 text-center">{t.blog.title}</h2>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <button 
+              onClick={() => setBlogFilter('all')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'all' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.all} ({blogCounts.all})
+            </button>
+            <button 
+              onClick={() => setBlogFilter('redes')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'redes' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.redes} ({blogCounts.redes})
+            </button>
+            <button 
+              onClick={() => setBlogFilter('web3')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'web3' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.web3} ({blogCounts.web3})
+            </button>
+            <button 
+              onClick={() => setBlogFilter('hacking')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'hacking' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.hacking} ({blogCounts.hacking})
+            </button>
+            <button 
+              onClick={() => setBlogFilter('code')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'code' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.code} ({blogCounts.code})
+            </button>
+            <button 
+              onClick={() => setBlogFilter('data')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                blogFilter === 'data' 
+                  ? (isDarkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white')
+                  : (isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300')
+              }`}
+            >
+              {t.blog.data}
+            </button>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {displayedArticles.map((article) => (
+              <div
+                key={article.id}
+                onClick={() => setSelectedArticle(article)}
+                className={`border rounded-lg p-6 transition-all group cursor-pointer ${isDarkMode ? 'border-gray-800 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <BookOpen size={20} className={isDarkMode ? 'text-blue-400' : 'text-blue-600'} />
+                    <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors">
+                      {article.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <p className={`mb-4 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {article.excerpt}
+                </p>
+
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {new Date(article.date).toLocaleDateString(language === 'pt' ? 'pt-BR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
+                  <span className={`px-3 py-1 rounded text-sm font-semibold ${
+                    article.category === 'web3' ? 'bg-blue-500/20 text-blue-400' :
+                    article.category === 'hacking' ? 'bg-red-500/20 text-red-400' :
+                    article.category === 'redes' ? 'bg-green-500/20 text-green-400' :
+                    'bg-purple-500/20 text-purple-400'
+                  }`}>
+                    {article.category === 'web3' ? t.blog.web3 :
+                     article.category === 'hacking' ? t.blog.hacking :
+                     article.category === 'redes' ? t.blog.redes :
+                     t.blog.code}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Show More Button */}
+          {hasMoreArticles && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setArticlesToShow(prev => prev + 6)}
+                className={`px-8 py-3 rounded-lg font-semibold transition-colors ${
+                  isDarkMode 
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
+              >
+                {t.blog.showMore}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Blog Article Modal */}
+      {selectedArticle && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedArticle(null)}
+        >
+          {/* Backdrop */}
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/80' : 'bg-black/50'} backdrop-blur-sm`}></div>
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-lg ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white'} border ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className={`flex items-center justify-between p-6 border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
+              <div className="flex items-center gap-3">
+                <BookOpen size={24} className={isDarkMode ? 'text-blue-400' : 'text-blue-600'} />
+                <h2 className="text-2xl font-bold">{selectedArticle.title}</h2>
+              </div>
+              <button
+                onClick={() => setSelectedArticle(null)}
+                className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="overflow-y-auto max-h-[calc(90vh-120px)] p-6">
+              <div className="flex items-center gap-4 mb-6 text-sm">
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {selectedArticle.author}
+                </span>
+                <span className={`${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>•</span>
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {selectedArticle.date ? new Date(selectedArticle.date).toLocaleDateString(language === 'pt' ? 'pt-BR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+                </span>
+                <span className={`px-3 py-1 rounded text-xs font-semibold ${
+                  selectedArticle.category === 'web3' ? 'bg-blue-500/20 text-blue-400' :
+                  selectedArticle.category === 'hacking' ? 'bg-red-500/20 text-red-400' :
+                  selectedArticle.category === 'redes' ? 'bg-green-500/20 text-green-400' :
+                  'bg-purple-500/20 text-purple-400'
+                }`}>
+                  {selectedArticle.category === 'web3' ? t.blog.web3 :
+                   selectedArticle.category === 'hacking' ? t.blog.hacking :
+                   selectedArticle.category === 'redes' ? t.blog.redes :
+                   t.blog.code}
+                </span>
+              </div>
+              
+              <div className={`max-w-none ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <div className="leading-relaxed">
+                  {(() => {
+                    let imageIndex = 0;
+                    return selectedArticle.content.split('\n').map((line: string, index: number) => {
+                      // Images (markdown format)
+                      const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
+                      if (imageMatch) {
+                        const imageUrl = selectedArticle.images && selectedArticle.images[imageIndex] 
+                          ? selectedArticle.images[imageIndex++] 
+                          : imageMatch[2];
+                        return (
+                          <div key={index} className="my-6">
+                            <img 
+                              src={imageUrl} 
+                              alt={imageMatch[1] || 'Article image'} 
+                              className="w-full rounded-lg border border-gray-700"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        );
+                      }
+                      // Headers
+                      if (line.startsWith('# ')) {
+                        return <h1 key={index} className={`text-3xl font-bold mb-4 mt-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{line.substring(2)}</h1>;
+                      } else if (line.startsWith('## ')) {
+                        return <h2 key={index} className={`text-2xl font-bold mb-3 mt-5 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{line.substring(3)}</h2>;
+                      } else if (line.startsWith('### ')) {
+                        return <h3 key={index} className={`text-xl font-bold mb-2 mt-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{line.substring(4)}</h3>;
+                      } 
+                      // Lists
+                      else if (line.startsWith('- ')) {
+                        return <div key={index} className={`mb-2 ml-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>• {line.substring(2)}</div>;
+                      } else if (line.match(/^\d+\.\s/)) {
+                        return <div key={index} className={`mb-2 ml-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{line}</div>;
+                      } 
+                      // Code blocks
+                      else if (line.startsWith('```')) {
+                        return null;
+                      } 
+                      // Bold text
+                      else if (line.includes('**')) {
+                        const parts = line.split('**');
+                        return (
+                          <p key={index} className={`mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                            {parts.map((part, i) => i % 2 === 1 ? <strong key={i}>{part}</strong> : part)}
+                          </p>
+                        );
+                      }
+                      // Horizontal rule
+                      else if (line.trim() === '⸻' || line.trim() === '---') {
+                        return <hr key={index} className={`my-6 ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`} />;
+                      }
+                      // Empty lines
+                      else if (line.trim() === '') {
+                        return <br key={index} />;
+                      } 
+                      // Regular paragraphs
+                      else {
+                        return <p key={index} className={`mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{line}</p>;
+                      }
+                    });
+                  })()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Education & Languages Section */}
       <section id="education" className={`py-20 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white'}`}>
