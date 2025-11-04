@@ -273,6 +273,7 @@ function App() {
         : 'This project is an interactive web application developed to explore and display information about Star Wars universe characters.',
       tech: ['React', 'TypeScript', 'API'],
       category: 'code',
+      subcategory: 'Code',
       github: 'https://github.com/thepablosantos/Starwars'
     }
   ];
@@ -1304,6 +1305,7 @@ Understanding the difference between hub, switch and router is fundamental for d
                     <span className={`inline-block px-3 py-1 rounded text-xs font-semibold mb-3 ${
                       project.subcategory === 'Smart Contracts' ? 'bg-purple-500/20 text-purple-400' :
                       project.subcategory === 'DeFi' ? 'bg-green-500/20 text-green-400' :
+                      project.subcategory === 'Code' ? 'bg-cyan-500/20 text-cyan-400' :
                       'bg-blue-500/20 text-blue-400'
                     }`}>
                       {project.subcategory}
