@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
@@ -19,6 +19,8 @@ function App() {
   const [blogFilter, setBlogFilter] = useState('all');
   const [selectedArticle, setSelectedArticle] = useState<{ id: number; title: string; content: string; images?: string[]; category?: string; date?: string; author?: string; excerpt?: string } | null>(null);
   const [articlesToShow, setArticlesToShow] = useState(6);
+  const [selectedImage, setSelectedImage] = useState<{ id: number; src: string | string[]; title: string; description: string; tag: string } | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const translations = {
     en: {
@@ -31,6 +33,7 @@ function App() {
         about: 'About',
         projects: 'Projects',
         blog: 'Blog',
+        gallery: 'Gallery',
         contact: 'Contact'
       },
       about: {
@@ -76,6 +79,10 @@ function App() {
         readMore: 'Read More',
         showMore: 'Show More',
         close: 'Close'
+      },
+      gallery: {
+        title: 'Technology Gallery',
+        description: 'A collection of technology-related photos and moments from my journey in development.'
       },
       education: {
         title: 'Education & Languages',
@@ -126,6 +133,7 @@ function App() {
         about: 'Sobre',
         projects: 'Projetos',
         blog: 'Blog',
+        gallery: 'Galeria',
         contact: 'Contato'
       },
       about: {
@@ -171,6 +179,10 @@ function App() {
         readMore: 'Ler Mais',
         showMore: 'Ver Mais',
         close: 'Fechar'
+      },
+      gallery: {
+        title: 'Galeria de Tecnologia',
+        description: 'Uma coleção de fotos e momentos relacionados à tecnologia da minha jornada em desenvolvimento.'
       },
       education: {
         title: 'Educação & Idiomas',
@@ -1045,6 +1057,82 @@ In simple terms: DNS is the "translator" and IP is the "real address" where the 
     }
   ];
 
+  // Gallery images structure
+  const galleryImages = [
+    {
+      id: 1,
+      src: '/gallery/ledger-flex-purchase.jpg',
+      title: language === 'pt' ? 'Ledger Flex: Nova Aquisição' : 'Ledger Flex: New Purchase',
+      description: language === 'pt'
+        ? 'Momento da compra da minha Ledger Flex, uma hardware wallet para armazenar minhas criptomoedas com segurança máxima.'
+        : 'The moment I purchased my Ledger Flex, a hardware wallet to store my cryptocurrencies with maximum security.',
+      tag: 'web3'
+    },
+    {
+      id: 2,
+      src: '/gallery/ledger-daily.jpg',
+      title: language === 'pt' ? 'Crypto no Dia a Dia' : 'Crypto in Daily Life',
+      description: language === 'pt'
+        ? 'Um momento do dia a dia usando minha Ledger para transações de criptomoedas, trocando USDT por SOL.'
+        : 'A moment from daily life using my Ledger for cryptocurrency transactions, swapping USDT to SOL.',
+      tag: 'web3'
+    },
+    {
+      id: 3,
+      src: '/gallery/proxmark3.jpg',
+      title: language === 'pt' ? 'Proxmark 3: RFID Testing' : 'Proxmark 3: RFID Testing',
+      description: language === 'pt'
+        ? 'Ferramenta poderosa para testes de segurança RFID, análise de frequências e pesquisa em sistemas de acesso.'
+        : 'Powerful tool for RFID security testing, frequency analysis, and access system research.',
+      tag: 'hacking'
+    },
+    {
+      id: 4,
+      src: '/gallery/flipper-zero.jpg',
+      title: language === 'pt' ? 'Flipper Zero: Multi-tool' : 'Flipper Zero: Multi-tool',
+      description: language === 'pt'
+        ? 'Flipper Zero, uma ferramenta versátil para testes de segurança, análise de protocolos e pesquisa em hardware.'
+        : 'Flipper Zero, a versatile tool for security testing, protocol analysis, and hardware research.',
+      tag: 'hacking'
+    },
+    {
+      id: 5,
+      src: '/gallery/ledger-recovery-key.jpg',
+      title: language === 'pt' ? 'Ledger Recovery Key' : 'Ledger Recovery Key',
+      description: language === 'pt'
+        ? 'A chave de recuperação da minha Ledger, essencial para garantir acesso seguro às minhas criptomoedas em caso de perda do dispositivo.'
+        : 'My Ledger recovery key, essential to ensure secure access to my cryptocurrencies in case of device loss.',
+      tag: 'web3'
+    },
+    {
+      id: 6,
+      src: '/gallery/ireland-trip.jpg',
+      title: language === 'pt' ? 'Viagem ao Interior da Irlanda' : 'Trip to the Irish Countryside',
+      description: language === 'pt'
+        ? 'Uma viagem para o interior da Irlanda com minha Ledger Flex, conectando tecnologia e natureza.'
+        : 'A trip to the Irish countryside with my Ledger Flex, connecting technology and nature.',
+      tag: 'web3'
+    },
+    {
+      id: 7,
+      src: ['/gallery/Solana-seeker.jpeg', '/gallery/Solana-seeker2.jpeg', '/gallery/Solana-seeker3.jpeg'],
+      title: language === 'pt' ? 'Solana Seeker' : 'Solana Seeker',
+      description: language === 'pt'
+        ? 'Projeto Solana Seeker - uma aplicação para explorar e buscar informações sobre o ecossistema Solana.'
+        : 'Solana Seeker project - an application to explore and search for information about the Solana ecosystem.',
+      tag: 'web3'
+    },
+    {
+      id: 8,
+      src: '/gallery/defi.jpeg',
+      title: language === 'pt' ? 'DeFi' : 'DeFi',
+      description: language === 'pt'
+        ? 'Explorando o mundo das finanças descentralizadas (DeFi) e suas possibilidades.'
+        : 'Exploring the world of decentralized finance (DeFi) and its possibilities.',
+      tag: 'web3'
+    }
+  ];
+
   // Filter blog articles based on active filter
   const filteredBlogArticles = blogFilter === 'all' 
     ? [...blogArticles].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -1109,26 +1197,39 @@ In simple terms: DNS is the "translator" and IP is the "real address" where the 
 
   // Handle ESC key to close modal and prevent body scroll when modal is open
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedArticle) {
-        setSelectedArticle(null);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (selectedArticle) {
+          setSelectedArticle(null);
+        }
+        if (selectedImage) {
+          setSelectedImage(null);
+        }
+      }
+      // Arrow key navigation for gallery images
+      if (selectedImage && Array.isArray(selectedImage.src) && selectedImage.src.length > 1) {
+        if (e.key === 'ArrowLeft') {
+          setCurrentImageIndex((prev) => (prev === 0 ? selectedImage.src.length - 1 : prev - 1));
+        } else if (e.key === 'ArrowRight') {
+          setCurrentImageIndex((prev) => (prev === selectedImage.src.length - 1 ? 0 : prev + 1));
+        }
       }
     };
 
-    if (selectedArticle) {
+    if (selectedArticle || selectedImage) {
       document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [selectedArticle]);
+  }, [selectedArticle, selectedImage]);
 
-  // Update selected article when language changes
+  // Update selected article and image when language changes
   useEffect(() => {
     if (selectedArticle) {
       // Find the article with the same ID in the current language
@@ -1138,8 +1239,24 @@ In simple terms: DNS is the "translator" and IP is the "real address" where the 
         setSelectedArticle(updatedArticle);
       }
     }
+    if (selectedImage) {
+      // Find the image with the same ID in the current language
+      const imageId = selectedImage.id;
+      const updatedImage = galleryImages.find(img => img.id === imageId);
+      if (updatedImage) {
+        setSelectedImage(updatedImage);
+        setCurrentImageIndex(0);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
+
+  // Reset image index when selecting a new image
+  useEffect(() => {
+    if (selectedImage) {
+      setCurrentImageIndex(0);
+    }
+  }, [selectedImage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -1758,6 +1875,162 @@ In simple terms: DNS is the "translator" and IP is the "real address" where the 
                   })()}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Gallery Section */}
+      <section id="gallery" className={`py-20 px-6 ${isDarkMode ? 'bg-black' : 'bg-gray-50'}`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">{t.gallery.title}</h2>
+            <p className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {t.gallery.description}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {galleryImages.map((image) => (
+              <div
+                key={image.id}
+                onClick={() => setSelectedImage(image)}
+                className={`group cursor-pointer rounded-lg overflow-hidden border transition-all ${
+                  isDarkMode 
+                    ? 'border-gray-800 hover:border-gray-600' 
+                    : 'border-gray-300 hover:border-gray-400'
+                }`}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={Array.isArray(image.src) ? image.src[0] : image.src} 
+                    alt={image.title}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  {Array.isArray(image.src) && image.src.length > 1 && (
+                    <div className={`absolute bottom-3 left-3 px-3 py-1 rounded-full text-xs font-semibold ${isDarkMode ? 'bg-black/60 text-white' : 'bg-white/80 text-gray-900'}`}>
+                      {image.src.length} {language === 'pt' ? 'imagens' : 'images'}
+                    </div>
+                  )}
+                  <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                    image.tag === 'web3' ? 'bg-blue-500/80 text-white' :
+                    image.tag === 'hacking' ? 'bg-red-500/80 text-white' :
+                    image.tag === 'code' ? 'bg-purple-500/80 text-white' :
+                    image.tag === 'redes' ? 'bg-green-500/80 text-white' :
+                    'bg-gray-500/80 text-white'
+                  }`}>
+                    {image.tag === 'web3' ? t.blog.web3 :
+                     image.tag === 'hacking' ? t.blog.hacking :
+                     image.tag === 'code' ? t.blog.code :
+                     image.tag === 'redes' ? t.blog.redes :
+                     image.tag}
+                  </div>
+                </div>
+                <div className={`p-4 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white'}`}>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-400 transition-colors">
+                    {image.title}
+                  </h3>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {image.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div 
+            className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-lg ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-white'} border ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className={`absolute top-4 right-4 z-10 p-2 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
+            >
+              <X size={24} />
+            </button>
+            
+            <div className="relative">
+              {Array.isArray(selectedImage.src) && selectedImage.src.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((prev) => (prev === 0 ? selectedImage.src.length - 1 : prev - 1));
+                    }}
+                    className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-colors ${isDarkMode ? 'bg-gray-800/80 hover:bg-gray-700 text-white' : 'bg-white/80 hover:bg-gray-100 text-gray-900'}`}
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((prev) => (prev === selectedImage.src.length - 1 ? 0 : prev + 1));
+                    }}
+                    className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-colors ${isDarkMode ? 'bg-gray-800/80 hover:bg-gray-700 text-white' : 'bg-white/80 hover:bg-gray-100 text-gray-900'}`}
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                  <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2 ${isDarkMode ? 'bg-gray-800/80' : 'bg-white/80'} px-4 py-2 rounded-full`}>
+                    {selectedImage.src.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentImageIndex(index);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          index === currentImageIndex
+                            ? (isDarkMode ? 'bg-white' : 'bg-gray-900')
+                            : (isDarkMode ? 'bg-gray-600' : 'bg-gray-400')
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+              <img 
+                src={Array.isArray(selectedImage.src) ? selectedImage.src[currentImageIndex] : selectedImage.src} 
+                alt={selectedImage.title}
+                className="w-full h-auto max-h-[70vh] object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </div>
+            
+            <div className={`p-6 border-t ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
+              <div className="flex items-center gap-3 mb-3">
+                <span className={`px-3 py-1 rounded text-xs font-semibold ${
+                  selectedImage.tag === 'web3' ? 'bg-blue-500/20 text-blue-400' :
+                  selectedImage.tag === 'hacking' ? 'bg-red-500/20 text-red-400' :
+                  selectedImage.tag === 'code' ? 'bg-purple-500/20 text-purple-400' :
+                  selectedImage.tag === 'redes' ? 'bg-green-500/20 text-green-400' :
+                  'bg-gray-500/20 text-gray-400'
+                }`}>
+                  {selectedImage.tag === 'web3' ? t.blog.web3 :
+                   selectedImage.tag === 'hacking' ? t.blog.hacking :
+                   selectedImage.tag === 'code' ? t.blog.code :
+                   selectedImage.tag === 'redes' ? t.blog.redes :
+                   selectedImage.tag}
+                </span>
+              </div>
+              <h3 className={`text-2xl font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {selectedImage.title}
+              </h3>
+              <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {selectedImage.description}
+              </p>
             </div>
           </div>
         </div>
