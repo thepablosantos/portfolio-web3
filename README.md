@@ -199,6 +199,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para:
 
 ---
 
-**Desenvolvido com ❤️ por Pablo Sodré**
-
 *Desenvolvedor Web3 focado em Solidity, DApps e soluções Web3 inovadoras.*
