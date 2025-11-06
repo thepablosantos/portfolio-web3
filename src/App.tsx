@@ -1054,6 +1054,74 @@ In simple terms: DNS is the "translator" and IP is the "real address" where the 
       category: 'redes',
       date: '2025-10-31',
       author: 'Pablo Sodré'
+    },
+    {
+      id: 6,
+      title: language === 'pt' ? 'Criando uma API REST com Express.js' : 'Creating a REST API with Express.js',
+      excerpt: language === 'pt'
+        ? 'Aprenda a criar uma API REST simples usando Node.js e Express.js, entendendo a comunicação entre cliente e servidor através de requisições HTTP.'
+        : 'Learn how to create a simple REST API using Node.js and Express.js, understanding the communication between client and server through HTTP requests.',
+      content: language === 'pt'
+        ? `# Criando uma API REST com Express.js
+
+Olá, rede! 🫡
+
+Neste post, vim mostrar a criação de uma API REST com Express.js.
+
+Na imagem abaixo, criei um exemplo simples usando Node.js e Express. O código é extremamente direto e fácil de compreender, ótimo para quem quer entender como funciona a comunicação entre cliente e servidor.
+
+![Postman - Requisição POST](/postman.png)
+
+Como mostra a imagem, estou usando o Postman, onde envio uma requisição (request) POST com alguns dados JSON (sobre mim). Em seguida, o servidor responde (response) com uma mensagem de sucesso.
+
+![Código do Servidor Express.js](/server.png)
+
+O Express serve para facilitar o processo de criação de rotas, tratar requisições e estruturar uma API RESTful, seguindo os princípios do protocolo HTTP.
+
+## Métodos HTTP Principais
+
+- **GET** → Buscar dados
+- **POST** → Enviar dados
+- **PUT/PATCH** → Atualizar dados
+- **DELETE** → Remover dados
+
+## Por que isso é importante?
+
+Essa estrutura é a base de praticamente qualquer aplicação moderna, seja um site, app mobile ou até um dApp que se conecta à blockchain via APIs.
+
+O Express.js simplifica muito o trabalho de criar endpoints, processar dados e retornar respostas, tornando o desenvolvimento de APIs mais rápido e organizado.`
+        : `# Creating a REST API with Express.js
+
+Hello, network! 🫡
+
+In this post, I'll show you how to create a REST API with Express.js.
+
+In the image below, I created a simple example using Node.js and Express. The code is extremely straightforward and easy to understand, great for anyone who wants to understand how client-server communication works.
+
+![Postman - POST Request](/postman.png)
+
+As shown in the image, I'm using Postman, where I send a POST request with some JSON data (about me). Then, the server responds with a success message.
+
+![Express.js Server Code](/server.png)
+
+Express serves to facilitate the process of creating routes, handling requests, and structuring a RESTful API, following the principles of the HTTP protocol.
+
+## Main HTTP Methods
+
+- **GET** → Fetch data
+- **POST** → Send data
+- **PUT/PATCH** → Update data
+- **DELETE** → Remove data
+
+## Why is this important?
+
+This structure is the foundation of practically any modern application, whether it's a website, mobile app, or even a dApp that connects to the blockchain via APIs.
+
+Express.js greatly simplifies the work of creating endpoints, processing data, and returning responses, making API development faster and more organized.`,
+      category: 'code',
+      date: '2025-11-06',
+      author: 'Pablo Sodré',
+      images: ['/postman.png', '/server.png']
     }
   ];
 
