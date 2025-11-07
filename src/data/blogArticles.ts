@@ -1020,6 +1020,498 @@ These implementations are fundamental for any application that deals with sensit
       date: '2025-11-08',
       author: 'Pablo Sodré',
       images: ['/user-routes-code.png', '/mysql-users-hashed.png', '/postman-users-hashed.png']
+    },
+    {
+      id: 9,
+      title: lang === 'pt' ? 'Certificate Transparency e Internet Archive: Ferramentas Essenciais para Hacking Ético' : 'Certificate Transparency and Internet Archive: Essential Tools for Ethical Hacking',
+      excerpt: lang === 'pt'
+        ? 'Aprenda como usar Certificate Transparency e Internet Archive para descobrir ativos esquecidos, detectar exposições e mapear superfícies de ataque de forma ética.'
+        : 'Learn how to use Certificate Transparency and Internet Archive to discover forgotten assets, detect exposures, and map attack surfaces ethically.',
+      content: lang === 'pt'
+        ? `# Certificate Transparency e Internet Archive: Ferramentas Essenciais para Hacking Ético
+
+Olá, rede! 🫡
+
+Hoje vou compartilhar duas ferramentas poderosas que todo hacker ético e profissional de segurança deveria conhecer: **Certificate Transparency (CT)** e **Internet Archive**. Quando usadas juntas, elas se tornam uma combinação letal para descobrir ativos esquecidos, detectar exposições e mapear superfícies de ataque.
+
+## Por que isso importa?
+
+Imagine descobrir um subdomínio que sua equipe esqueceu, ou um certificado sendo emitido para um domínio que você nem sabia que existia. Esses são cenários reais que acontecem constantemente em organizações, e é exatamente aí que essas ferramentas brilham.
+
+## Certificate Transparency: Seu Radar de Certificados
+
+O Certificate Transparency é um sistema público de auditoria que registra todos os certificados SSL/TLS emitidos por Certificate Authorities (CAs). Basicamente, toda vez que alguém emite um certificado para um domínio, esse certificado é logado em logs públicos que qualquer um pode consultar.
+
+### Por que monitorar CT é útil?
+
+**Descoberta de ativos (subdomínios):** Novos certificados frequentemente incluem FQDNs e subdomínios que não aparecem em DNS públicos ou que foram esquecidos pela equipe. Isso é ouro para inventário de ataque e defesa.
+
+**Detecção de certificados mal emitidos:** Encontrar certificados que não deveriam existir para sua organização pode indicar erro de CA, phishing ou atividade maliciosa. Já vi casos de certificados sendo emitidos para subdomínios que ninguém da empresa conhecia!
+
+**Mudanças em tempo real:** Com feeds em tempo real, você pode reagir rapidamente a emissões novas, reduzindo a janela de exposição drasticamente.
+
+## Ferramentas que você precisa conhecer
+
+### Certstream (CaliDog) — O Firehose em Tempo Real
+
+O Certstream agrega e transmite certificados à medida que são logados, em formato de stream. Ideal para quem quer um feed contínuo e reações imediatas. Se você precisa detectar algo rapidamente, essa é sua ferramenta.
+
+![Certstream mostrando logs de Certificate Transparency em tempo real](/certstream-realtime.png)
+
+Como você pode ver na imagem acima, o Certstream mostra uma lista de certificados sendo emitidos em tempo real, com detalhes completos incluindo domínios, subdomínios e informações da CA que emitiu o certificado. Essa visualização em tempo real é perfeita para detectar anomalias rapidamente.
+
+🔗 **Link:** [certstream.calidog.io](https://certstream.calidog.io)
+
+### crt.sh — A Pesquisa e Histórico
+
+O crt.sh indexa certificados logados e é excelente para investigações ad-hoc. Jogue um domínio e obtenha registros históricos e subdomínios vinculados aos certificados. Muito usado para recon e auditoria histórica. É tipo o Google dos certificados SSL.
+
+![Resultado de busca no crt.sh mostrando certificados para uol.com.br](/crt-sh-search.png)
+
+A imagem mostra como o crt.sh apresenta uma tabela completa com todos os certificados historicamente emitidos para um domínio, incluindo subdomínios, datas de emissão, expiração e a CA que emitiu. É incrível quantos subdomínios você pode descobrir assim!
+
+🔗 **Link:** [crt.sh](https://crt.sh)
+
+### Meta / Facebook CT Tools — Busca + Alertas
+
+A Meta oferece uma interface de busca para CT e permite subscriptions/alertas para notificá-lo quando novos certificados para um domínio são detectados. Muito útil para monitoramento contínuo de assets que você possui.
+
+🔗 **Link:** [developers.facebook.com/tools/ct](https://developers.facebook.com/tools/ct)
+
+## Internet Archive: O Histórico que Ninguém Lembra
+
+O Internet Archive (archive.org) é muito mais do que um museu de páginas antigas. Para quem trabalha com segurança, esse histórico pode revelar subdomínios esquecidos, endpoints antigos, parâmetros expostos, e até pistas de deploys e mudanças de infraestrutura que não aparecem em scans atuais.
+
+![Página inicial do Internet Archive e Wayback Machine](/internet-archive-homepage.png)
+
+### Por que o Archive.org é relevante?
+
+**Histórico de URLs e conteúdo:** Páginas removidas ou alteradas podem conter endpoints, caminhos ou comentários que dão pistas sobre serviços e arquivos antigos. Já encontrei arquivos \`.env\` que foram removidos mas ficaram no histórico.
+
+**Descoberta de ativos "escondidos":** Subdomínios e caminhos que deixaram rastros em snapshots podem não mais existir no DNS, mas permanecem úteis para casar evidências ou encontrar superfícies esquecidas.
+
+**Contexto temporal:** Ver quando algo foi publicado/alterado ajuda a correlacionar eventos (deploys, releases, incidentes). É tipo ter uma máquina do tempo para sua investigação.
+
+### A API CDX: Extraindo o Histórico Completo
+
+O Internet Archive oferece a API CDX (índice de cópias), que permite consultar o histórico de URLs de forma programática. Uma query típica seria:
+
+\`\`\`
+http://web.archive.org/cdx/search/cdx?url=*.dominioinvestigado.com/*&output=txt&fl=original&collapse=urlkey
+\`\`\`
+
+O que isso faz:
+- \`url=*.dominioinvestigado.com/*\` → busca todas as entradas do domínio (inclui subdomínios e paths)
+- \`output=txt\` → retorna em texto simples (fácil de processar)
+- \`fl=original\` → retorna apenas a URL original arquivada
+- \`collapse=urlkey\` → remove duplicatas por chave de URL
+
+**Mas atenção:** Essa query retorna URLs completas com paths, parâmetros, query strings — tudo misturado. Se você quer apenas os domínios e subdomínios para fazer um inventário limpo, precisa filtrar isso.
+
+![Lista de URLs brutas extraídas da API CDX do Internet Archive](/archive-cdx-output.png)
+
+Como você pode ver na imagem acima, a saída da API CDX é uma lista massiva de URLs completas com paths, parâmetros, query strings e até caracteres codificados. É muita informação para processar manualmente!
+
+### urltodomain.com: Filtrando e Normalizando URLs
+
+Aqui que entra a mágica! O **urltodomain.com** é uma ferramenta essencial que extrai e normaliza domínios a partir de listas de URLs.
+
+**Como funciona o workflow completo:**
+
+1. **Extraia URLs com a API CDX:** Você pega todas as URLs arquivadas do domínio alvo
+2. **Cole no urltodomain.com:** A ferramenta processa sua lista de URLs
+3. **Obtenha domínios limpos:** Ela retorna apenas os domínios e subdomínios, removendo paths, parâmetros, query strings, fragmentos — tudo que não é útil para inventário de ativos
+
+![Resultado do urltodomain.com mostrando lista limpa de domínios normalizados](/urltodomain-result.png)
+
+Olha a diferença! Depois de processar no urltodomain.com, você tem uma lista limpa e organizada apenas com os domínios e subdomínios. Muito mais fácil de trabalhar!
+
+**Por que isso é importante?**
+
+Sem essa normalização, você fica com uma lista gigante de URLs como:
+\`\`\`
+https://subdominio.exemplo.com/admin/login.php?id=123
+https://subdominio.exemplo.com/api/v1/users?page=2
+https://outro.exemplo.com/path/complexo/arquivo.js
+\`\`\`
+
+Com o urltodomain.com, você simplifica para:
+\`\`\`
+subdominio.exemplo.com
+outro.exemplo.com
+\`\`\`
+
+Isso facilita:
+- Agregação e remoção de duplicatas
+- Comparação com inventário DNS atual
+- Criação de lista limpa para triagem
+- Correlação com outras fontes (CT logs, DNS, etc.)
+
+🔗 **Link:** [urltodomain.com](https://urltodomain.com)
+
+### Complemento: arquivo.pt e Outros Arquivos Nacionais
+
+Existem outros repositórios como o arquivo.pt (arquivo nacional português) que podem ter snapshots diferentes do Internet Archive. Em investigações, consultar múltiplos web archives aumenta a cobertura e reduz falsos negativos.
+
+🔗 **Links:**
+- [web.archive.org](https://web.archive.org)
+- [arquivo.pt](https://arquivo.pt)
+
+## Como Usar na Prática (Abordagem Ética)
+
+**⚠️ Importante:** Sempre trabalhe dentro de um framework ético e legal. Não execute testes intrusivos sem autorização.
+
+### Fluxo Prático Completo de Investigação
+
+**1. Inventário Inicial (Recon Autorizado)**
+- Pesquise seu domínio corporativo em crt.sh para compilar uma lista de certificados e nomes (subdomínios) historicamente emitidos
+- Isso dá um mapa inicial de superfície
+
+**2. Extração do Histórico com API CDX**
+- Use a API CDX do Internet Archive para obter todas as URLs arquivadas do domínio alvo
+- Salve o resultado como um arquivo de texto
+- Exemplo de comando:
+  \`\`\`bash
+  curl "http://web.archive.org/cdx/search/cdx?url=*.seudominio.com/*&output=txt&fl=original&collapse=urlkey" > urls_arquivadas.txt
+  \`\`\`
+
+**3. Normalização com urltodomain.com**
+- Cole sua lista de URLs no urltodomain.com (ou use a API se disponível)
+- A ferramenta vai extrair apenas os domínios e subdomínios
+- Exporte a lista limpa de domínios
+
+**4. Feed em Tempo Real (Certstream)**
+- Consuma o stream do Certstream filtrando eventos que contenham seu domínio
+- Use para alertas operacionais de novas emissões
+
+**5. Correlação e Triagem**
+Compare os domínios/subdomínios extraídos com:
+- Base de subdomínios do DNS atual (quando autorizado)
+- Logs de Certificate Transparency (crt.sh)
+- Feed em tempo real (Certstream)
+- Snapshots do Internet Archive
+
+**6. Triagem Manual**
+Quando um novo certificado ou URL antiga é detectada, valide:
+- É um certificado/URL legítimo esperado?
+- Pertence a um sistema autorizado?
+- Contém domínios/subdomínios inesperados que exigem investigação?
+- Aparece em conjunto com certificados ou menções a serviços sensíveis?
+
+**7. Ação Responsável**
+Se encontrar algo suspeito:
+- Abra um canal de comunicação (CSIRT, equipe de segurança)
+- Execute Responsible Disclosure se aplicável
+- Documente tudo para sua equipe
+
+## Casos de Uso Práticos (Defensivos)
+
+✅ Descobrir serviços esquecidos rodando em subdomínios que não aparecem em inventários
+
+✅ Detectar certificados emitidos por terceiros que podem permitir phishing ou interceptação
+
+✅ Encontrar endpoints de API antigos que aceitam requests com parâmetros perigosos
+
+✅ Auditar exposições de dados em páginas antigas (ex.: arquivos .env acidentalmente publicados)
+
+✅ Correlacionar emissão de certificado com deploys — útil para monitorar mudanças na infraestrutura
+
+✅ Mapear histórico completo de subdomínios que já existiram mas foram removidos do DNS
+
+## Automação: O que é Seguro/Aceitável
+
+✅ **Automatize:** Coleta via API CDX, normalização com urltodomain, alerta (webhook para SIEM), ticket automático para o time de segurança
+
+❌ **NÃO automatize:** Testes intrusivos (scans, brute force) sem autorização
+
+Automatize apenas a coleta, normalização, triagem e notificação. Deixe qualquer investigação ativa para processos autorizados.
+
+## Limitações e Falsos Positivos
+
+⚠️ **Nem todo certificado significa um ativo ativo:** Muitas entradas são de CAs, subdomínios temporários ou certificados emitidos por serviços de terceiros
+
+⚠️ **Cobertura variável:** O Internet Archive não indexa tudo — alguns domínios são menos representados
+
+⚠️ **Logs CT podem demorar:** A propagação para certas ferramentas varia conforme o log/CA
+
+⚠️ **Falsos positivos:** A presença de uma URL no Archive não implica que o serviço esteja ativo hoje. Use como ponto de partida, não como prova de exploração
+
+⚠️ **Normalização pode perder contexto:** Ao usar urltodomain, você perde informações sobre paths específicos que podem ser úteis. Considere manter uma versão completa e uma normalizada
+
+## Checklist Rápido
+
+- [ ] Registrar domínios críticos em serviços de monitoramento (Meta CT, Cloudflare, etc.)
+- [ ] Consumir Certstream para detecção em tempo real
+- [ ] Rodar pesquisas regulares no crt.sh para auditoria histórica
+- [ ] Extrair lista de URLs do CDX para seus domínios
+- [ ] **Normalizar URLs com urltodomain.com para obter apenas domínios/subdomínios**
+- [ ] Correlacionar com CT logs e inventário DNS atual
+- [ ] Priorizar ativos não inventariados para triagem manual
+- [ ] Ter um playbook de triagem e Responsible Disclosure
+- [ ] Integrar alertas ao seu SIEM/issue tracker
+
+## Conclusão
+
+Certificate Transparency e Internet Archive são fontes públicas e poderosas para quem cuida da segurança. Quando usadas juntas — e com a ajuda do urltodomain.com para normalização — elas permitem descobrir superfícies esquecidas, detectar potenciais emissões maliciosas e mapear histórico de ativos de forma proativa.
+
+O workflow completo (CDX → urltodomain → correlação com CT) é uma técnica essencial no arsenal de todo profissional de segurança que leva a sério o mapeamento de superfície de ataque e a defesa proativa.
+
+Ferramentas como crt.sh, Certstream, Meta CT tools, a API CDX do Internet Archive e urltodomain.com tornam esse monitoramento prático e escalável. Use com responsabilidade: monitore, trie e responda dentro de um framework ético e legal.
+
+---
+
+## Referências
+
+- [Certstream / CaliDog](https://certstream.calidog.io) — Feed em tempo real
+- [crt.sh](https://crt.sh) — Pesquisa e histórico de certificados
+- [Meta CT Tools](https://developers.facebook.com/tools/ct) — Certificate Transparency tools & subscriptions
+- [Internet Archive / Wayback Machine](https://web.archive.org) — Web archive histórico
+- [arquivo.pt](https://arquivo.pt) — Arquivo nacional português
+- [urltodomain.com](https://urltodomain.com) — Ferramenta para extrair/normalizar domínios de URLs`
+        : `# Certificate Transparency and Internet Archive: Essential Tools for Ethical Hacking
+
+Hello, network! 🫡
+
+Today I'm sharing two powerful tools that every ethical hacker and security professional should know: **Certificate Transparency (CT)** and **Internet Archive**. When used together, they become a lethal combination for discovering forgotten assets, detecting exposures, and mapping attack surfaces.
+
+## Why does this matter?
+
+Imagine discovering a subdomain that your team forgot, or a certificate being issued for a domain you didn't even know existed. These are real scenarios that constantly happen in organizations, and that's exactly where these tools shine.
+
+## Certificate Transparency: Your Certificate Radar
+
+Certificate Transparency is a public audit system that records all SSL/TLS certificates issued by Certificate Authorities (CAs). Basically, whenever someone issues a certificate for a domain, that certificate is logged in public logs that anyone can query.
+
+### Why monitor CT?
+
+**Asset discovery (subdomains):** New certificates frequently include FQDNs and subdomains that don't appear in public DNS or were forgotten by the team. This is gold for attack/defense inventory.
+
+**Detection of maliciously issued certificates:** Finding certificates that shouldn't exist for your organization can indicate CA error, phishing, or malicious activity. I've seen cases of certificates being issued for subdomains that no one in the company knew about!
+
+**Real-time changes:** With real-time feeds, you can react quickly to new issuances, drastically reducing the exposure window.
+
+## Tools you need to know
+
+### Certstream (CaliDog) — The Real-Time Firehose
+
+Certstream aggregates and streams certificates as they are logged, in stream format. Ideal for those who want a continuous feed and immediate reactions. If you need to detect something quickly, this is your tool.
+
+![Certstream showing Certificate Transparency logs in real-time](/certstream-realtime.png)
+
+As you can see in the image above, Certstream shows a list of certificates being issued in real-time, with complete details including domains, subdomains, and information from the CA that issued the certificate. This real-time visualization is perfect for quickly detecting anomalies.
+
+🔗 **Link:** [certstream.calidog.io](https://certstream.calidog.io)
+
+### crt.sh — The Search and History
+
+crt.sh indexes logged certificates and is excellent for ad-hoc investigations. Throw in a domain and get historical records and subdomains linked to certificates. Very used for recon and historical auditing. It's like the Google of SSL certificates.
+
+![crt.sh search results showing certificates for uol.com.br](/crt-sh-search.png)
+
+The image shows how crt.sh presents a complete table with all certificates historically issued for a domain, including subdomains, issue dates, expiration, and the CA that issued it. It's amazing how many subdomains you can discover this way!
+
+🔗 **Link:** [crt.sh](https://crt.sh)
+
+### Meta / Facebook CT Tools — Search + Alerts
+
+Meta offers a CT search interface and allows subscriptions/alerts to notify you when new certificates for a domain are detected. Very useful for continuous monitoring of assets you own.
+
+🔗 **Link:** [developers.facebook.com/tools/ct](https://developers.facebook.com/tools/ct)
+
+## Internet Archive: The History Nobody Remembers
+
+The Internet Archive (archive.org) is much more than a museum of old pages. For those working with security, this history can reveal forgotten subdomains, old endpoints, exposed parameters, and even clues about deploys and infrastructure changes that don't appear in current scans.
+
+![Internet Archive and Wayback Machine homepage](/internet-archive-homepage.png)
+
+### Why is Archive.org relevant?
+
+**URL and content history:** Removed or altered pages can contain endpoints, paths, or comments that give clues about old services and files. I've found \`.env\` files that were removed but remained in the history.
+
+**Discovery of "hidden" assets:** Subdomains and paths that left traces in snapshots may no longer exist in DNS, but remain useful for matching evidence or finding forgotten surfaces.
+
+**Temporal context:** Seeing when something was published/altered helps correlate events (deploys, releases, incidents). It's like having a time machine for your investigation.
+
+### The CDX API: Extracting Complete History
+
+The Internet Archive offers the CDX API (copy index), which allows querying URL history programmatically. A typical query would be:
+
+\`\`\`
+http://web.archive.org/cdx/search/cdx?url=*.targetdomain.com/*&output=txt&fl=original&collapse=urlkey
+\`\`\`
+
+What this does:
+- \`url=*.targetdomain.com/*\` → searches all entries for the domain (includes subdomains and paths)
+- \`output=txt\` → returns in plain text (easy to process)
+- \`fl=original\` → returns only the original archived URL
+- \`collapse=urlkey\` → removes duplicates by URL key
+
+**But beware:** This query returns complete URLs with paths, parameters, query strings — everything mixed. If you want only domains and subdomains for a clean inventory, you need to filter this.
+
+![Raw URL list extracted from Internet Archive CDX API](/archive-cdx-output.png)
+
+As you can see in the image above, the CDX API output is a massive list of complete URLs with paths, parameters, query strings, and even encoded characters. It's a lot of information to process manually!
+
+### urltodomain.com: Filtering and Normalizing URLs
+
+This is where the magic happens! **urltodomain.com** is an essential tool that extracts and normalizes domains from URL lists.
+
+**How the complete workflow works:**
+
+1. **Extract URLs with CDX API:** You get all archived URLs for the target domain
+2. **Paste into urltodomain.com:** The tool processes your URL list
+3. **Get clean domains:** It returns only domains and subdomains, removing paths, parameters, query strings, fragments — everything that's not useful for asset inventory
+
+![urltodomain.com result showing clean list of normalized domains](/urltodomain-result.png)
+
+Look at the difference! After processing in urltodomain.com, you have a clean, organized list with just domains and subdomains. Much easier to work with!
+
+**Why is this important?**
+
+Without this normalization, you're left with a huge list of URLs like:
+\`\`\`
+https://subdomain.example.com/admin/login.php?id=123
+https://subdomain.example.com/api/v1/users?page=2
+https://other.example.com/complex/path/file.js
+\`\`\`
+
+With urltodomain.com, you simplify to:
+\`\`\`
+subdomain.example.com
+other.example.com
+\`\`\`
+
+This facilitates:
+- Aggregation and duplicate removal
+- Comparison with current DNS inventory
+- Creating a clean list for triage
+- Correlation with other sources (CT logs, DNS, etc.)
+
+🔗 **Link:** [urltodomain.com](https://urltodomain.com)
+
+### Complement: arquivo.pt and Other National Archives
+
+There are other repositories like arquivo.pt (Portuguese national archive) that may have different snapshots than the Internet Archive. In investigations, querying multiple web archives increases coverage and reduces false negatives.
+
+🔗 **Links:**
+- [web.archive.org](https://web.archive.org)
+- [arquivo.pt](https://arquivo.pt)
+
+## How to Use in Practice (Ethical Approach)
+
+**⚠️ Important:** Always work within an ethical and legal framework. Do not execute intrusive tests without authorization.
+
+### Complete Practical Investigation Workflow
+
+**1. Initial Inventory (Authorized Recon)**
+- Search your corporate domain in crt.sh to compile a list of certificates and names (subdomains) historically issued
+- This gives an initial surface map
+
+**2. History Extraction with CDX API**
+- Use the Internet Archive CDX API to get all archived URLs for the target domain
+- Save the result as a text file
+- Example command:
+  \`\`\`bash
+  curl "http://web.archive.org/cdx/search/cdx?url=*.yourdomain.com/*&output=txt&fl=original&collapse=urlkey" > archived_urls.txt
+  \`\`\`
+
+**3. Normalization with urltodomain.com**
+- Paste your URL list into urltodomain.com (or use the API if available)
+- The tool will extract only domains and subdomains
+- Export the clean domain list
+
+**4. Real-Time Feed (Certstream)**
+- Consume the Certstream feed filtering events that contain your domain
+- Use for operational alerts on new issuances
+
+**5. Correlation and Triage**
+Compare extracted domains/subdomains with:
+- Current DNS subdomain base (when authorized)
+- Certificate Transparency logs (crt.sh)
+- Real-time feed (Certstream)
+- Internet Archive snapshots
+
+**6. Manual Triage**
+When a new certificate or old URL is detected, validate:
+- Is it a legitimate expected certificate/URL?
+- Does it belong to an authorized system?
+- Does it contain unexpected domains/subdomains that require investigation?
+- Does it appear together with certificates or mentions of sensitive services?
+
+**7. Responsible Action**
+If you find something suspicious:
+- Open a communication channel (CSIRT, security team)
+- Execute Responsible Disclosure if applicable
+- Document everything for your team
+
+## Practical Use Cases (Defensive)
+
+✅ Discover forgotten services running on subdomains that don't appear in inventories
+
+✅ Detect certificates issued by third parties that may allow phishing or interception
+
+✅ Find old API endpoints that accept requests with dangerous parameters
+
+✅ Audit data exposures on old pages (e.g., accidentally published .env files)
+
+✅ Correlate certificate issuance with deploys — useful for monitoring infrastructure changes
+
+✅ Map complete history of subdomains that existed but were removed from DNS
+
+## Automation: What's Safe/Acceptable
+
+✅ **Automate:** Collection via CDX API, normalization with urltodomain, alerts (webhook to SIEM), automatic ticket for security team
+
+❌ **DON'T automate:** Intrusive tests (scans, brute force) without authorization
+
+Automate only collection, normalization, triage, and notification. Leave any active investigation to authorized processes.
+
+## Limitations and False Positives
+
+⚠️ **Not every certificate means an active asset:** Many entries are from CAs, temporary subdomains, or certificates issued by third-party services
+
+⚠️ **Variable coverage:** The Internet Archive doesn't index everything — some domains are less represented
+
+⚠️ **CT logs may be delayed:** Propagation to certain tools varies by log/CA
+
+⚠️ **False positives:** The presence of a URL in the Archive doesn't imply the service is active today. Use as a starting point, not as proof of exploitation
+
+⚠️ **Normalization may lose context:** When using urltodomain, you lose information about specific paths that may be useful. Consider keeping both a complete version and a normalized one
+
+## Quick Checklist
+
+- [ ] Register critical domains in monitoring services (Meta CT, Cloudflare, etc.)
+- [ ] Consume Certstream for real-time detection
+- [ ] Run regular searches on crt.sh for historical auditing
+- [ ] Extract URL list from CDX for your domains
+- [ ] **Normalize URLs with urltodomain.com to get only domains/subdomains**
+- [ ] Correlate with CT logs and current DNS inventory
+- [ ] Prioritize uninventoried assets for manual triage
+- [ ] Have a triage and Responsible Disclosure playbook
+- [ ] Integrate alerts into your SIEM/issue tracker
+
+## Conclusion
+
+Certificate Transparency and Internet Archive are public and powerful sources for those who care about security. When used together — and with the help of urltodomain.com for normalization — they allow discovering forgotten surfaces, detecting potential malicious issuances, and mapping asset history proactively.
+
+The complete workflow (CDX → urltodomain → correlation with CT) is an essential technique in the arsenal of every security professional who takes attack surface mapping and proactive defense seriously.
+
+Tools like crt.sh, Certstream, Meta CT tools, the Internet Archive CDX API, and urltodomain.com make this monitoring practical and scalable. Use responsibly: monitor, triage, and respond within an ethical and legal framework.
+
+---
+
+## References
+
+- [Certstream / CaliDog](https://certstream.calidog.io) — Real-time feed
+- [crt.sh](https://crt.sh) — Certificate search and history
+- [Meta CT Tools](https://developers.facebook.com/tools/ct) — Certificate Transparency tools & subscriptions
+- [Internet Archive / Wayback Machine](https://web.archive.org) — Historical web archive
+- [arquivo.pt](https://arquivo.pt) — Portuguese national archive
+- [urltodomain.com](https://urltodomain.com) — Tool to extract/normalize domains from URLs`,
+      category: 'hacking',
+      date: '2025-11-09',
+      author: 'Pablo Sodré',
+      images: ['/certstream-realtime.png', '/crt-sh-search.png', '/internet-archive-homepage.png', '/archive-cdx-output.png', '/urltodomain-result.png']
     }
   ];
 };
