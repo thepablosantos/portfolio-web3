@@ -1492,7 +1492,7 @@ Automate only collection, normalization, triage, and notification. Leave any act
 
 ## Conclusion
 
-Certificate Transparency and Internet Archive are public and powerful sources for those who care about security. When used together — and with the help of urltodomain.com for normalization — they allow discovering forgotten surfaces, detecting potential malicious issuances, and mapping asset history proactively.
+Certificate Transparency and Internet Archive are public and powerful sources for those who care about security. When used together and with the help of urltodomain.com for normalization, they allow discovering forgotten surfaces, detecting potential malicious issuances, and mapping asset history proactively.
 
 The complete workflow (CDX → urltodomain → correlation with CT) is an essential technique in the arsenal of every security professional who takes attack surface mapping and proactive defense seriously.
 
