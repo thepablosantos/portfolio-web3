@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
@@ -21,6 +21,7 @@ function App() {
   const [articlesToShow, setArticlesToShow] = useState(6);
   const [selectedImage, setSelectedImage] = useState<{ id: number; src: string | string[]; title: string; description: string; tag: string } | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const translations = {
     en: {
@@ -78,7 +79,10 @@ function App() {
         data: 'Data',
         readMore: 'Read More',
         showMore: 'Show More',
-        close: 'Close'
+        close: 'Close',
+        share: 'Share',
+        copyLink: 'Copy link',
+        linkCopied: 'Link copied!'
       },
       gallery: {
         title: 'Technology Gallery',
@@ -178,7 +182,10 @@ function App() {
         data: 'Data',
         readMore: 'Ler Mais',
         showMore: 'Ver Mais',
-        close: 'Fechar'
+        close: 'Fechar',
+        share: 'Compartilhar',
+        copyLink: 'Copiar link',
+        linkCopied: 'Link copiado!'
       },
       gallery: {
         title: 'Galeria de Tecnologia',
@@ -1438,6 +1445,100 @@ I'll keep posting the continuation of this project here until completion! 💪`,
     }
   }, [selectedImage]);
 
+  // Handle URL hash to open article on page load
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#blog-article-')) {
+      const articleId = parseInt(hash.replace('#blog-article-', ''));
+      const article = blogArticles.find(a => a.id === articleId);
+      if (article) {
+        setSelectedArticle(article);
+        // Scroll to blog section
+        setTimeout(() => {
+          const blogSection = document.getElementById('blog');
+          if (blogSection) {
+            blogSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Update URL hash and meta tags when article is selected
+  useEffect(() => {
+    if (selectedArticle) {
+      window.history.pushState(null, '', `#blog-article-${selectedArticle.id}`);
+      
+      // Update meta tags for social sharing
+      const url = `${window.location.origin}${window.location.pathname}#blog-article-${selectedArticle.id}`;
+      const title = selectedArticle.title;
+      const description = selectedArticle.excerpt || '';
+      
+      // Update or create meta tags
+      const updateMetaTag = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      };
+
+      // Open Graph tags
+      updateMetaTag('og:title', title);
+      updateMetaTag('og:description', description);
+      updateMetaTag('og:url', url);
+      updateMetaTag('og:type', 'article');
+      
+      // Twitter Card tags
+      updateMetaTag('twitter:card', 'summary_large_image');
+      updateMetaTag('twitter:title', title);
+      updateMetaTag('twitter:description', description);
+      
+      // Update page title
+      document.title = `${title} | Pablo Sodré`;
+    } else {
+      // Remove hash when article is closed
+      if (window.location.hash.startsWith('#blog-article-')) {
+        window.history.pushState(null, '', window.location.pathname);
+      }
+      
+      // Reset meta tags
+      document.title = 'Pablo Sodré | Developer Portfolio';
+      const defaultDescription = language === 'pt' 
+        ? 'Desenvolvedor Web3 & Especialista em Blockchain'
+        : 'Web3 Developer & Blockchain Specialist';
+      
+      const updateMetaTag = (property: string, content: string) => {
+        const meta = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+        if (meta) {
+          meta.setAttribute('content', content);
+        }
+      };
+
+      updateMetaTag('og:title', 'Pablo Sodré | Developer Portfolio');
+      updateMetaTag('og:description', defaultDescription);
+      updateMetaTag('og:url', window.location.origin + window.location.pathname);
+      updateMetaTag('og:type', 'website');
+    }
+  }, [selectedArticle, language]);
+
+  // Functions for sharing
+  const copyArticleLink = async () => {
+    if (!selectedArticle) return;
+    const url = `${window.location.origin}${window.location.pathname}#blog-article-${selectedArticle.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+    }
+  };
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -1957,12 +2058,22 @@ I'll keep posting the continuation of this project here until completion! 💪`,
                 <BookOpen size={24} className={isDarkMode ? 'text-blue-400' : 'text-blue-600'} />
                 <h2 className="text-2xl font-bold">{selectedArticle.title}</h2>
               </div>
-              <button
-                onClick={() => setSelectedArticle(null)}
-                className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
-              >
-                <X size={24} />
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Copy Link Button */}
+                <button
+                  onClick={copyArticleLink}
+                  className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-100 text-gray-700'}`}
+                  title={t.blog.copyLink}
+                >
+                  {linkCopied ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
+                </button>
+                <button
+                  onClick={() => setSelectedArticle(null)}
+                  className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+                >
+                  <X size={24} />
+                </button>
+              </div>
             </div>
 
             {/* Modal Body */}
