@@ -1122,6 +1122,118 @@ Express.js greatly simplifies the work of creating endpoints, processing data, a
       date: '2025-11-06',
       author: 'Pablo Sodré',
       images: ['/postman.png', '/server.png']
+    },
+    {
+      id: 7,
+      title: language === 'pt' ? 'Evoluindo nossa API REST: TypeScript e Banco de Dados' : 'Evolving our REST API: TypeScript and Database',
+      excerpt: language === 'pt'
+        ? 'Continuando o desenvolvimento da API REST: migração para TypeScript, integração com MariaDB/MySQL e estrutura de banco de dados com relacionamentos.'
+        : 'Continuing REST API development: migration to TypeScript, integration with MariaDB/MySQL, and database structure with relationships.',
+      content: language === 'pt'
+        ? `# Evoluindo nossa API REST: TypeScript e Banco de Dados
+
+Olá, rede! 🫡
+
+Evoluindo nossa API REST!
+
+No primeiro post, mostrei como criar uma API básica com Express.js que recebia dados via POST e retornava uma resposta simples. Agora, dando passos importantes para tornar isso uma aplicação real e funcional!
+
+## Migração para TypeScript
+
+Primeira grande mudança: migramos de JavaScript para TypeScript. Por quê? TypeScript oferece tipagem estática, detecção de erros antes mesmo de executar o código, código mais seguro e fácil de manter. Uma boa para projetos que vão crescer!
+
+![Código TypeScript do Servidor](/typescript-server.png)
+
+## Integração com Banco de Dados
+
+Agora nossa API não apenas recebe dados, mas os persiste! Conectei ao MariaDB/MySQL usando Connection Pool, que gerencia múltiplas conexões. Usei Prepared Statements (os famosos \`?\` no SQL) para prevenir SQL Injection e ter mais segurança.
+
+![MySQL Workbench e Postman](/mysql-postman.png)
+
+## Estrutura do Banco de Dados
+
+No MySQL Workbench, criei o schema completo:
+
+- **Tabela \`users\`** com user_id (UUID), name, email e password
+- **Tabela \`videos\`** que se relaciona com users através de uma Foreign Key
+- **Relacionamento 1:N**: um usuário pode ter múltiplos vídeos, conectando \`videos.users_user_id\` → \`users.user_id\`
+
+![Diagrama ERD - Relacionamento entre Tabelas](/erd-diagram.png)
+
+## Endpoint Funcional com Persistência
+
+O POST \`/user\` agora faz muito mais:
+
+- Recebe os dados JSON (name, email, password)
+- Gera um UUID único para cada novo usuário
+- Insere os dados no banco MariaDB
+- Retorna status 200 com \`{"success": true}\` quando tudo corre bem
+
+## Mudanças Feitas
+
+**Antes:** JavaScript puro, dados apenas em memória, resposta simples.
+
+**Agora:** TypeScript com tipos, persistência em banco de dados, estrutura preparada para relacionamentos entre entidades, dados que permanecem mesmo após reiniciar o servidor.
+
+As imagens mostram: o código TypeScript, a execução bem-sucedida no Postman com verificação no MySQL Workbench, e o diagrama ERD mostrando o relacionamento entre as tabelas.
+
+Essa estrutura é fundamental para qualquer aplicação moderna que precisa armazenar e relacionar dados.
+
+Seguirei postando por aqui a continuação desse projeto até concluir! 💪`
+        : `# Evolving our REST API: TypeScript and Database
+
+Hello, network! 🫡
+
+Evolving our REST API!
+
+In the first post, I showed how to create a basic API with Express.js that received data via POST and returned a simple response. Now, taking important steps to make this a real and functional application!
+
+## Migration to TypeScript
+
+First major change: we migrated from JavaScript to TypeScript. Why? TypeScript offers static typing, error detection before even running the code, safer and easier-to-maintain code. Great for projects that will grow!
+
+![TypeScript Server Code](/typescript-server.png)
+
+## Database Integration
+
+Now our API doesn't just receive data, it persists it! I connected to MariaDB/MySQL using Connection Pool, which manages multiple connections. I used Prepared Statements (the famous \`?\` in SQL) to prevent SQL Injection and have more security.
+
+![MySQL Workbench and Postman](/mysql-postman.png)
+
+## Database Structure
+
+In MySQL Workbench, I created the complete schema:
+
+- **\`users\` table** with user_id (UUID), name, email, and password
+- **\`videos\` table** that relates to users through a Foreign Key
+- **1:N Relationship**: one user can have multiple videos, connecting \`videos.users_user_id\` → \`users.user_id\`
+
+![ERD Diagram - Relationship between Tables](/erd-diagram.png)
+
+## Functional Endpoint with Persistence
+
+The POST \`/user\` now does much more:
+
+- Receives JSON data (name, email, password)
+- Generates a unique UUID for each new user
+- Inserts data into MariaDB
+- Returns status 200 with \`{"success": true}\` when everything goes well
+
+## Changes Made
+
+**Before:** Pure JavaScript, data only in memory, simple response.
+
+**Now:** TypeScript with types, database persistence, structure prepared for relationships between entities, data that persists even after restarting the server.
+
+The images show: the TypeScript code, successful execution in Postman with verification in MySQL Workbench, and the ERD diagram showing the relationship between tables.
+
+This structure is fundamental for any modern application that needs to store and relate data.
+
+I'll keep posting the continuation of this project here until completion! 💪`,
+      category: 'code',
+      date: '2025-11-07',
+      author: 'Pablo Sodré',
+      images: ['/typescript-server.png', '/mysql-postman.png', '/erd-diagram.png']
     }
   ];
 
