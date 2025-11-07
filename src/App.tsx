@@ -1241,6 +1241,88 @@ I'll keep posting the continuation of this project here until completion! 💪`,
       date: '2025-11-07',
       author: 'Pablo Sodré',
       images: ['/typescript-server.png', '/mysql-postman.png', '/erd-diagram.png']
+    },
+    {
+      id: 8,
+      title: language === 'pt' ? 'API REST: Segurança, Autenticação e Organização' : 'REST API: Security, Authentication and Organization',
+      excerpt: language === 'pt'
+        ? 'Continuando a evolução da API REST: segregação de rotas, criptografia de senhas com bcrypt, integridade de dados e autenticação com JWT.'
+        : 'Continuing REST API evolution: route segregation, password encryption with bcrypt, data integrity and JWT authentication.',
+      content: language === 'pt'
+        ? `# API REST: Segurança, Autenticação e Organização
+
+Olá, rede! 🫡 
+
+Continuando a evolução da nossa API REST!
+
+No post anterior, mostrei a integração com banco de dados e a estrutura básica. Agora, implementei funcionalidades essenciais de segurança e organização que toda aplicação real precisa ter!
+
+## Segregação de Rotas
+
+Primeira mudança importante: organizei o código criando uma pasta \`routes\` e separando as rotas de usuário em \`user.routes.ts\`. Isso deixa o código muito mais limpo, escalável e fácil de manter. O \`server.ts\` agora apenas configura o Express e importa as rotas, deixei as responsabilidades bem definidas!
+
+![Código do user.routes.ts com segregação de rotas](/user-routes-code.png)
+
+## Segurança: Criptografia de Senhas
+
+Implementei o bcrypt para hash de senhas. Agora, quando um usuário se cadastra, a senha nunca é armazenada em texto, ela é criptografada com 10 salt rounds antes de ir para o banco. Mesmo que alguém acesse o banco, as senhas estão protegidas.
+
+![MySQL Workbench mostrando senhas hasheadas](/mysql-users-hashed.png)
+
+## Integridade de Dados: Email Único
+
+Adicionei constraint UNIQUE no campo email no MySQL. Agora não é possível cadastrar dois usuários com o mesmo email, o banco rejeita automaticamente tentativas de duplicação. Validação direto no banco de dados, garantindo consistência!
+
+## Autenticação com JWT
+
+Implementei o sistema de login completo:
+- Endpoint \`/user/sign-up\`: cadastra novo usuário com senha criptografada
+- Endpoint \`/user/sign-in\`: valida credenciais, compara senha com hash usando bcrypt.compare, e retorna um token JWT válido por 1 hora
+
+O token JWT contém o ID e email do usuário, que permite autenticação em requisições futuras sem precisar enviar credenciais toda vez.
+
+![Postman - Requisição POST de cadastro bem-sucedida](/postman-users-hashed.png)
+
+Essas implementações são fundamentais para qualquer aplicação que lida com dados sensíveis e precisa garantir segurança e organização no código!`
+        : `# REST API: Security, Authentication and Organization
+
+Hello, network! 🫡 
+
+Continuing the evolution of our REST API!
+
+In the previous post, I showed the database integration and basic structure. Now, I've implemented essential security and organization features that every real application needs!
+
+## Route Segregation
+
+First important change: I organized the code by creating a \`routes\` folder and separating user routes into \`user.routes.ts\`. This makes the code much cleaner, scalable and easier to maintain. The \`server.ts\` now only configures Express and imports routes, keeping responsibilities well defined!
+
+![user.routes.ts code with route segregation](/user-routes-code.png)
+
+## Security: Password Encryption
+
+I implemented bcrypt for password hashing. Now, when a user registers, the password is never stored in plain text, it's encrypted with 10 salt rounds before going to the database. Even if someone accesses the database, passwords are protected.
+
+![MySQL Workbench showing hashed passwords](/mysql-users-hashed.png)
+
+## Data Integrity: Unique Email
+
+I added a UNIQUE constraint on the email field in MySQL. Now it's not possible to register two users with the same email, the database automatically rejects duplication attempts. Validation directly in the database, ensuring consistency!
+
+## JWT Authentication
+
+I implemented the complete login system:
+- Endpoint \`/user/sign-up\`: registers new user with encrypted password
+- Endpoint \`/user/sign-in\`: validates credentials, compares password with hash using bcrypt.compare, and returns a JWT token valid for 1 hour
+
+The JWT token contains the user's ID and email, which allows authentication in future requests without needing to send credentials every time.
+
+![Postman - Successful POST registration request](/postman-users-hashed.png)
+
+These implementations are fundamental for any application that deals with sensitive data and needs to ensure security and code organization!`,
+      category: 'code',
+      date: '2025-11-08',
+      author: 'Pablo Sodré',
+      images: ['/user-routes-code.png', '/mysql-users-hashed.png', '/postman-users-hashed.png']
     }
   ];
 
