@@ -1512,6 +1512,548 @@ Tools like crt.sh, Certstream, Meta CT tools, the Internet Archive CDX API, and 
       date: '2025-11-09',
       author: 'Pablo Sodré',
       images: ['/certstream-realtime.png', '/crt-sh-search.png', '/internet-archive-homepage.png', '/archive-cdx-output.png', '/urltodomain-result.png']
+    },
+    {
+      id: 10,
+      title: lang === 'pt' ? 'VirusTotal: Descobrindo Subdomínios e Mapeando Superfícies de Ataque' : 'VirusTotal: Discovering Subdomains and Mapping Attack Surfaces',
+      excerpt: lang === 'pt'
+        ? 'Aprenda como usar o VirusTotal para descobrir subdomínios, analisar arquivos, verificar URLs e mapear superfícies de ataque de forma ética.'
+        : 'Learn how to use VirusTotal to discover subdomínios, analyze files, verify URLs, and map attack surfaces ethically.',
+      content: lang === 'pt'
+        ? `# VirusTotal: Descobrindo Subdomínios e Mapeando Superfícies de Ataque
+
+Olá, rede! 🫡
+
+Continuando nossa série sobre ferramentas essenciais para hacking ético, hoje vou falar sobre o **VirusTotal**. Se você trabalha com segurança, provavelmente já conhece essa plataforma, mas talvez não saiba todo o potencial que ela tem para descobrir subdomínios e mapear superfícies de ataque.
+
+## O que é o VirusTotal?
+
+O VirusTotal é uma plataforma gratuita que agrega múltiplos motores de antivírus e ferramentas de análise de segurança. Basicamente, você pode enviar arquivos, URLs, IPs e domínios para análise, e a plataforma retorna resultados de dezenas de scanners diferentes.
+
+Mas aqui está o ponto que muitos não sabem: o VirusTotal também funciona como uma **base de dados massiva** de informações de segurança. Tudo que já foi analisado fica indexado e pesquisável. E é aí que a mágica acontece para quem faz recon e hacking ético.
+
+## Por que o VirusTotal é útil para hacking ético?
+
+**Descoberta de subdomínios:** O VirusTotal indexa milhões de análises de URLs e domínios. Quando alguém analisa uma URL de um subdomínio, essa informação fica disponível para pesquisa. Você pode descobrir subdomínios que não aparecem em DNS público ou que foram esquecidos.
+
+**Histórico de análises:** Cada domínio, IP ou URL analisado mantém um histórico completo de quando foi analisado, por quem, e quais foram os resultados. Isso permite correlacionar eventos e entender padrões.
+
+**Inteligência sobre ameaças:** Você pode ver quais arquivos, URLs ou IPs foram marcados como maliciosos, quando, e por quais motores. Isso é ouro para entender a superfície de ataque de uma organização.
+
+**Passive DNS:** O VirusTotal mantém dados de Passive DNS, mostrando quais domínios resolveram para quais IPs ao longo do tempo. Isso é extremamente útil para mapear infraestrutura.
+
+## Como Descobrir Subdomínios no VirusTotal
+
+### Método 1: Busca por Domínio
+
+A forma mais direta é buscar pelo domínio principal:
+
+1. Acesse [virustotal.com](https://www.virustotal.com)
+2. Vá na aba "Search"
+3. Digite o domínio (ex: \`exemplo.com\`)
+4. Selecione "Domain" no tipo de busca
+
+O VirusTotal vai retornar:
+- Todos os subdomínios que já foram analisados
+- URLs relacionadas ao domínio
+- IPs associados
+- Arquivos relacionados
+- Histórico de análises
+
+### Método 2: Busca por IP
+
+Se você conhece um IP da infraestrutura:
+
+1. Busque pelo IP no VirusTotal
+2. Veja todos os domínios que já resolveram para aquele IP
+3. Isso pode revelar subdomínios e serviços relacionados
+
+### Método 3: Busca por Hash de Certificado
+
+Quando um certificado SSL/TLS é analisado, o VirusTotal indexa o hash do certificado. Você pode:
+
+1. Buscar por hash de certificado
+2. Ver todos os domínios que usam aquele certificado
+3. Descobrir subdomínios que compartilham o mesmo certificado
+
+### Método 4: API do VirusTotal
+
+Para automação e buscas mais avançadas, o VirusTotal oferece uma API gratuita (com limites de rate):
+
+\`\`\`bash
+# Exemplo de busca por domínio via API
+curl -X GET "https://www.virustotal.com/api/v3/domains/exemplo.com/subdomains" \\
+  -H "x-apikey: YOUR_API_KEY"
+\`\`\`
+
+A API permite:
+- Buscar subdomínios de um domínio
+- Obter histórico de resoluções DNS
+- Ver relacionamentos entre domínios, IPs e URLs
+- Analisar arquivos e URLs programaticamente
+
+## Outras Funcionalidades Úteis
+
+### Análise de Arquivos
+
+Você pode enviar arquivos suspeitos para análise e obter resultados de múltiplos antivírus. Mas além disso, o VirusTotal mostra:
+
+- **Comportamento do arquivo:** O que o arquivo faz quando executado (sandbox)
+- **Relacionamentos:** Quais URLs, IPs e domínios o arquivo se conecta
+- **Metadados:** Informações sobre o arquivo que podem revelar pistas
+
+### Análise de URLs
+
+Ao analisar uma URL, você descobre:
+
+- **Redirecionamentos:** Para onde a URL redireciona
+- **Histórico:** Quando foi analisada anteriormente
+- **Relacionamentos:** Quais arquivos foram baixados dessa URL
+- **Reputação:** Se a URL foi marcada como maliciosa
+
+### Passive DNS
+
+O Passive DNS do VirusTotal é uma das funcionalidades mais poderosas:
+
+- Veja o histórico completo de resoluções DNS de um domínio
+- Descubra quais IPs um domínio já resolveu
+- Veja quais domínios já resolveram para um IP específico
+- Identifique padrões e mudanças na infraestrutura
+
+## Casos de Uso Práticos (Éticos)
+
+✅ **Descobrir subdomínios esquecidos** que não aparecem em DNS público mas foram analisados no passado
+
+✅ **Mapear infraestrutura** correlacionando IPs, domínios e certificados
+
+✅ **Identificar serviços relacionados** através de certificados compartilhados
+
+✅ **Auditar histórico de exposições** vendo quando URLs ou arquivos foram marcados como suspeitos
+
+✅ **Correlacionar eventos** entendendo quando e como ativos foram analisados
+
+✅ **Validar descobertas** de outras ferramentas (CT logs, Internet Archive) cruzando dados
+
+## Workflow Prático de Investigação
+
+**1. Busca Inicial**
+- Busque o domínio principal no VirusTotal
+- Anote todos os subdomínios encontrados
+- Veja os IPs associados
+
+**2. Expansão por IP**
+- Para cada IP interessante, busque no VirusTotal
+- Veja quais outros domínios resolveram para aquele IP
+- Identifique padrões de infraestrutura
+
+**3. Análise de Certificados**
+- Se encontrar certificados, busque pelo hash
+- Veja todos os domínios que usam o mesmo certificado
+- Descubra subdomínios relacionados
+
+**4. Correlação com Outras Fontes**
+- Compare com resultados de crt.sh (Certificate Transparency)
+- Correlacione com dados do Internet Archive
+- Valide descobertas cruzando múltiplas fontes
+
+**5. Triagem e Validação**
+- Priorize subdomínios que não aparecem em inventários
+- Valide se os serviços ainda estão ativos
+- Documente descobertas para sua equipe
+
+## Limitações e Considerações
+
+⚠️ **Cobertura dependente de análises:** O VirusTotal só mostra subdomínios que já foram analisados por alguém. Se um subdomínio nunca foi enviado para análise, ele não aparecerá.
+
+⚠️ **Rate limits na API:** A API gratuita tem limites de requisições. Para uso intensivo, considere a API premium.
+
+⚠️ **Dados podem estar desatualizados:** As informações são baseadas em análises passadas. Um subdomínio que aparece pode não estar mais ativo.
+
+⚠️ **Falsos positivos:** Nem tudo que aparece no VirusTotal é relevante. Faça triagem manual.
+
+⚠️ **Privacidade:** Lembre-se que ao analisar URLs ou arquivos, você está contribuindo para a base de dados pública. Use com responsabilidade.
+
+## API do VirusTotal: Automação Ética
+
+A API permite automatizar buscas e análises, mas sempre dentro de limites éticos:
+
+✅ **Automatize:** Buscas por subdomínios, validação de descobertas, coleta de dados passivos
+
+❌ **NÃO automatize:** Envio massivo de arquivos, análise de sistemas sem autorização, scraping agressivo
+
+**Exemplo de uso ético da API:**
+
+\`\`\`python
+import requests
+
+# Buscar subdomínios de um domínio
+def buscar_subdominios(dominio, api_key):
+    url = f"https://www.virustotal.com/api/v3/domains/{dominio}/subdomains"
+    headers = {"x-apikey": api_key}
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+# Uso responsável: apenas para domínios que você tem autorização
+subdominios = buscar_subdominios("seudominio.com", "sua_api_key")
+\`\`\`
+
+## Integração com Outras Ferramentas
+
+O VirusTotal se complementa perfeitamente com outras ferramentas que já discutimos:
+
+**VirusTotal + Certificate Transparency:**
+- Use crt.sh para encontrar certificados
+- Busque os hashes no VirusTotal para ver todos os domínios relacionados
+
+**VirusTotal + Internet Archive:**
+- Encontre URLs antigas no Archive
+- Valide se essas URLs foram analisadas no VirusTotal
+- Veja histórico de reputação
+
+**VirusTotal + Passive DNS:**
+- Use o Passive DNS do VirusTotal para mapear infraestrutura
+- Correlacione com dados de outras fontes
+- Crie um mapa completo de ativos
+
+## Checklist Rápido
+
+- [ ] Buscar domínio principal no VirusTotal
+- [ ] Anotar todos os subdomínios descobertos
+- [ ] Buscar IPs associados para expansão
+- [ ] Analisar certificados e buscar por hash
+- [ ] Usar Passive DNS para mapear histórico
+- [ ] Correlacionar com outras fontes (CT, Archive)
+- [ ] Validar descobertas manualmente
+- [ ] Documentar para inventário de ativos
+- [ ] Integrar com workflow de triagem
+
+## Conclusão
+
+O VirusTotal é muito mais que uma plataforma de análise de malware. Quando usado estrategicamente, ele se torna uma ferramenta poderosa para descobrir subdomínios, mapear infraestrutura e entender superfícies de ataque.
+
+A combinação de análise de arquivos, URLs, Passive DNS e histórico de análises cria uma fonte rica de inteligência para profissionais de segurança. Quando integrado com outras ferramentas como Certificate Transparency e Internet Archive, o potencial de descoberta aumenta exponencialmente.
+
+Use com responsabilidade, respeite os limites da API, e sempre trabalhe dentro de um framework ético e legal. O VirusTotal é uma ferramenta poderosa — aprenda a usá-la bem e ela vai se tornar parte essencial do seu arsenal de recon.
+
+---
+
+## Referências
+
+- [VirusTotal](https://www.virustotal.com) — Plataforma principal
+- [VirusTotal API Documentation](https://developers.virustotal.com/reference) — Documentação da API
+- [VirusTotal Intelligence](https://www.virustotal.com/gui/intelligence-overview) — Recursos avançados (premium)`
+        : `# VirusTotal: Discovering Subdomains and Mapping Attack Surfaces
+
+Hello, network! 🫡
+
+Continuing our series on essential tools for ethical hacking, today I'm talking about **VirusTotal**. If you work with security, you probably already know this platform, but you might not know all the potential it has for discovering subdomains and mapping attack surfaces.
+
+## What is VirusTotal?
+
+VirusTotal is a free platform that aggregates multiple antivirus engines and security analysis tools. Basically, you can submit files, URLs, IPs, and domains for analysis, and the platform returns results from dozens of different scanners.
+
+But here's the point many don't know: VirusTotal also works as a **massive security information database**. Everything that has been analyzed is indexed and searchable. And that's where the magic happens for those doing recon and ethical hacking.
+
+## Why is VirusTotal useful for ethical hacking?
+
+**Subdomain discovery:** VirusTotal indexes millions of URL and domain analyses. When someone analyzes a URL from a subdomain, that information becomes available for search. You can discover subdomains that don't appear in public DNS or were forgotten.
+
+**Analysis history:** Each domain, IP, or URL analyzed maintains a complete history of when it was analyzed, by whom, and what the results were. This allows correlating events and understanding patterns.
+
+**Threat intelligence:** You can see which files, URLs, or IPs were marked as malicious, when, and by which engines. This is gold for understanding an organization's attack surface.
+
+**Passive DNS:** VirusTotal maintains Passive DNS data, showing which domains resolved to which IPs over time. This is extremely useful for mapping infrastructure.
+
+## How to Discover Subdomains on VirusTotal
+
+### Method 1: Domain Search
+
+The most direct way is to search by the main domain:
+
+1. Access [virustotal.com](https://www.virustotal.com)
+2. Go to the "Search" tab
+3. Type the domain (e.g., \`example.com\`)
+4. Select "Domain" as the search type
+
+VirusTotal will return:
+- All subdomains that have already been analyzed
+- Related URLs to the domain
+- Associated IPs
+- Related files
+- Analysis history
+
+### Method 2: IP Search
+
+If you know an IP from the infrastructure:
+
+1. Search for the IP on VirusTotal
+2. See all domains that have resolved to that IP
+3. This can reveal subdomains and related services
+
+### Method 3: Certificate Hash Search
+
+When an SSL/TLS certificate is analyzed, VirusTotal indexes the certificate hash. You can:
+
+1. Search by certificate hash
+2. See all domains that use that certificate
+3. Discover subdomains that share the same certificate
+
+### Method 4: VirusTotal API
+
+For automation and more advanced searches, VirusTotal offers a free API (with rate limits):
+
+\`\`\`bash
+# Example of domain search via API
+curl -X GET "https://www.virustotal.com/api/v3/domains/example.com/subdomains" \\
+  -H "x-apikey: YOUR_API_KEY"
+\`\`\`
+
+The API allows:
+- Searching subdomains of a domain
+- Getting DNS resolution history
+- Seeing relationships between domains, IPs, and URLs
+- Analyzing files and URLs programmatically
+
+## Other Useful Features
+
+### File Analysis
+
+You can submit suspicious files for analysis and get results from multiple antiviruses. But beyond that, VirusTotal shows:
+
+- **File behavior:** What the file does when executed (sandbox)
+- **Relationships:** Which URLs, IPs, and domains the file connects to
+- **Metadata:** Information about the file that can reveal clues
+
+### URL Analysis
+
+When analyzing a URL, you discover:
+
+- **Redirects:** Where the URL redirects to
+- **History:** When it was previously analyzed
+- **Relationships:** Which files were downloaded from that URL
+- **Reputation:** If the URL was marked as malicious
+
+### Passive DNS
+
+VirusTotal's Passive DNS is one of the most powerful features:
+
+- See the complete DNS resolution history of a domain
+- Discover which IPs a domain has resolved to
+- See which domains have resolved to a specific IP
+- Identify patterns and infrastructure changes
+
+## Practical Use Cases (Ethical)
+
+✅ **Discover forgotten subdomains** that don't appear in public DNS but were analyzed in the past
+
+✅ **Map infrastructure** by correlating IPs, domains, and certificates
+
+✅ **Identify related services** through shared certificates
+
+✅ **Audit exposure history** by seeing when URLs or files were marked as suspicious
+
+✅ **Correlate events** by understanding when and how assets were analyzed
+
+✅ **Validate discoveries** from other tools (CT logs, Internet Archive) by cross-referencing data
+
+## Practical Investigation Workflow
+
+**1. Initial Search**
+- Search the main domain on VirusTotal
+- Note all subdomains found
+- See associated IPs
+
+**2. IP Expansion**
+- For each interesting IP, search on VirusTotal
+- See which other domains resolved to that IP
+- Identify infrastructure patterns
+
+**3. Certificate Analysis**
+- If you find certificates, search by hash
+- See all domains that use the same certificate
+- Discover related subdomains
+
+**4. Correlation with Other Sources**
+- Compare with crt.sh results (Certificate Transparency)
+- Correlate with Internet Archive data
+- Validate discoveries by cross-referencing multiple sources
+
+**5. Triage and Validation**
+- Prioritize subdomains that don't appear in inventories
+- Validate if services are still active
+- Document discoveries for your team
+
+## Limitations and Considerations
+
+⚠️ **Coverage dependent on analyses:** VirusTotal only shows subdomains that have already been analyzed by someone. If a subdomain was never submitted for analysis, it won't appear.
+
+⚠️ **API rate limits:** The free API has request limits. For intensive use, consider the premium API.
+
+⚠️ **Data may be outdated:** Information is based on past analyses. A subdomain that appears may no longer be active.
+
+⚠️ **False positives:** Not everything that appears on VirusTotal is relevant. Do manual triage.
+
+⚠️ **Privacy:** Remember that by analyzing URLs or files, you're contributing to the public database. Use responsibly.
+
+## VirusTotal API: Ethical Automation
+
+The API allows automating searches and analyses, but always within ethical limits:
+
+✅ **Automate:** Subdomain searches, discovery validation, passive data collection
+
+❌ **DON'T automate:** Mass file submission, analysis of systems without authorization, aggressive scraping
+
+**Example of ethical API usage:**
+
+\`\`\`python
+import requests
+
+# Search subdomains of a domain
+def search_subdomains(domain, api_key):
+    url = f"https://www.virustotal.com/api/v3/domains/{domain}/subdomains"
+    headers = {"x-apikey": api_key}
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+# Responsible use: only for domains you have authorization
+subdomains = search_subdomains("yourdomain.com", "your_api_key")
+\`\`\`
+
+## Integration with Other Tools
+
+VirusTotal complements perfectly with other tools we've already discussed:
+
+**VirusTotal + Certificate Transparency:**
+- Use crt.sh to find certificates
+- Search the hashes on VirusTotal to see all related domains
+
+**VirusTotal + Internet Archive:**
+- Find old URLs in the Archive
+- Validate if those URLs were analyzed on VirusTotal
+- See reputation history
+
+**VirusTotal + Passive DNS:**
+- Use VirusTotal's Passive DNS to map infrastructure
+- Correlate with data from other sources
+- Create a complete asset map
+
+## Quick Checklist
+
+- [ ] Search main domain on VirusTotal
+- [ ] Note all discovered subdomains
+- [ ] Search associated IPs for expansion
+- [ ] Analyze certificates and search by hash
+- [ ] Use Passive DNS to map history
+- [ ] Correlate with other sources (CT, Archive)
+- [ ] Validate discoveries manually
+- [ ] Document for asset inventory
+- [ ] Integrate with triage workflow
+
+## Conclusion
+
+VirusTotal is much more than a malware analysis platform. When used strategically, it becomes a powerful tool for discovering subdomains, mapping infrastructure, and understanding attack surfaces.
+
+The combination of file analysis, URLs, Passive DNS, and analysis history creates a rich source of intelligence for security professionals. When integrated with other tools like Certificate Transparency and Internet Archive, the discovery potential increases exponentially.
+
+Use responsibly, respect API limits, and always work within an ethical and legal framework. VirusTotal is a powerful tool — learn to use it well and it will become an essential part of your recon arsenal.
+
+---
+
+## References
+
+- [VirusTotal](https://www.virustotal.com) — Main platform
+- [VirusTotal API Documentation](https://developers.virustotal.com/reference) — API documentation
+- [VirusTotal Intelligence](https://www.virustotal.com/gui/intelligence-overview) — Advanced features (premium)`,
+      category: 'hacking',
+      date: '2025-11-10',
+      author: 'Pablo Sodré',
+      images: []
+    },
+    {
+      id: 11,
+      title: lang === 'pt' ? 'API REST: Módulo de Vídeos com Repository Pattern' : 'REST API: Videos Module with Repository Pattern',
+      excerpt: lang === 'pt'
+        ? 'Expandindo a API REST com um módulo de vídeos, utilizando o padrão Repository, UUIDs e connection pooling para performance e organização.'
+        : 'Expanding the REST API with a videos module, using the Repository pattern, UUIDs, and connection pooling for performance and organization.',
+      content: lang === 'pt'
+        ? `# API REST: Módulo de Vídeos com Repository Pattern
+
+Olá, rede! 🫡 
+
+Continuando a evolução da nossa API REST!
+
+No post anterior, mostrei a implementação de segurança com bcrypt, JWT e organização de rotas. Agora, expandi a aplicação criando o módulo de vídeos, seguindo os mesmos padrões de arquitetura e boas práticas!
+
+## VideoRepository: Padrão Repository Pattern
+
+Implementei o \`VideoRepository\` seguindo o mesmo padrão arquitetural usado no \`UserRepository\`, mantendo a consistência do código e facilitando a manutenção. O repositório fica responsável por todas as operações de banco de dados relacionadas a vídeos, mantendo a separação de responsabilidades.
+
+![Código do VideoRepository com método create](/videorepository-create-code.png)
+
+Como você pode ver na imagem acima, o \`VideoRepository\` implementa o método \`create\` que recebe os dados do vídeo, gera um UUID único para o \`video_id\`, e insere os dados no banco usando connection pooling. O código está organizado, tipado com TypeScript e seguindo as mesmas práticas do módulo de usuários.
+
+## Nova Rota: Criação de Vídeos
+
+Criei a rota \`/videos/create-video\` com método POST. A rota foi organizada em \`videos.routes.ts\`, seguindo a mesma estrutura das rotas de usuário. O \`server.ts\` agora importa e configura as rotas de vídeos também, mantendo tudo organizado e escalável!
+
+## Geração Automática de UUID
+
+Cada vídeo recebe automaticamente um \`video_id\` único gerado com UUID v4. Isso garante identificadores únicos e seguros para cada registro, sem depender de auto-incremento do banco.
+
+## Connection Pooling para Performance
+
+Utilizei o mesmo connection pooling do MySQL que já estava configurado. Isso garante que as conexões sejam gerenciadas de forma eficiente, reutilizando conexões existentes em vez de criar novas a cada requisição.
+
+## Validação e Testes
+
+Testei toda a implementação com Postman, enviando requisições POST com os dados do vídeo (user_id, title, description) e validando a persistência diretamente no MySQL Workbench. Os dados estão sendo inseridos corretamente no banco, com o UUID sendo gerado automaticamente e todas as informações persistidas!
+
+![MySQL Workbench e Postman mostrando criação e validação de vídeo](/mysql-postman-video-creation.png)
+
+A imagem mostra perfeitamente o workflow completo: no Postman (direita), envio uma requisição POST para \`/videos/create-video\` com os dados do vídeo, e recebo uma resposta de sucesso (200 OK). No MySQL Workbench (esquerda), posso verificar que o vídeo foi criado corretamente na tabela \`videos\`, com o \`video_id\` UUID gerado automaticamente (\`fa4d0d78-0f6a-4224-a00c-1a2e4f1202b3\`), o \`user_id\` associado, e os campos \`title\` e \`description\` persistidos.
+
+Código organizado, fácil de manter e escalar. Cada novo módulo segue o mesmo padrão, facilitando muito o desenvolvimento! Seguimos por aqui até o final desse projeto.`
+        : `# REST API: Videos Module with Repository Pattern
+
+Hello, network! 🫡 
+
+Continuing the evolution of our REST API!
+
+In the previous post, I showed the implementation of security with bcrypt, JWT, and route organization. Now, I've expanded the application by creating the videos module, following the same architectural patterns and best practices!
+
+## VideoRepository: Repository Pattern
+
+I implemented the \`VideoRepository\` following the same architectural pattern used in the \`UserRepository\`, maintaining code consistency and facilitating maintenance. The repository is responsible for all database operations related to videos, maintaining separation of responsibilities.
+
+![VideoRepository code with create method](/videorepository-create-code.png)
+
+As you can see in the image above, the \`VideoRepository\` implements the \`create\` method that receives video data, generates a unique UUID for the \`video_id\`, and inserts the data into the database using connection pooling. The code is organized, typed with TypeScript, and following the same practices as the user module.
+
+## New Route: Video Creation
+
+I created the \`/videos/create-video\` route with a POST method. The route was organized in \`videos.routes.ts\`, following the same structure as the user routes. The \`server.ts\` now imports and configures the video routes as well, keeping everything organized and scalable!
+
+## Automatic UUID Generation
+
+Each video automatically receives a unique \`video_id\` generated with UUID v4. This ensures unique and secure identifiers for each record, without relying on database auto-increment.
+
+## Connection Pooling for Performance
+
+I used the same MySQL connection pooling that was already configured. This ensures that connections are managed efficiently, reusing existing connections instead of creating new ones for each request.
+
+## Validation and Testing
+
+I tested the entire implementation with Postman, sending POST requests with video data (user_id, title, description) and validating persistence directly in MySQL Workbench. The data is being correctly inserted into the database, with the UUID being automatically generated and all information persisted!
+
+![MySQL Workbench and Postman showing video creation and validation](/mysql-postman-video-creation.png)
+
+The image perfectly shows the complete workflow: in Postman (right), I send a POST request to \`/videos/create-video\` with video data, and receive a success response (200 OK). In MySQL Workbench (left), I can verify that the video was correctly created in the \`videos\` table, with the automatically generated UUID \`video_id\` (\`fa4d0d78-0f6a-4224-a00c-1a2e4f1202b3\`), the associated \`user_id\`, and the \`title\` and \`description\` fields persisted.
+
+Organized code, easy to maintain and scale. Each new module follows the same pattern, greatly facilitating development! We continue here until the end of this project.`,
+      category: 'code',
+      date: '2025-11-11',
+      author: 'Pablo Sodré',
+      images: ['/videorepository-create-code.png', '/mysql-postman-video-creation.png']
     }
   ];
 };
