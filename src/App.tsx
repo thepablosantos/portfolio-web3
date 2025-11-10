@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight, Copy, Check, Briefcase } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { getBlogArticles } from './data/blogArticles';
@@ -43,6 +43,25 @@ function App() {
         title: 'About Me',
         description: 'I am a FullStack Developer with 4 years of experience building scalable web applications. My expertise spans from frontend to backend, using technologies like JavaScript, Node.js, and React to create robust and efficient solutions. I also specialize in Web3, applying my FullStack experience to develop decentralized solutions, Smart Contracts with Solidity, and integrate blockchain technologies using Hardhat/Foundry and Ethers.js/Web3.js. I work with scalable software architecture using AWS and Docker, always focusing on creating applications that combine traditional web excellence with blockchain innovation.'
       },
+      experience: {
+        title: 'Professional Experience',
+        bullmex: {
+          company: 'Bullmex',
+          role: 'Web3 Developer',
+          period: '2021 - 2022',
+          location: 'Brazil',
+          description: 'Worked on Web3 projects focusing on blockchain development and smart contract implementation.',
+          technologies: ['Solidity', 'Hardhat', 'Web3.js', 'Ethereum', 'NFT']
+        },
+        smartToken: {
+          company: 'Smart Token',
+          role: 'Full Stack Developer',
+          period: '2023 - 2024',
+          location: 'Florianópolis, Brazil',
+          description: 'Developed full-stack applications using JavaScript, Node.js, and React, integrating blockchain solutions with traditional web infrastructure. Performed data analysis to extract actionable insights that supported strategic decision-making.',
+          technologies: ['JavaScript', 'Node.js', 'React', 'TypeScript', 'Solidity', 'AWS', 'Docker']
+        }
+      },
       skills: {
         title: 'Technical Skills',
         smartContracts: 'FullStack Development',
@@ -53,13 +72,6 @@ function App() {
         professionalExperienceDesc: 'Design and implementation of scalable software architectures using AWS and Docker, ensuring efficient deployment and infrastructure management.',
         web3Development: 'FullStack + Web3',
         web3DevelopmentDesc: 'Combining FullStack expertise with Web3 technologies to create decentralized applications that integrate seamlessly with traditional web infrastructure.'
-      },
-      experience: {
-        title: 'My Journey',
-        description: 'My journey in the blockchain universe began in 2021, when I worked at a Web3 startup, participating in ERC-721 (NFT) projects and improving my skills in Solidity and the Hardhat framework.',
-        description2: 'During this period, I also earned the Ancord certification, which allowed me to better understand the traditional financial market and explore ways to integrate its principles into the decentralized environment.',
-        description3: 'In 2022, I joined a technology startup, where I worked as a Full Stack Developer and Data Analyst, collaborating on smart contract development and data analysis applied to Web3 solutions.',
-        description4: 'In 2024, I moved to Europe to improve my English and expand my international reach. I continued studying blockchain technologies, participating in Web3 communities like NearX and hackathons, consolidating my practical experience in the sector.'
       },
       projects: {
         title: 'Featured Projects',
@@ -125,8 +137,7 @@ function App() {
         projects: 'Projects',
         contact: 'Contact',
         technologies: 'Technologies',
-        copyright: '© 2025 Pablo Sodré. All rights reserved.',
-        madeWith: 'Made with ❤️ using Next.js'
+        copyright: '© 2025 Pablo Sodré. All rights reserved.'
       }
     },
     pt: {
@@ -146,6 +157,25 @@ function App() {
         title: 'Sobre Mim',
         description: 'Sou um Desenvolvedor FullStack com 4 anos de experiência construindo aplicações web escaláveis. Minha expertise abrange do frontend ao backend, utilizando tecnologias como JavaScript, Node.js e React para criar soluções robustas e eficientes. Também me especializo em Web3, aplicando minha experiência FullStack no desenvolvimento de soluções descentralizadas, Smart Contracts com Solidity, e integração de tecnologias blockchain usando Hardhat/Foundry e Ethers.js/Web3.js. Trabalho com arquitetura de software escalável utilizando AWS e Docker, sempre focando em criar aplicações que combinam excelência web tradicional com inovação blockchain.'
       },
+      experience: {
+        title: 'Experiência Profissional',
+        bullmex: {
+          company: 'Bullmex',
+          role: 'Desenvolvedor Web3',
+          period: '2021 - 2022',
+          location: 'Brasil',
+          description: 'Atuei em projetos Web3 focados em desenvolvimento blockchain e implementação de smart contracts.',
+          technologies: ['Solidity', 'Hardhat', 'Web3.js', 'Ethereum', 'NFT']
+        },
+        smartToken: {
+          company: 'Smart Token',
+          role: 'Full Stack Developer',
+          period: '2023 - 2024',
+          location: 'Florianópolis, Brasil',
+          description: 'Atuei no desenvolvimento de frontend e backend, além de análises de dados com PowerBI, SQL e Metabase, criando dashboards para apoiar decisões estratégicas.',
+          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker', 'AWS']
+        }
+      },
       skills: {
         title: 'Habilidades Técnicas',
         smartContracts: 'Desenvolvimento FullStack',
@@ -156,13 +186,6 @@ function App() {
         professionalExperienceDesc: 'Design e implementação de arquiteturas de software escaláveis utilizando AWS e Docker, garantindo deploy eficiente e gerenciamento de infraestrutura.',
         web3Development: 'FullStack + Web3',
         web3DevelopmentDesc: 'Combinando expertise FullStack com tecnologias Web3 para criar aplicações descentralizadas que se integram perfeitamente com infraestrutura web tradicional.'
-      },
-      experience: {
-        title: 'Minha Jornada',
-        description: 'Minha trajetória no universo blockchain começou em 2021, quando atuei em uma startup de Web3, participando de projetos ERC-721 (NFTs) e aprimorando minhas habilidades em Solidity e no framework Hardhat.',
-        description2: 'Nesse período, conquistei também a certificação Ancord, que me permitiu compreender melhor o mercado financeiro tradicional e explorar formas de integrar seus princípios ao ambiente descentralizado.',
-        description3: 'Em 2022, ingressei em uma startup de tecnologia, onde atuei como Full Stack Developer e Analista de Dados, colaborando no desenvolvimento de contratos inteligentes e na análise de dados aplicados a soluções Web3.',
-        description4: 'Já em 2024, me mudei para a Europa para aperfeiçoar meu inglês e expandir minha atuação internacional. Continuei estudando tecnologias blockchain, participando de comunidades Web3 como a NearX e de hackathons, consolidando minha experiência prática no setor.'
       },
       projects: {
         title: 'Meus Projetos',
@@ -228,8 +251,7 @@ function App() {
         projects: 'Projetos',
         contact: 'Contato',
         technologies: 'Tecnologias',
-        copyright: '© 2025 Pablo Sodré. Todos os direitos reservados.',
-        madeWith: 'Feito com ❤️ usando Next.js'
+        copyright: '© 2025 Pablo Sodré. Todos os direitos reservados.'
       }
     }
   };
@@ -703,33 +725,14 @@ function App() {
       {/* About & Skills Section */}
       <section id="about" className={`py-20 px-6 ${isDarkMode ? 'bg-[#0f0f12]' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto">
-          {/* About Me - Centralized */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-8">{t.about.title}</h2>
-            <p className={`text-lg leading-relaxed max-w-4xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-            {t.about.description}
-          </p>
-        </div>
-
-          {/* Two Column Layout: My Journey + Skills Cards */}
+          {/* Two Column Layout: About Me + Experience | Skills Cards */}
           <div className="grid lg:grid-cols-2 gap-16">
-            {/* Left Column - My Journey */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6">{t.experience.title}</h3>
-              <div className="space-y-5">
-                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {t.experience.description}
-                </p>
-                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {t.experience.description2}
-                </p>
-                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {t.experience.description3}
-                </p>
-                <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {t.experience.description4}
-                </p>
-              </div>
+            {/* Left Column - About Me */}
+            <div className={`border rounded-lg p-8 transition-colors ${isDarkMode ? 'border-gray-800 bg-gray-900/30 hover:border-gray-700' : 'border-gray-300 bg-white hover:border-gray-400'}`}>
+              <h2 className="text-4xl font-bold mb-6">{t.about.title}</h2>
+              <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {t.about.description}
+              </p>
             </div>
 
             {/* Right Column - Skills Cards */}
@@ -788,6 +791,98 @@ function App() {
         </div>
       </section>
 
+      {/* Professional Experience Section */}
+      <section id="experience" className={`py-20 px-6 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">{t.experience.title}</h2>
+            <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative space-y-8">
+              {/* Continuous vertical line */}
+              <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDarkMode ? 'bg-orange-500/50' : 'bg-orange-400/50'}`} style={{ transform: 'translateX(-50%)' }}></div>
+              
+              {/* Bullmex Experience */}
+              <div className={`relative pl-12`}>
+                <div className={`absolute left-4 top-0 w-8 h-8 rounded-full border-4 flex items-center justify-center ${isDarkMode ? 'bg-gray-900 border-orange-500' : 'bg-white border-orange-400'}`} style={{ transform: 'translateX(-50%)' }}>
+                  <Briefcase size={16} className={isDarkMode ? 'text-orange-400' : 'text-orange-600'} />
+                </div>
+                <div className={`rounded-lg p-6 ${isDarkMode ? 'bg-gray-900/50 border border-gray-800' : 'bg-gray-50 border border-gray-200'}`}>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {t.experience.bullmex.company}
+                      </h3>
+                      <p className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                        {t.experience.bullmex.role}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-start md:items-end gap-2">
+                      <span className={`text-sm font-medium px-3 py-1 rounded-full ${isDarkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-100 text-orange-700'}`}>
+                        {t.experience.bullmex.period}
+                      </span>
+                      <span className={`text-sm flex items-center gap-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <MapPin size={14} />
+                        {t.experience.bullmex.location}
+                      </span>
+                    </div>
+                  </div>
+                  <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t.experience.bullmex.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {t.experience.bullmex.technologies.map((tech, index) => (
+                      <span key={index} className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-gray-300'}`}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Smart Token Experience */}
+              <div className={`relative pl-12`}>
+                <div className={`absolute left-4 top-0 w-8 h-8 rounded-full border-4 flex items-center justify-center ${isDarkMode ? 'bg-gray-900 border-orange-500' : 'bg-white border-orange-400'}`} style={{ transform: 'translateX(-50%)' }}>
+                  <Briefcase size={16} className={isDarkMode ? 'text-orange-400' : 'text-orange-600'} />
+                </div>
+                <div className={`rounded-lg p-6 ${isDarkMode ? 'bg-gray-900/50 border border-gray-800' : 'bg-gray-50 border border-gray-200'}`}>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {t.experience.smartToken.company}
+                      </h3>
+                      <p className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                        {t.experience.smartToken.role}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-start md:items-end gap-2">
+                      <span className={`text-sm font-medium px-3 py-1 rounded-full ${isDarkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-100 text-orange-700'}`}>
+                        {t.experience.smartToken.period}
+                      </span>
+                      <span className={`text-sm flex items-center gap-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <MapPin size={14} />
+                        {t.experience.smartToken.location}
+                      </span>
+                    </div>
+                  </div>
+                  <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t.experience.smartToken.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {t.experience.smartToken.technologies.map((tech, index) => (
+                      <span key={index} className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-gray-300'}`}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Projects Section */}
       <section id="projects" className={`py-20 px-6 ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
@@ -1615,9 +1710,6 @@ function App() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
               {t.footer.copyright}
-            </p>
-            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {t.footer.madeWith}
             </p>
           </div>
         </div>
