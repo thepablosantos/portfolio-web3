@@ -28,8 +28,8 @@ function App() {
   const translations = {
     en: {
       hero: {
-        title: 'Web3 Developer & Blockchain Specialist',
-        description: 'Specialized in blockchain technologies with solid experience in smart contract development and security. Building secure, efficient, and scalable decentralized applications.',
+        title: 'FullStack Developer | Web3',
+        description: '4 years building scalable web applications from frontend to backend. Specialized in FullStack Development and Web3, creating robust solutions that combine traditional web technologies with blockchain innovation.',
         contact: 'Download CV'
       },
       menu: {
@@ -41,18 +41,18 @@ function App() {
       },
       about: {
         title: 'About Me',
-        description: 'I am a Web3 developer specialized in blockchain technologies, with practical experience in smart contract development, decentralized applications (DApps), and secure and scalable solutions. My focus is on uniting innovation and technical excellence, creating applications that connect the decentralized world to intuitive and high-performance user experiences.'
+        description: 'I am a FullStack Developer with 4 years of experience building scalable web applications. My expertise spans from frontend to backend, using technologies like JavaScript, Node.js, and React to create robust and efficient solutions. I also specialize in Web3, applying my FullStack experience to develop decentralized solutions, Smart Contracts with Solidity, and integrate blockchain technologies using Hardhat/Foundry and Ethers.js/Web3.js. I work with scalable software architecture using AWS and Docker, always focusing on creating applications that combine traditional web excellence with blockchain innovation.'
       },
       skills: {
         title: 'Technical Skills',
-        smartContracts: 'Smart Contracts',
-        smartContractsDesc: 'Smart contract development with Solidity and Foundry, ensuring security and efficiency.',
-        defiSolutions: 'DeFi Solutions',
-        defiSolutionsDesc: 'Creation of decentralized applications focused on finance, exploring tokens, staking and yield automation.',
-        professionalExperience: 'Professional Experience',
-        professionalExperienceDesc: 'Practical work in technology and blockchain startups, combining development, analysis and innovation.',
-        web3Development: 'Web3 Development',
-        web3DevelopmentDesc: 'DApp development with Next.js, Viem, Wagmi and complete blockchain integration.'
+        smartContracts: 'FullStack Development',
+        smartContractsDesc: 'Development of scalable web applications using JavaScript, Node.js, React, and TypeScript. Building robust frontend and backend solutions with modern architectures.',
+        defiSolutions: 'Web3 & Blockchain',
+        defiSolutionsDesc: 'Development of Smart Contracts with Solidity, using Hardhat/Foundry for testing and deployment. Integration with Ethereum using Ethers.js and Web3.js.',
+        professionalExperience: 'Scalable Architecture',
+        professionalExperienceDesc: 'Design and implementation of scalable software architectures using AWS and Docker, ensuring efficient deployment and infrastructure management.',
+        web3Development: 'FullStack + Web3',
+        web3DevelopmentDesc: 'Combining FullStack expertise with Web3 technologies to create decentralized applications that integrate seamlessly with traditional web infrastructure.'
       },
       experience: {
         title: 'My Journey',
@@ -106,9 +106,9 @@ function App() {
       },
       contact: {
         title: 'Get In Touch',
-        description: 'I\'m always open to discuss new projects, creative opportunities or simply exchange ideas about blockchain and development.',
+        description: 'I\'m always open to discuss new projects, creative opportunities or simply exchange ideas about FullStack development, Web3 and blockchain technologies.',
         letsTalk: 'Let\'s Talk',
-        letsTalkDesc: 'Whether for a blockchain project, DApp development or smart contract consulting, I\'m here to help turn your ideas into reality.',
+        letsTalkDesc: 'Whether for a FullStack web application, Web3 project, DApp development or smart contract consulting, I\'m here to help turn your ideas into reality.',
         sendMessage: 'Send a Message',
         name: 'Name',
         email: 'Email',
@@ -118,7 +118,7 @@ function App() {
       },
       footer: {
         name: 'Pablo Sodré',
-        description: 'Blockchain Developer focused on Solidity, DApps and innovative Web3 solutions.',
+        description: 'FullStack Developer specialized in JavaScript, Node.js, React, and Web3 technologies including Solidity, Ethereum, and Smart Contracts.',
         quickLinks: 'Quick Links',
         about: 'About',
         skills: 'Skills',
@@ -131,8 +131,8 @@ function App() {
     },
     pt: {
       hero: {
-        title: 'Desenvolvedor Web3 & Especialista em Blockchain',
-        description: 'Especializado em tecnologias blockchain com experiência sólida em desenvolvimento e segurança de smart contracts. Construindo aplicações descentralizadas seguras, eficientes e escaláveis.',
+        title: 'FullStack Developer | Web3',
+        description: '4 anos construindo aplicações web escaláveis, do frontend ao backend. Especializado em Desenvolvimento FullStack e Web3, criando soluções robustas que combinam tecnologias web tradicionais com inovação blockchain.',
         contact: 'Baixar CV'
       },
       menu: {
@@ -144,18 +144,18 @@ function App() {
       },
       about: {
         title: 'Sobre Mim',
-        description: 'Sou um desenvolvedor Web3 especializado em tecnologias blockchain, com experiência prática no desenvolvimento de contratos inteligentes, aplicações descentralizadas (DApps) e soluções seguras e escaláveis. Tenho como foco unir inovação e excelência técnica, criando aplicações que conectam o mundo descentralizado a experiências de usuário intuitivas e de alto desempenho.'
+        description: 'Sou um Desenvolvedor FullStack com 4 anos de experiência construindo aplicações web escaláveis. Minha expertise abrange do frontend ao backend, utilizando tecnologias como JavaScript, Node.js e React para criar soluções robustas e eficientes. Também me especializo em Web3, aplicando minha experiência FullStack no desenvolvimento de soluções descentralizadas, Smart Contracts com Solidity, e integração de tecnologias blockchain usando Hardhat/Foundry e Ethers.js/Web3.js. Trabalho com arquitetura de software escalável utilizando AWS e Docker, sempre focando em criar aplicações que combinam excelência web tradicional com inovação blockchain.'
       },
       skills: {
         title: 'Habilidades Técnicas',
-        smartContracts: 'Smart Contracts',
-        smartContractsDesc: 'Desenvolvimento de contratos inteligentes com Solidity e Foundry, garantindo segurança e eficiência.',
-        defiSolutions: 'Soluções DeFi',
-        defiSolutionsDesc: 'Criação de aplicações descentralizadas voltadas para finanças, explorando tokens, staking e automação de yield.',
-        professionalExperience: 'Experiência Profissional',
-        professionalExperienceDesc: 'Atuação prática em startups de tecnologia e blockchain, unindo desenvolvimento, análise e inovação.',
-        web3Development: 'Desenvolvimento Web3',
-        web3DevelopmentDesc: 'Desenvolvimento de DApps com Next.js, Viem, Wagmi e integração completa com blockchain.'
+        smartContracts: 'Desenvolvimento FullStack',
+        smartContractsDesc: 'Desenvolvimento de aplicações web escaláveis utilizando JavaScript, Node.js, React e TypeScript. Construindo soluções robustas de frontend e backend com arquiteturas modernas.',
+        defiSolutions: 'Web3 & Blockchain',
+        defiSolutionsDesc: 'Desenvolvimento de Smart Contracts com Solidity, utilizando Hardhat/Foundry para testes e deploy. Integração com Ethereum usando Ethers.js e Web3.js.',
+        professionalExperience: 'Arquitetura Escalável',
+        professionalExperienceDesc: 'Design e implementação de arquiteturas de software escaláveis utilizando AWS e Docker, garantindo deploy eficiente e gerenciamento de infraestrutura.',
+        web3Development: 'FullStack + Web3',
+        web3DevelopmentDesc: 'Combinando expertise FullStack com tecnologias Web3 para criar aplicações descentralizadas que se integram perfeitamente com infraestrutura web tradicional.'
       },
       experience: {
         title: 'Minha Jornada',
@@ -209,9 +209,9 @@ function App() {
       },
       contact: {
         title: 'Entre em Contato',
-        description: 'Estou sempre aberto para discutir novos projetos, oportunidades criativas ou simplesmente trocar ideias sobre blockchain e desenvolvimento.',
+        description: 'Estou sempre aberto para discutir novos projetos, oportunidades criativas ou simplesmente trocar ideias sobre desenvolvimento FullStack, Web3 e tecnologias blockchain.',
         letsTalk: 'Vamos Conversar',
-        letsTalkDesc: 'Seja para um projeto blockchain, desenvolvimento de DApp ou consultoria em smart contracts, estou aqui para ajudar a transformar suas ideias em realidade.',
+        letsTalkDesc: 'Seja para uma aplicação web FullStack, projeto Web3, desenvolvimento de DApp ou consultoria em smart contracts, estou aqui para ajudar a transformar suas ideias em realidade.',
         sendMessage: 'Enviar Mensagem',
         name: 'Nome',
         email: 'Email',
@@ -221,7 +221,7 @@ function App() {
       },
       footer: {
         name: 'Pablo Sodré',
-        description: 'Desenvolvedor Blockchain focado em Solidity, DApps e soluções Web3 inovadoras.',
+        description: 'Desenvolvedor FullStack especializado em JavaScript, Node.js, React e tecnologias Web3 incluindo Solidity, Ethereum e Smart Contracts.',
         quickLinks: 'Quick Links',
         about: 'Sobre',
         skills: 'Habilidades',
@@ -508,8 +508,8 @@ function App() {
       // Reset meta tags
       document.title = 'Pablo Sodré | Developer Portfolio';
       const defaultDescription = language === 'pt' 
-        ? 'Desenvolvedor Web3 & Especialista em Blockchain'
-        : 'Web3 Developer & Blockchain Specialist';
+        ? 'FullStack Developer | Web3'
+        : 'FullStack Developer | Web3';
       
       const updateMetaTag = (property: string, content: string) => {
         const meta = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
@@ -738,7 +738,7 @@ function App() {
                 <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-blue-500' : 'border-gray-300 hover:border-blue-400'}`}>
                   <div className="flex items-center mb-4">
                     <div className="w-7 h-7 bg-blue-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">SC</span>
+                      <span className="text-white font-bold text-sm">FS</span>
                     </div>
                     <h4 className="text-lg font-bold text-blue-400">{t.skills.smartContracts}</h4>
                   </div>
@@ -750,7 +750,7 @@ function App() {
                 <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-green-500' : 'border-gray-300 hover:border-green-400'}`}>
                   <div className="flex items-center mb-4">
                     <div className="w-7 h-7 bg-green-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">DF</span>
+                      <span className="text-white font-bold text-sm">W3</span>
                     </div>
                     <h4 className="text-lg font-bold text-green-400">{t.skills.defiSolutions}</h4>
                   </div>
@@ -762,7 +762,7 @@ function App() {
                 <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-purple-500' : 'border-gray-300 hover:border-purple-400'}`}>
                   <div className="flex items-center mb-4">
                     <div className="w-7 h-7 bg-purple-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">PE</span>
+                      <span className="text-white font-bold text-sm">AWS</span>
                     </div>
                     <h4 className="text-lg font-bold text-purple-400">{t.skills.professionalExperience}</h4>
                   </div>
@@ -774,7 +774,7 @@ function App() {
                 <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-cyan-500' : 'border-gray-300 hover:border-cyan-400'}`}>
                   <div className="flex items-center mb-4">
                     <div className="w-7 h-7 bg-cyan-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">W3</span>
+                      <span className="text-white font-bold text-sm">+</span>
                     </div>
                     <h4 className="text-lg font-bold text-cyan-400">{t.skills.web3Development}</h4>
                   </div>
@@ -1599,7 +1599,7 @@ function App() {
             <div>
               <h4 className="text-lg font-bold text-white mb-4">{t.footer.technologies}</h4>
               <div className="flex flex-wrap gap-2">
-                {['Solidity', 'Foundry', 'Next.js', 'React', 'Flutter', 'Wagmi', 'Viem', 'Tailwind CSS'].map((tech) => (
+                {['JavaScript', 'Node.js', 'React', 'TypeScript', 'Solidity', 'Hardhat', 'Foundry', 'Ethers.js', 'Web3.js', 'Ethereum', 'AWS', 'Docker'].map((tech) => (
                   <span key={tech} className={`px-3 py-1 rounded-full text-xs ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'}`}>
                     {tech}
                   </span>
