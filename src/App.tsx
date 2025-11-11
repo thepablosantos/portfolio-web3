@@ -143,7 +143,7 @@ function App() {
     pt: {
       hero: {
         title: 'FullStack Developer | Web3',
-        description: 'I\'m a Brazilian Full Stack Developer with 4+ years of experience building scalable web applications. Specialized in Full Stack and Web3 development, creating robust solutions that combine traditional web technologies with blockchain innovation.',
+        description: 'Sou um Desenvolvedor Full Stack brasileiro com mais de 4 anos de experiência construindo aplicações web escaláveis. Especializado em desenvolvimento Full Stack e Web3, criando soluções robustas que combinam tecnologias web tradicionais com inovação blockchain.',
         contact: 'Baixar CV'
       },
       menu: {
