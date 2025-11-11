@@ -2054,6 +2054,114 @@ Organized code, easy to maintain and scale. Each new module follows the same pat
       date: '2025-11-11',
       author: 'Pablo Sodré',
       images: ['/videorepository-create-code.png', '/mysql-postman-video-creation.png']
+    },
+    {
+      id: 12,
+      title: lang === 'pt' ? 'API REST: Busca de Vídeos e Novas Funcionalidades' : 'REST API: Video Search and New Features',
+      excerpt: lang === 'pt'
+        ? 'Expandindo o módulo de vídeos com busca por usuário e busca flexível por título, mantendo os padrões de arquitetura e performance.'
+        : 'Expanding the videos module with user-based search and flexible title search, maintaining architecture patterns and performance.',
+      content: lang === 'pt'
+        ? `# API REST: Busca de Vídeos e Novas Funcionalidades
+
+Olá, rede! 🫡
+
+Continuando a evolução da nossa API REST!
+
+No post anterior, mostrei como implementei o módulo de vídeos usando o Repository Pattern. Agora, expandi as funcionalidades com novas operações de consulta e busca!
+
+## Nova Funcionalidade: Buscar Vídeos por Usuário
+
+Implementei o método \`getVideos\` no \`VideoRepository\`, que permite buscar todos os vídeos de um usuário específico através do \`user_id\`. Essa funcionalidade é essencial para exibir o conteúdo de cada usuário de forma organizada.
+
+![Código do VideoRepository com métodos de busca](/videorepository-search-methods.png)
+
+Como você pode ver na imagem acima, o método \`getVideos\` utiliza connection pooling para obter uma conexão do banco, executa uma query SQL para buscar todos os vídeos associados a um \`user_id\` específico, e retorna os resultados em formato JSON. A conexão é liberada corretamente após o uso, mantendo a eficiência do pool.
+
+## Sistema de Busca com Query Parameters
+
+Criei o método \`searchVideos\` que implementa uma busca flexível usando query parameters. A rota \`/videos/search?search=termo\` permite pesquisar vídeos por título usando o operador \`LIKE\` do SQL.
+
+![Código das rotas de vídeo](/videos-routes-code.png)
+
+A implementação é flexível: podemos trocar \`title\` por \`description\` na query SQL para buscar por descrição também! O método extrai o parâmetro \`search\` de \`request.query\` e usa uma busca parcial com \`LIKE\`, permitindo encontrar vídeos mesmo com correspondências parciais no título.
+
+## Connection Pooling e Performance
+
+Mantive o uso do connection pooling do MySQL em todas as operações. Cada método libera a conexão corretamente depois do uso, garantindo que o pool seja gerenciado de forma eficiente e que não haja vazamento de conexões.
+
+## Organização e Padrões
+
+Todas as novas rotas foram organizadas no \`videos.routes.ts\`, seguindo a mesma estrutura das rotas existentes. O código mantém a separação de responsabilidades, com o repositório cuidando das operações de banco e as rotas tratando apenas das requisições!
+
+![Postman mostrando busca de vídeos](/postman-video-search.png)
+
+A imagem acima mostra o teste completo da funcionalidade de busca no Postman. A requisição GET para \`/videos/search?search=node\` retorna com sucesso (200 OK) em 125ms, trazendo os vídeos que correspondem ao termo de busca. O JSON de resposta contém a mensagem de sucesso e um array com os vídeos encontrados, incluindo \`video_id\`, \`user_id\`, \`title\` e \`description\`.
+
+## Validação e Testes
+
+Testei todas as implementações com Postman, validando:
+
+- ✅ Busca de vídeos por \`user_id\` específico
+- ✅ Busca por título com query parameters
+- ✅ Retorno correto dos dados em formato JSON
+- ✅ Tratamento de erros adequado
+
+A API está próxima de ficar completa! Cada nova feature segue os mesmos padrões, com organização, facilitando a manutenção e evolução do projeto.
+
+Em breve, pretendo publicar o projeto completo com documentação e código aberto! 🚀`
+        : `# REST API: Video Search and New Features
+
+Hello, network! 🫡
+
+Continuing the evolution of our REST API!
+
+In the previous post, I showed how I implemented the videos module using the Repository Pattern. Now, I've expanded the functionality with new query and search operations!
+
+## New Feature: Search Videos by User
+
+I implemented the \`getVideos\` method in \`VideoRepository\`, which allows searching for all videos from a specific user through the \`user_id\`. This functionality is essential for displaying each user's content in an organized way.
+
+![VideoRepository code with search methods](/videorepository-search-methods.png)
+
+As you can see in the image above, the \`getVideos\` method uses connection pooling to get a database connection, executes a SQL query to fetch all videos associated with a specific \`user_id\`, and returns the results in JSON format. The connection is properly released after use, maintaining pool efficiency.
+
+## Search System with Query Parameters
+
+I created the \`searchVideos\` method that implements flexible search using query parameters. The route \`/videos/search?search=term\` allows searching videos by title using SQL's \`LIKE\` operator.
+
+![Video routes code](/videos-routes-code.png)
+
+The implementation is flexible: we can swap \`title\` for \`description\` in the SQL query to search by description as well! The method extracts the \`search\` parameter from \`request.query\` and uses a partial search with \`LIKE\`, allowing finding videos even with partial matches in the title.
+
+## Connection Pooling and Performance
+
+I maintained the use of MySQL connection pooling in all operations. Each method properly releases the connection after use, ensuring the pool is managed efficiently and there are no connection leaks.
+
+## Organization and Patterns
+
+All new routes were organized in \`videos.routes.ts\`, following the same structure as existing routes. The code maintains separation of responsibilities, with the repository handling database operations and routes handling only requests!
+
+![Postman showing video search](/postman-video-search.png)
+
+The image above shows the complete test of the search functionality in Postman. The GET request to \`/videos/search?search=node\` returns successfully (200 OK) in 125ms, bringing videos that match the search term. The response JSON contains the success message and an array with the found videos, including \`video_id\`, \`user_id\`, \`title\`, and \`description\`.
+
+## Validation and Testing
+
+I tested all implementations with Postman, validating:
+
+- ✅ Search videos by specific \`user_id\`
+- ✅ Search by title with query parameters
+- ✅ Correct data return in JSON format
+- ✅ Adequate error handling
+
+The API is close to being complete! Each new feature follows the same patterns, with organization, facilitating maintenance and project evolution.
+
+Soon, I plan to publish the complete project with documentation and open source code! 🚀`,
+      category: 'code',
+      date: '2025-11-12',
+      author: 'Pablo Sodré',
+      images: ['/videorepository-search-methods.png', '/videos-routes-code.png', '/postman-video-search.png']
     }
   ];
 };
