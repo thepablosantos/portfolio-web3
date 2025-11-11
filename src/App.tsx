@@ -29,7 +29,7 @@ function App() {
     en: {
       hero: {
         title: 'FullStack Developer | Web3',
-        description: '4 years building scalable web applications from frontend to backend. Specialized in FullStack Development and Web3, creating robust solutions that combine traditional web technologies with blockchain innovation.',
+        description: 'I\'m a Brazilian Full Stack Developer with 4+ years of experience building scalable web applications. Specialized in Full Stack and Web3 development, creating robust solutions that combine traditional web technologies with blockchain innovation.',
         contact: 'Download CV'
       },
       menu: {
@@ -50,16 +50,16 @@ function App() {
           role: 'Web3 Developer',
           period: '2021 - 2022',
           location: 'Brazil',
-          description: 'Worked on Web3 projects focusing on blockchain development and smart contract implementation.',
-          technologies: ['Solidity', 'Hardhat', 'Web3.js', 'Ethereum', 'NFT']
+          description: 'Developed and deployed smart contracts with Solidity and Hardhat, integrating Web3 applications with the Ethereum blockchain. Technologies: JavaScript, Solidity, Hardhat, Web3.js.',
+          technologies: ['JavaScript', 'Solidity', 'Hardhat', 'Web3.js']
         },
         smartToken: {
           company: 'Smart Token',
           role: 'Full Stack Developer',
           period: '2023 - 2024',
           location: 'Florianópolis, Brazil',
-          description: 'Developed full-stack applications using JavaScript, Node.js, and React, integrating blockchain solutions with traditional web infrastructure. Performed data analysis to extract actionable insights that supported strategic decision-making.',
-          technologies: ['JavaScript', 'Node.js', 'React', 'TypeScript', 'Solidity', 'AWS', 'Docker']
+          description: 'Built full-stack applications with JavaScript, Node.js, and React, integrating blockchain solutions and data analytics using PowerBI. Technologies: JavaScript, Node.js, React, SQL, Docker.',
+          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker']
         }
       },
       skills: {
@@ -143,7 +143,7 @@ function App() {
     pt: {
       hero: {
         title: 'FullStack Developer | Web3',
-        description: '4 anos construindo aplicações web escaláveis, do frontend ao backend. Especializado em Desenvolvimento FullStack e Web3, criando soluções robustas que combinam tecnologias web tradicionais com inovação blockchain.',
+        description: 'I\'m a Brazilian Full Stack Developer with 4+ years of experience building scalable web applications. Specialized in Full Stack and Web3 development, creating robust solutions that combine traditional web technologies with blockchain innovation.',
         contact: 'Baixar CV'
       },
       menu: {
@@ -164,16 +164,16 @@ function App() {
           role: 'Desenvolvedor Web3',
           period: '2021 - 2022',
           location: 'Brasil',
-          description: 'Atuei em projetos Web3 focados em desenvolvimento blockchain e implementação de smart contracts.',
-          technologies: ['Solidity', 'Hardhat', 'Web3.js', 'Ethereum', 'NFT']
+          description: 'Developed and deployed smart contracts with Solidity and Hardhat, integrating Web3 applications with the Ethereum blockchain. Technologies: JavaScript, Solidity, Hardhat, Web3.js.',
+          technologies: ['JavaScript', 'Solidity', 'Hardhat', 'Web3.js']
         },
         smartToken: {
           company: 'Smart Token',
           role: 'Full Stack Developer',
           period: '2023 - 2024',
           location: 'Florianópolis, Brasil',
-          description: 'Atuei no desenvolvimento de frontend e backend, além de análises de dados com PowerBI, SQL e Metabase, criando dashboards para apoiar decisões estratégicas.',
-          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker', 'AWS']
+          description: 'Built full-stack applications with JavaScript, Node.js, and React, integrating blockchain solutions and data analytics using PowerBI. Technologies: JavaScript, Node.js, React, SQL, Docker.',
+          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker']
         }
       },
       skills: {
@@ -692,10 +692,11 @@ function App() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {/* 🔹 Download CV */}
             <a
-               href="https://drive.google.com/file/d/1yNYpUTe9n7rhhQ0HxXkU06P2F3T7mQUT/view?usp=sharing" // coloque o caminho real do seu PDF aqui
-              download
+              href="https://drive.google.com/file/d/18mubDkPZFq-r3LoD22I1349Nw1vbU34y/view"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
-              >
+            >
               <Download size={18} />
               Download CV
             </a>
