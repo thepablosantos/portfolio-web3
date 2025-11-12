@@ -2162,6 +2162,288 @@ Soon, I plan to publish the complete project with documentation and open source 
       date: '2025-11-12',
       author: 'Pablo Sodré',
       images: ['/videorepository-search-methods.png', '/videos-routes-code.png', '/postman-video-search.png']
+    },
+    {
+      id: 13,
+      title: lang === 'pt' ? 'Shodan, ZoomEye e Censys: Mapeando Superfície de Ataque de Forma Defensiva' : 'Shodan, ZoomEye and Censys: Mapping Attack Surface Defensively',
+      excerpt: lang === 'pt'
+        ? 'Aprenda a usar Shodan, ZoomEye e Censys para mapear superfície de ataque, manter inventário de ativos e detectar configurações inseguras de forma ética e responsável.'
+        : 'Learn how to use Shodan, ZoomEye, and Censys to map attack surfaces, maintain asset inventory, and detect insecure configurations ethically and responsibly.',
+      content: lang === 'pt'
+        ? `# Shodan, ZoomEye e Censys: Mapeando Superfície de Ataque de Forma Defensiva
+
+Olá, rede! 👋
+
+Hoje quero falar sobre três ferramentas poderosas que uso de forma defensiva e responsável para mapear superfície de ataque e manter inventário de ativos: **Shodan**, **ZoomEye** e **Censys**. Também mostrarei alguns "atalhos" de busca (como o prefixo \`site:\`) que ajudam a encontrar domínios e serviços relacionados, sempre com foco em governança, monitoramento e triagem. 🚨🔎
+
+⚠️ **Antes de qualquer coisa:** essas ferramentas podem ser usadas para pesquisa de segurança, mas também podem ser mal utilizadas. Nunca execute testes invasivos ou exploração sem autorização explícita do dono do ativo. Aqui o foco é inventário, detecção e defesa.
+
+## O que são essas ferramentas?
+
+### Shodan
+
+O **Shodan** é um motor de busca para dispositivos conectados à internet (IoT, servidores, câmeras, bancos, etc.). Ele lista banners de serviços, portas abertas e metadados de dispositivos expostos publicamente na internet.
+
+![Interface do Shodan mostrando resultados de busca](/shodan-search-results.png)
+
+O Shodan é extremamente útil para descobrir serviços que estão expostos publicamente, mas que talvez não deveriam estar. Ele permite filtrar por hostname, organização, porta, serviço, localização geográfica e muito mais.
+
+### ZoomEye
+
+O **ZoomEye** é similar ao Shodan, com ênfase em varredura de serviços e identificação de aplicações web. Ele fornece resultados detalhados por aplicação e versão, sendo útil para identificar versões antigas de servidores web ou serviços públicos que precisam de atualização.
+
+![Interface do ZoomEye mostrando resultados de aplicações](/zoomeye-app-results.png)
+
+ZoomEye é particularmente eficaz para identificar tecnologias específicas, versões de software e configurações de serviços web expostos.
+
+### Censys
+
+O **Censys** foca em dados de certificação TLS/SSL, serviços e topologia da internet, com bons dados históricos e metadados de certificados. É excelente para descobrir subdomínios através de certificados SSL/TLS.
+
+![Interface do Censys mostrando certificados e domínios](/censys-certificates.png)
+
+Pesquisar por certificados que contenham seu domínio ajuda a descobrir subdomínios ou serviços TLS não documentados. Isso é valioso para achar domínios esquecidos que possuem certificados válidos.
+
+## Para que usar: casos defensivos
+
+### Inventory de ativos expostos
+
+Descobrir serviços públicos que pertencem à sua organização (ou clientes) para reduzi-los ou proteger melhor. Muitas vezes, equipes não têm visibilidade completa de todos os serviços expostos publicamente.
+
+### Detecção de configuração insegura
+
+Identificar serviços com banners antigos, TLS fraco ou servidores deixados em ambiente de teste. Esses são alvos fáceis para atacantes e devem ser priorizados para correção.
+
+### Monitoramento contínuo
+
+Configurar alertas quando novos serviços aparecem na internet com seu domínio ou ASN. Isso permite detectar rapidamente se algo novo foi exposto acidentalmente.
+
+### Resposta a incidentes
+
+Entender rapidamente quais serviços públicos estão associados a um domínio/IP comprometido. Isso é crucial durante uma investigação de incidente de segurança.
+
+### Auditoria e compliance
+
+Gerar evidências de exposição para relatórios e correção. Ter documentação clara sobre o que está exposto ajuda em auditorias e processos de compliance.
+
+## Buscas úteis e seguras
+
+### 1. Shodan: consultas seguras para inventário
+
+Exemplo conceitual (não intrusivo): filtrar por hostname ou organização para ver serviços visíveis:
+
+\`\`\`
+hostname:"dominio.com"
+org:"Empresa X"
+\`\`\`
+
+Também dá para buscar por porta ou serviço para mapear o que está exposto publicamente (ex.: HTTP, SSH, RDP). Use para gerar uma lista de ativos e cross-check com seu inventário.
+
+O Shodan também suporta o prefixo \`site:\` para buscar por domínio específico:
+
+\`\`\`
+site:dominio.com
+site:sub.dominio.com
+\`\`\`
+
+### 2. Censys: buscar por certificados e domínios
+
+Pesquisar por certificados que contenham seu domínio ajuda a descobrir subdomínios ou serviços TLS não documentados:
+
+- Buscar por certificados com \`*.dominio.com\` na interface para mapear subdomínios que usam HTTPS.
+
+Isso é valioso para achar domínios esquecidos que possuem certificados válidos.
+
+O Censys também permite usar o prefixo \`site:\` para buscar diretamente por domínio:
+
+\`\`\`
+site:dominio.com
+\`\`\`
+
+### 3. ZoomEye: panorama de aplicações
+
+ZoomEye fornece resultados por aplicação/versão; útil para identificar versões antigas de servidores web ou serviços públicos que precisam de atualização.
+
+Assim como as outras ferramentas, o ZoomEye também suporta o prefixo \`site:\` para buscar por domínio:
+
+\`\`\`
+site:dominio.com
+\`\`\`
+
+## Workflow defensivo prático
+
+Seguindo um workflow estruturado, você pode usar essas ferramentas de forma eficiente e responsável:
+
+### 1. Inventário inicial
+
+Rodar consultas usando \`site:dominio.com\` e outros filtros nas três plataformas (Shodan, ZoomEye, Censys) para compilar subdomínios e IPs. Documente tudo em uma planilha ou ferramenta de gestão de ativos.
+
+### 2. Correlacionar
+
+Cruzar resultados com CMDB/asset inventory / DNS interno. Identifique discrepâncias: serviços que aparecem nas buscas mas não estão no inventário oficial.
+
+### 3. Priorizar
+
+Identificar serviços expostos que não deveriam existir (painéis administrativos, bancos de dados, servidores de desenvolvimento). Classifique por criticidade e risco.
+
+### 4. Notificar time responsável
+
+Abrir ticket com contexto (quem é responsável, qual evidência foi encontrada, qual o risco). Inclua screenshots e links para as buscas realizadas.
+
+### 5. Monitorar
+
+Cadastrar consultas recorrentes e alertas (quando algo novo aparecer). Configure notificações automáticas nas plataformas quando possível.
+
+### 6. Remediação e validação
+
+Corrigir o problema e revalidar presença pública. Após a correção, execute novamente as buscas para confirmar que o serviço não está mais exposto.
+
+## Conclusão
+
+Shodan, ZoomEye e Censys são ferramentas poderosas para mapear superfície de ataque e manter inventário de ativos. Quando usadas de forma defensiva e responsável, elas são essenciais para equipes de segurança que querem ter visibilidade completa de sua infraestrutura exposta.
+
+O segredo está em usar essas ferramentas como parte de um processo estruturado de governança e monitoramento, sempre com foco em proteção e não em exploração. Combine-as com outras técnicas (como Certificate Transparency e Internet Archive) para ter uma visão completa da superfície de ataque.
+
+Lembre-se: segurança é sobre proteção, não sobre exploração. Use essas ferramentas para defender, não para atacar. 🛡️`
+        : `# Shodan, ZoomEye and Censys: Mapping Attack Surface Defensively
+
+Hello, network! 👋
+
+Today I want to talk about three powerful tools I use defensively and responsibly to map attack surfaces and maintain asset inventory: **Shodan**, **ZoomEye**, and **Censys**. I'll also show some search "shortcuts" (like the \`site:\` prefix) that help find related domains and services, always focusing on governance, monitoring, and triage. 🚨🔎
+
+⚠️ **Before anything:** these tools can be used for security research, but they can also be misused. Never execute invasive tests or exploitation without explicit authorization from the asset owner. Here the focus is inventory, detection, and defense.
+
+## What are these tools?
+
+### Shodan
+
+**Shodan** is a search engine for internet-connected devices (IoT, servers, cameras, banks, etc.). It lists service banners, open ports, and metadata from devices exposed publicly on the internet.
+
+![Shodan interface showing search results](/shodan-search-results.png)
+
+Shodan is extremely useful for discovering services that are publicly exposed but perhaps shouldn't be. It allows filtering by hostname, organization, port, service, geographic location, and much more.
+
+### ZoomEye
+
+**ZoomEye** is similar to Shodan, with emphasis on service scanning and web application identification. It provides detailed results by application and version, useful for identifying old versions of web servers or public services that need updating.
+
+![ZoomEye interface showing application results](/zoomeye-app-results.png)
+
+ZoomEye is particularly effective for identifying specific technologies, software versions, and configurations of exposed web services.
+
+### Censys
+
+**Censys** focuses on TLS/SSL certification data, services, and internet topology, with good historical data and certificate metadata. It's excellent for discovering subdomains through SSL/TLS certificates.
+
+![Censys interface showing certificates and domains](/censys-certificates.png)
+
+Searching for certificates containing your domain helps discover subdomains or undocumented TLS services. This is valuable for finding forgotten domains that have valid certificates.
+
+## What to use them for: defensive cases
+
+### Exposed asset inventory
+
+Discover public services that belong to your organization (or clients) to reduce or better protect them. Often, teams don't have complete visibility of all publicly exposed services.
+
+### Insecure configuration detection
+
+Identify services with old banners, weak TLS, or servers left in test environments. These are easy targets for attackers and should be prioritized for correction.
+
+### Continuous monitoring
+
+Set up alerts when new services appear on the internet with your domain or ASN. This allows quickly detecting if something new was accidentally exposed.
+
+### Incident response
+
+Quickly understand which public services are associated with a compromised domain/IP. This is crucial during a security incident investigation.
+
+### Audit and compliance
+
+Generate exposure evidence for reports and correction. Having clear documentation about what's exposed helps in audits and compliance processes.
+
+## Useful and safe searches
+
+### 1. Shodan: safe queries for inventory
+
+Conceptual example (non-intrusive): filter by hostname or organization to see visible services:
+
+\`\`\`
+hostname:"domain.com"
+org:"Company X"
+\`\`\`
+
+You can also search by port or service to map what's publicly exposed (e.g., HTTP, SSH, RDP). Use to generate an asset list and cross-check with your inventory.
+
+Shodan also supports the \`site:\` prefix to search for specific domains:
+
+\`\`\`
+site:domain.com
+site:sub.domain.com
+\`\`\`
+
+### 2. Censys: search for certificates and domains
+
+Searching for certificates containing your domain helps discover subdomains or undocumented TLS services:
+
+- Search for certificates with \`*.domain.com\` in the interface to map subdomains using HTTPS.
+
+This is valuable for finding forgotten domains that have valid certificates.
+
+Censys also allows using the \`site:\` prefix to search directly by domain:
+
+\`\`\`
+site:domain.com
+\`\`\`
+
+### 3. ZoomEye: application overview
+
+ZoomEye provides results by application/version; useful for identifying old versions of web servers or public services that need updating.
+
+Like the other tools, ZoomEye also supports the \`site:\` prefix to search by domain:
+
+\`\`\`
+site:domain.com
+\`\`\`
+
+## Practical defensive workflow
+
+Following a structured workflow, you can use these tools efficiently and responsibly:
+
+### 1. Initial inventory
+
+Run queries using \`site:domain.com\` and other filters on the three platforms (Shodan, ZoomEye, Censys) to compile subdomains and IPs. Document everything in a spreadsheet or asset management tool.
+
+### 2. Correlate
+
+Cross-reference results with CMDB/asset inventory / internal DNS. Identify discrepancies: services that appear in searches but aren't in the official inventory.
+
+### 3. Prioritize
+
+Identify exposed services that shouldn't exist (administrative panels, databases, development servers). Classify by criticality and risk.
+
+### 4. Notify responsible team
+
+Open a ticket with context (who is responsible, what evidence was found, what the risk is). Include screenshots and links to the searches performed.
+
+### 5. Monitor
+
+Register recurring queries and alerts (when something new appears). Configure automatic notifications on platforms when possible.
+
+### 6. Remediation and validation
+
+Fix the problem and revalidate public presence. After correction, run searches again to confirm the service is no longer exposed.
+
+## Conclusion
+
+Shodan, ZoomEye, and Censys are powerful tools for mapping attack surfaces and maintaining asset inventory. When used defensively and responsibly, they are essential for security teams that want complete visibility of their exposed infrastructure.
+
+The secret is to use these tools as part of a structured governance and monitoring process, always focusing on protection and not exploitation. Combine them with other techniques (like Certificate Transparency and Internet Archive) to have a complete view of the attack surface.
+
+Remember: security is about protection, not exploitation. Use these tools to defend, not to attack. 🛡️`,
+      category: 'hacking',
+      date: '2025-11-13',
+      author: 'Pablo Sodré',
+      images: ['/shodan-search-results.png', '/zoomeye-app-results.png', '/censys-certificates.png']
     }
   ];
 };

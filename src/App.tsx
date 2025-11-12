@@ -80,7 +80,6 @@ function App() {
         web3: 'Web3',
         hacking: 'Hacking',
         code: 'Code',
-        data: 'Data',
         viewOnGitHub: 'View on GitHub'
       },
       blog: {
@@ -90,7 +89,6 @@ function App() {
         web3: 'Web3',
         hacking: 'Hacking',
         code: 'Code',
-        data: 'Data',
         readMore: 'Read More',
         showMore: 'Show More',
         close: 'Close',
@@ -194,7 +192,6 @@ function App() {
         web3: 'Web3',
         hacking: 'Hacking',
         code: 'Code',
-        data: 'Data',
         viewOnGitHub: 'Ver no GitHub'
       },
       blog: {
@@ -204,7 +201,6 @@ function App() {
         web3: 'Web3',
         hacking: 'Hacking',
         code: 'Code',
-        data: 'Data',
         readMore: 'Ler Mais',
         showMore: 'Ver Mais',
         close: 'Fechar',
@@ -332,8 +328,7 @@ function App() {
     'redes': projects.filter(p => p.category === 'redes').length,
     'web3': projects.filter(p => p.category === 'web3').length,
     'hacking': projects.filter(p => p.category === 'hacking').length,
-    'code': projects.filter(p => p.category === 'code').length,
-    'data': projects.filter(p => p.category === 'data').length
+    'code': projects.filter(p => p.category === 'code').length
   };
 
   // Blog articles structure
@@ -345,8 +340,6 @@ function App() {
   // Filter blog articles based on active filter
   const filteredBlogArticles = blogFilter === 'all' 
     ? [...blogArticles].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    : blogFilter === 'data'
-    ? [...blogArticles].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     : blogArticles.filter(article => article.category === blogFilter).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // Count blog articles by category
@@ -355,8 +348,7 @@ function App() {
     'redes': blogArticles.filter(a => a.category === 'redes').length,
     'web3': blogArticles.filter(a => a.category === 'web3').length,
     'hacking': blogArticles.filter(a => a.category === 'hacking').length,
-    'code': blogArticles.filter(a => a.category === 'code').length,
-    'data': blogArticles.length
+    'code': blogArticles.filter(a => a.category === 'code').length
   };
 
   // Get articles to display (paginated)
@@ -942,16 +934,6 @@ function App() {
             >
               {t.projects.code} ({projectCounts.code})
             </button>
-            <button 
-              onClick={() => setActiveFilter('data')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
-                activeFilter === 'data' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
-                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
-              }`}
-            >
-              {t.projects.data}
-            </button>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -1063,16 +1045,6 @@ function App() {
               }`}
             >
               {t.blog.code} ({blogCounts.code})
-            </button>
-            <button 
-              onClick={() => setBlogFilter('data')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
-                blogFilter === 'data' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
-                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
-              }`}
-            >
-              {t.blog.data}
             </button>
           </div>
 
