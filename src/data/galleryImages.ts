@@ -28,7 +28,7 @@ export const getGalleryImages = (lang: 'pt' | 'en'): GalleryImage[] => {
     },
     {
       id: 3,
-      src: '/gallery/proxmark3.jpg',
+      src: '/gallery/proxmark3.jpeg',
       title: lang === 'pt' ? 'Proxmark 3: RFID Testing' : 'Proxmark 3: RFID Testing',
       description: lang === 'pt'
         ? 'Ferramenta poderosa para testes de segurança RFID, análise de frequências e pesquisa em sistemas de acesso.'
@@ -78,6 +78,15 @@ export const getGalleryImages = (lang: 'pt' | 'en'): GalleryImage[] => {
       description: lang === 'pt'
         ? 'Explorando o mundo das finanças descentralizadas (DeFi) e suas possibilidades.'
         : 'Exploring the world of decentralized finance (DeFi) and its possibilities.',
+      tag: 'web3'
+    },
+    {
+      id: 9,
+      src: '/gallery/trezor-keep-metal.jpeg',
+      title: lang === 'pt' ? 'Trezor e KeepKey: Hardware Wallets' : 'Trezor and KeepKey: Hardware Wallets',
+      description: lang === 'pt'
+        ? 'Hardware wallets para armazenamento seguro de criptomoedas, garantindo máxima proteção dos ativos digitais.'
+        : 'Hardware wallets for secure cryptocurrency storage, ensuring maximum protection of digital assets.',
       tag: 'web3'
     }
   ];
