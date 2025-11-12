@@ -2444,6 +2444,126 @@ Remember: security is about protection, not exploitation. Use these tools to def
       date: '2025-11-13',
       author: 'Pablo Sodré',
       images: ['/shodan-search-results.png', '/zoomeye-app-results.png', '/censys-certificates.png']
+    },
+    {
+      id: 14,
+      title: lang === 'pt' ? 'API REST: Autenticação JWT e Segurança com Variáveis de Ambiente' : 'REST API: JWT Authentication and Security with Environment Variables',
+      excerpt: lang === 'pt'
+        ? 'Implementação de autenticação JWT, proteção de rotas com middleware e segurança com variáveis de ambiente em uma API REST em produção.'
+        : 'Implementation of JWT authentication, route protection with middleware, and security with environment variables in a production REST API.',
+      content: lang === 'pt'
+        ? `# API REST: Autenticação JWT e Segurança com Variáveis de Ambiente
+
+Olá, rede! 🫡
+
+Continuando a evolução da nossa API REST!
+
+No post anterior, mostrei como implementei funcionalidades de busca e consulta de vídeos. Agora, adicionei segurança e boas práticas essenciais para uma API em produção!
+
+## Nova Funcionalidade: Sistema de Autenticação JWT
+
+Implementei um middleware de autenticação usando JSON Web Tokens (JWT). O middleware \`login\` verifica o token enviado no header \`Authorization\` de cada requisição protegida. Quando o usuário faz login através da rota \`/user/sign-in\`, recebe um token JWT válido por 1 hora, que deve ser enviado nas requisições subsequentes.
+
+![Postman mostrando login com JWT retornando token](/postman-jwt-login.png)
+
+## Proteção de Rotas com Middleware
+
+Apliquei o middleware de autenticação nas rotas de vídeos que requerem autenticação. As rotas \`/videos/create-video\` e \`/videos/get-videos\` agora estão protegidas, agora apenas usuários autenticados podem criar ou listar vídeos. A implementação é flexível: você pode facilmente adicionar ou remover proteção em qualquer rota!
+
+## Segurança com Variáveis de Ambiente
+
+Migrei todas as configurações sensíveis para variáveis de ambiente usando o pacote \`dotenv\`. Agora, credenciais do banco de dados (usuário, senha, host, porta), nome do banco e a chave secreta do JWT estão armazenadas no arquivo \`.env\`, que não é versionado no Git. Isso garante que informações sensíveis não sejam expostas no código!
+
+![Configuração do pool MySQL com variáveis de ambiente](/mysql-dotenv-config.png)
+
+A configuração do pool de conexão MySQL agora utiliza variáveis de ambiente:
+
+\`\`\`typescript
+const pool = mysql.createPool({
+  "user": process.env.USER_DATABASE,
+  "password": process.env.PASSWORD_DATABASE,
+  "database": process.env.DATABASE,
+  "host": process.env.HOST_DATABASE,
+  "port": parseInt(process.env.PORT_DATABASE as string)
+})
+\`\`\`
+
+## Organização e Padrões
+
+O middleware foi organizado na pasta \`middleware/\`, seguindo a estrutura do projeto. A verificação do token é feita de forma centralizada, facilitando manutenção e reutilização. O código mantém a separação de responsabilidades, com o middleware cuidando da autenticação e as rotas focadas na lógica de negócio!
+
+## Validação e Testes
+
+Testei todas as implementações com Postman, validando:
+- Geração de token JWT no login
+- Proteção de rotas com middleware
+- Rejeição de requisições sem token ou com token inválido
+- Carregamento correto das variáveis de ambiente
+- Funcionamento adequado de todas as rotas protegidas
+
+![Postman mostrando criação de usuário](/postman-user-signup.png)
+
+Cada nova feature segue os mesmos padrões de segurança e organização, facilitando a manutenção e evolução do projeto.
+
+Em breve, pretendo publicar o projeto completo com documentação e código aberto! 🚀`
+        : `# REST API: JWT Authentication and Security with Environment Variables
+
+Hello, network! 🫡
+
+Continuing the evolution of our REST API!
+
+In the previous post, I showed how I implemented video search and query features. Now, I've added security and essential best practices for a production API!
+
+## New Feature: JWT Authentication System
+
+I implemented an authentication middleware using JSON Web Tokens (JWT). The \`login\` middleware verifies the token sent in the \`Authorization\` header of each protected request. When a user logs in through the \`/user/sign-in\` route, they receive a JWT token valid for 1 hour, which must be sent in subsequent requests.
+
+![Postman showing login with JWT returning token](/postman-jwt-login.png)
+
+## Route Protection with Middleware
+
+I applied the authentication middleware to video routes that require authentication. The routes \`/videos/create-video\` and \`/videos/get-videos\` are now protected, so only authenticated users can create or list videos. The implementation is flexible: you can easily add or remove protection on any route!
+
+## Security with Environment Variables
+
+I migrated all sensitive configurations to environment variables using the \`dotenv\` package. Now, database credentials (user, password, host, port), database name, and the JWT secret key are stored in the \`.env\` file, which is not versioned in Git. This ensures that sensitive information is not exposed in the code!
+
+![MySQL pool configuration with environment variables](/mysql-dotenv-config.png)
+
+The MySQL connection pool configuration now uses environment variables:
+
+\`\`\`typescript
+const pool = mysql.createPool({
+  "user": process.env.USER_DATABASE,
+  "password": process.env.PASSWORD_DATABASE,
+  "database": process.env.DATABASE,
+  "host": process.env.HOST_DATABASE,
+  "port": parseInt(process.env.PORT_DATABASE as string)
+})
+\`\`\`
+
+## Organization and Standards
+
+The middleware was organized in the \`middleware/\` folder, following the project structure. Token verification is done centrally, facilitating maintenance and reuse. The code maintains separation of concerns, with the middleware handling authentication and routes focused on business logic!
+
+## Validation and Testing
+
+I tested all implementations with Postman, validating:
+- JWT token generation on login
+- Route protection with middleware
+- Rejection of requests without token or with invalid token
+- Correct loading of environment variables
+- Proper functioning of all protected routes
+
+![Postman showing user creation](/postman-user-signup.png)
+
+Each new feature follows the same security and organization standards, facilitating maintenance and project evolution.
+
+Soon, I plan to publish the complete project with documentation and open source code! 🚀`,
+      category: 'code',
+      date: '2025-11-14',
+      author: 'Pablo Sodré',
+      images: ['/postman-jwt-login.png', '/mysql-dotenv-config.png', '/postman-user-signup.png']
     }
   ];
 };
