@@ -651,7 +651,7 @@ function App() {
     <div className="mb-8">
       <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-4 border-blue-500">
         <img 
-          src="https://media.licdn.com/dms/image/v2/D4D03AQGrqYLJh2hAwQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678591067293?e=1762992000&v=beta&t=HcPwk1b3FCOGa0nzQOpGcUdGOFK8f-eg7UwKndwRF5o" 
+          src="/pablo-profile.jpg" 
           alt="Pablo Sodré" 
           className="w-full h-full object-cover"
         />

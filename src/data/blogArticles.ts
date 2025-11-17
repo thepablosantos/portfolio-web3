@@ -2919,7 +2919,7 @@ The key is:
 
 Remember: security is a continuous process, not a destination. 🛡️`,
       category: 'hacking',
-      date: '2025-11-15',
+      date: '2025-11-17',
       author: 'Pablo Sodré',
       images: []
     }
