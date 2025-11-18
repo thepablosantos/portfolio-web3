@@ -37,7 +37,7 @@ export const getGalleryImages = (lang: 'pt' | 'en'): GalleryImage[] => {
     },
     {
       id: 4,
-      src: '/gallery/flipper-zero.jpg',
+      src: '/gallery/flipper-zero.jpeg',
       title: lang === 'pt' ? 'Flipper Zero: Multi-tool' : 'Flipper Zero: Multi-tool',
       description: lang === 'pt'
         ? 'Flipper Zero, uma ferramenta versátil para testes de segurança, análise de protocolos e pesquisa em hardware.'
