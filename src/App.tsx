@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight, Copy, Check, Briefcase } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Menu, X, Sun, Moon, MessageCircle, Send, User, Download, BookOpen, ChevronLeft, ChevronRight, Copy, Check, Briefcase, Shield } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { getBlogArticles } from './data/blogArticles';
@@ -646,10 +646,20 @@ function App() {
 </nav>
       
 {/* Hero Section */}
-<section id="hero" className="min-h-screen flex items-center justify-center px-6 py-20 pt-32">
-  <div className="max-w-4xl mx-auto text-center">
-    <div className="mb-8">
-      <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-4 border-blue-500">
+<section id="hero" className="min-h-screen flex items-center justify-center px-6 py-20 pt-32 relative overflow-hidden">
+  {/* Tech Background Grid */}
+  <div className="absolute inset-0 opacity-10 pointer-events-none">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `
+        linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+      `,
+      backgroundSize: '50px 50px'
+    }}></div>
+  </div>
+  <div className="max-w-4xl mx-auto text-center relative z-10">
+    <div className="mb-8 relative">
+      <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-gray-700">
         <img 
           src="/pablo-profile.jpg" 
           alt="Pablo Sodré" 
@@ -662,7 +672,7 @@ function App() {
             Pablo Sodré
           </h1>
 
-          <p className={`text-xl md:text-2xl mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-xl md:text-2xl mb-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
             {t.hero.title}
           </p>
 
@@ -672,45 +682,75 @@ function App() {
 
           <div className={`flex flex-wrap items-center justify-center gap-4 text-sm mb-8 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             <div className="flex items-center gap-2">
-              <MapPin size={16} />
-              <span>Brazil | Based in Italy</span>
+              <MapPin size={16} className={isDarkMode ? 'text-green-400' : 'text-green-600'} />
+              <span className={isDarkMode ? 'text-green-400' : 'text-green-600'}>Brazil | Based in Italy</span>
             </div>
             <div className="flex items-center gap-2">
-              <Phone size={16} />
-              <span>+353 0857655940</span>
+              <Phone size={16} className={isDarkMode ? 'text-cyan-400' : 'text-cyan-600'} />
+              <span className={isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}>+353 0857655940</span>
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {/* 🔹 Download CV */}
+          <div className="flex flex-col items-center gap-6 mb-12">
+            {/* 🔹 Download CV - Destaque principal */}
             <a
               href="https://drive.google.com/file/d/18mubDkPZFq-r3LoD22I1349Nw1vbU34y/view"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
+              className={`px-8 py-3 rounded-lg transition-all duration-300 flex items-center gap-2 ${
+                isDarkMode 
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white' 
+                  : 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white'
+              }`}
             >
               <Download size={18} />
               Download CV
             </a>
 
-            <a
-              href="http://github.com/thepablosantos"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`px-6 py-3 border rounded-lg transition-colors flex items-center gap-2 ${isDarkMode ? 'border-gray-700 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
-            >
-              <Github size={18} />
-              GitHub
-            </a>
-            <a
-              href="http://linkedin.com/in/pablo-sodre"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`px-6 py-3 border rounded-lg transition-colors flex items-center gap-2 ${isDarkMode ? 'border-gray-700 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
-            >
-              <Linkedin size={18} />
-              LinkedIn
-            </a>
+            {/* 🔹 Social Links - Grupo compacto com cores temáticas */}
+            <div className="flex items-center gap-4">
+              <a
+                href="http://github.com/thepablosantos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-lg transition-all duration-300 flex items-center justify-center ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border border-gray-700 hover:border-gray-600 hover:bg-gray-800' 
+                    : 'bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+                title="GitHub"
+              >
+                <Github size={20} className={`transition-colors ${isDarkMode ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-700 group-hover:text-gray-900'}`} />
+              </a>
+              
+              <a
+                href="http://linkedin.com/in/pablo-sodre"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-lg transition-all duration-300 flex items-center justify-center ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border border-gray-700 hover:border-gray-600 hover:bg-gray-800' 
+                    : 'bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+                title="LinkedIn"
+              >
+                <Linkedin size={20} className={`transition-colors ${isDarkMode ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-700 group-hover:text-gray-900'}`} />
+              </a>
+              
+              <a
+                href="https://tryhackme.com/p/J0hnTitor"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-lg transition-all duration-300 flex items-center justify-center ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border border-gray-700 hover:border-gray-600 hover:bg-gray-800' 
+                    : 'bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+                title="TryHackMe"
+              >
+                <Shield size={20} className={`transition-colors ${isDarkMode ? 'text-gray-300 group-hover:text-gray-200' : 'text-gray-700 group-hover:text-gray-900'}`} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -731,52 +771,64 @@ function App() {
             {/* Right Column - Skills Cards */}
             <div>
               <div className="grid grid-cols-2 gap-6">
-                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-blue-500' : 'border-gray-300 hover:border-blue-400'}`}>
-                  <div className="flex items-center mb-4">
-                    <div className="w-7 h-7 bg-blue-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">FS</span>
+                <div className={`group relative border rounded-lg p-5 transition-all duration-300 overflow-hidden ${isDarkMode ? 'border-gray-800 bg-gray-900/30 hover:border-blue-500/50' : 'border-gray-300 bg-white hover:border-blue-400'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-600/0 group-hover:from-blue-500/10 group-hover:to-blue-600/10 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">FS</span>
+                      </div>
+                      <h4 className="text-lg font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{t.skills.smartContracts}</h4>
                     </div>
-                    <h4 className="text-lg font-bold text-blue-400">{t.skills.smartContracts}</h4>
+                    <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {t.skills.smartContractsDesc}
+                    </p>
                   </div>
-                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {t.skills.smartContractsDesc}
-                  </p>
                 </div>
 
-                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-green-500' : 'border-gray-300 hover:border-green-400'}`}>
-                  <div className="flex items-center mb-4">
-                    <div className="w-7 h-7 bg-green-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">W3</span>
+                <div className={`group relative border rounded-lg p-5 transition-all duration-300 overflow-hidden ${isDarkMode ? 'border-gray-800 bg-gray-900/30 hover:border-purple-500/50' : 'border-gray-300 bg-white hover:border-purple-400'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-purple-600/0 group-hover:from-purple-500/10 group-hover:to-purple-600/10 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="w-7 h-7 bg-gradient-to-br from-purple-500 to-purple-600 rounded flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">W3</span>
+                      </div>
+                      <h4 className="text-lg font-bold text-purple-400 group-hover:text-purple-300 transition-colors">{t.skills.defiSolutions}</h4>
                     </div>
-                    <h4 className="text-lg font-bold text-green-400">{t.skills.defiSolutions}</h4>
+                    <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {t.skills.defiSolutionsDesc}
+                    </p>
                   </div>
-                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {t.skills.defiSolutionsDesc}
-                  </p>
                 </div>
 
-                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-purple-500' : 'border-gray-300 hover:border-purple-400'}`}>
-                  <div className="flex items-center mb-4">
-                    <div className="w-7 h-7 bg-purple-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">AWS</span>
+                <div className={`group relative border rounded-lg p-5 transition-all duration-300 overflow-hidden ${isDarkMode ? 'border-gray-800 bg-gray-900/30 hover:border-green-500/50' : 'border-gray-300 bg-white hover:border-green-400'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-emerald-600/0 group-hover:from-green-500/10 group-hover:to-emerald-600/10 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="w-7 h-7 bg-gradient-to-br from-green-500 to-emerald-600 rounded flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">AWS</span>
+                      </div>
+                      <h4 className="text-lg font-bold text-green-400 group-hover:text-green-300 transition-colors">{t.skills.professionalExperience}</h4>
                     </div>
-                    <h4 className="text-lg font-bold text-purple-400">{t.skills.professionalExperience}</h4>
+                    <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {t.skills.professionalExperienceDesc}
+                    </p>
                   </div>
-                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {t.skills.professionalExperienceDesc}
-                  </p>
                 </div>
 
-                <div className={`border rounded-lg p-5 transition-colors ${isDarkMode ? 'border-gray-800 hover:border-cyan-500' : 'border-gray-300 hover:border-cyan-400'}`}>
-                  <div className="flex items-center mb-4">
-                    <div className="w-7 h-7 bg-cyan-500 rounded flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">+</span>
+                <div className={`group relative border rounded-lg p-5 transition-all duration-300 overflow-hidden ${isDarkMode ? 'border-gray-800 bg-gray-900/30 hover:border-cyan-500/50' : 'border-gray-300 bg-white hover:border-cyan-400'}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-600/0 group-hover:from-cyan-500/10 group-hover:to-cyan-600/10 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">+</span>
+                      </div>
+                      <h4 className="text-lg font-bold text-cyan-400 group-hover:text-cyan-300 transition-colors">{t.skills.web3Development}</h4>
                     </div>
-                    <h4 className="text-lg font-bold text-cyan-400">{t.skills.web3Development}</h4>
+                    <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {t.skills.web3DevelopmentDesc}
+                    </p>
                   </div>
-                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {t.skills.web3DevelopmentDesc}
-                  </p>
                 </div>
               </div>
             </div>
@@ -886,10 +938,10 @@ function App() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button 
               onClick={() => setActiveFilter('all')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 border ${
                 activeFilter === 'all' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
-                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
+                  ? (isDarkMode ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-blue-600' : 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white border-blue-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:border-blue-500/50 hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:border-blue-400 hover:bg-gray-100')
               }`}
             >
               {t.projects.all} ({projectCounts.all})
@@ -906,20 +958,20 @@ function App() {
             </button>
             <button 
               onClick={() => setActiveFilter('web3')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 border ${
                 activeFilter === 'web3' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
-                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
+                  ? (isDarkMode ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white border-purple-600' : 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-purple-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:border-purple-500/50 hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:border-purple-400 hover:bg-gray-100')
               }`}
             >
               {t.projects.web3} ({projectCounts.web3})
             </button>
             <button 
               onClick={() => setActiveFilter('hacking')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors border ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 border ${
                 activeFilter === 'hacking' 
-                  ? (isDarkMode ? 'bg-blue-600 text-white border-blue-600' : 'bg-blue-500 text-white border-blue-500')
-                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:bg-gray-100')
+                  ? (isDarkMode ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white border-green-600' : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-500')
+                  : (isDarkMode ? 'bg-gray-800/20 border-gray-700 text-white hover:border-green-500/50 hover:bg-gray-800/40' : 'bg-gray-50/50 border-gray-300 text-gray-900 hover:border-green-400 hover:bg-gray-100')
               }`}
             >
               {t.projects.hacking} ({projectCounts.hacking})
@@ -937,21 +989,66 @@ function App() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project) => {
+              const getCategoryStyles = (category: string) => {
+                switch(category) {
+                  case 'web3':
+                    return {
+                      borderHover: isDarkMode ? 'hover:border-purple-500/50' : 'hover:border-purple-400',
+                      textHover: 'group-hover:text-purple-400',
+                      glowBg: 'group-hover:from-purple-500/5 group-hover:to-purple-600/10',
+                      shadow: isDarkMode ? 'group-hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]' : 'group-hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]',
+                      btnBorder: 'hover:border-purple-500/50',
+                      btnIcon: 'group-hover/btn:text-purple-400'
+                    };
+                  case 'hacking':
+                    return {
+                      borderHover: isDarkMode ? 'hover:border-green-500/50' : 'hover:border-green-400',
+                      textHover: 'group-hover:text-green-400',
+                      glowBg: 'group-hover:from-green-500/5 group-hover:to-emerald-600/10',
+                      shadow: isDarkMode ? 'group-hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]' : 'group-hover:shadow-[0_0_30px_rgba(22,163,74,0.2)]',
+                      btnBorder: 'hover:border-green-500/50',
+                      btnIcon: 'group-hover/btn:text-green-400'
+                    };
+                  case 'code':
+                    return {
+                      borderHover: isDarkMode ? 'hover:border-cyan-500/50' : 'hover:border-cyan-400',
+                      textHover: 'group-hover:text-cyan-400',
+                      glowBg: 'group-hover:from-cyan-500/5 group-hover:to-cyan-600/10',
+                      shadow: isDarkMode ? 'group-hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]' : 'group-hover:shadow-[0_0_30px_rgba(8,145,178,0.2)]',
+                      btnBorder: 'hover:border-cyan-500/50',
+                      btnIcon: 'group-hover/btn:text-cyan-400'
+                    };
+                  default:
+                    return {
+                      borderHover: isDarkMode ? 'hover:border-blue-500/50' : 'hover:border-blue-400',
+                      textHover: 'group-hover:text-blue-400',
+                      glowBg: 'group-hover:from-blue-500/5 group-hover:to-blue-600/10',
+                      shadow: isDarkMode ? 'group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]' : 'group-hover:shadow-[0_0_30px_rgba(37,99,235,0.2)]',
+                      btnBorder: 'hover:border-blue-500/50',
+                      btnIcon: 'group-hover/btn:text-blue-400'
+                    };
+                }
+              };
+              const styles = getCategoryStyles(project.category);
+              
+              return (
               <div
                 key={project.name}
-                className={`border rounded-lg p-6 transition-all group flex flex-col ${isDarkMode ? 'border-gray-800 hover:border-gray-600' : 'border-gray-300 hover:border-gray-400'}`}
+                className={`group relative border rounded-lg p-6 transition-all duration-300 flex flex-col overflow-hidden ${isDarkMode ? 'border-gray-800' : 'border-gray-300'} ${styles.borderHover}`}
               >
+                <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-transparent ${styles.glowBg} transition-all duration-300 pointer-events-none`}></div>
+                <div className="relative z-10">
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors mb-2">
+                  <h3 className={`text-xl font-bold ${styles.textHover} transition-colors mb-2`}>
                     {project.name}
                   </h3>
                   {project.subcategory && (
                     <span className={`inline-block px-3 py-1 rounded text-xs font-semibold mb-3 ${
-                      project.subcategory === 'Smart Contracts' ? 'bg-purple-500/20 text-purple-400' :
-                      project.subcategory === 'DeFi' ? 'bg-green-500/20 text-green-400' :
-                      project.subcategory === 'Code' ? 'bg-cyan-500/20 text-cyan-400' :
-                      'bg-blue-500/20 text-blue-400'
+                      project.subcategory === 'Smart Contracts' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
+                      project.subcategory === 'DeFi' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+                      project.subcategory === 'Code' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' :
+                      'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                     }`}>
                       {project.subcategory}
                     </span>
@@ -964,7 +1061,7 @@ function App() {
 
                 <div className="flex flex-wrap gap-2 mb-4 min-h-[32px]">
                   {project.tech.map((tech) => (
-                    <span key={tech} className={`px-3 py-1 ${getSkillColor(tech)} text-white rounded text-sm`}>
+                    <span key={tech} className={`px-3 py-1 ${getSkillColor(tech)} text-white rounded text-sm shadow-sm`}>
                       {tech}
                     </span>
                   ))}
@@ -974,17 +1071,19 @@ function App() {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-sm font-semibold border mt-auto ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 text-sm font-semibold border mt-auto group/btn ${
                     isDarkMode 
-                      ? 'bg-gray-800/20 border-gray-700 hover:bg-gray-800/40 text-white' 
-                      : 'bg-gray-50/50 border-gray-300 hover:bg-gray-100 text-gray-900'
+                      ? `bg-gray-800/20 border-gray-700 hover:bg-gray-800/40 ${styles.btnBorder} text-white` 
+                      : `bg-gray-50/50 border-gray-300 hover:bg-gray-100 ${styles.btnBorder} text-gray-900`
                   }`}
                 >
-                  <Github size={18} />
+                  <Github size={18} className={`${styles.btnIcon} transition-colors`} />
                   {t.projects.viewOnGitHub}
                 </a>
+                </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
@@ -1497,17 +1596,28 @@ function App() {
               href="http://github.com/thepablosantos"
               target="_blank"
               rel="noopener noreferrer"
-                    className={`p-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-100'}`}
+                    className={`p-3 rounded-lg transition-all duration-300 ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600' : 'bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300'}`}
+                    title="GitHub"
             >
-                    <Github size={24} />
+                    <Github size={24} className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'}`} />
             </a>
             <a
               href="http://linkedin.com/in/pablo-sodre"
               target="_blank"
               rel="noopener noreferrer"
-                    className={`p-3 rounded-lg transition-colors ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-100'}`}
+                    className={`p-3 rounded-lg transition-all duration-300 ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600' : 'bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300'}`}
+                    title="LinkedIn"
                   >
-                    <Linkedin size={24} />
+                    <Linkedin size={24} className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'}`} />
+                  </a>
+            <a
+              href="https://tryhackme.com/p/J0hnTitor"
+              target="_blank"
+              rel="noopener noreferrer"
+                    className={`p-3 rounded-lg transition-all duration-300 ${isDarkMode ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-600' : 'bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300'}`}
+                    title="TryHackMe"
+                  >
+                    <Shield size={24} className={`transition-colors ${isDarkMode ? 'text-gray-300 hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'}`} />
                   </a>
                 </div>
               </div>
@@ -1635,11 +1745,14 @@ function App() {
                 {t.footer.description}
               </p>
               <div className="flex space-x-4">
-                <a href="https://github.com/thepablosantos" target="_blank" rel="noopener noreferrer" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>
+                <a href="https://github.com/thepablosantos" target="_blank" rel="noopener noreferrer" className={`p-2 rounded-lg transition-all duration-300 group ${isDarkMode ? 'text-gray-400 hover:text-blue-400 hover:bg-gray-800/50' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'}`} title="GitHub">
                   <Github size={20} />
                 </a>
-                <a href="https://linkedin.com/in/pablosodre" target="_blank" rel="noopener noreferrer" className={`${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}>
+                <a href="https://linkedin.com/in/pablosodre" target="_blank" rel="noopener noreferrer" className={`p-2 rounded-lg transition-all duration-300 group ${isDarkMode ? 'text-gray-400 hover:text-cyan-400 hover:bg-gray-800/50' : 'text-gray-600 hover:text-cyan-600 hover:bg-gray-100'}`} title="LinkedIn">
                   <Linkedin size={20} />
+                </a>
+                <a href="https://tryhackme.com/p/J0hnTitor" target="_blank" rel="noopener noreferrer" className={`p-2 rounded-lg transition-all duration-300 group ${isDarkMode ? 'text-gray-400 hover:text-green-400 hover:bg-gray-800/50' : 'text-gray-600 hover:text-green-600 hover:bg-gray-100'}`} title="TryHackMe">
+                  <Shield size={20} />
                 </a>
               </div>
             </div>
