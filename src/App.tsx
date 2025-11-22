@@ -28,8 +28,8 @@ function App() {
   const translations = {
     en: {
       hero: {
-        title: 'FullStack Developer | Web3',
-        description: 'I\'m a Brazilian Full Stack Developer with 4+ years of experience building scalable web applications. Specialized in Full Stack and Web3 development, creating robust solutions that combine traditional web technologies with blockchain innovation.',
+        title: 'Mid-Level Fullstack & Web3 Engineer | Blockchain Security',
+        description: '4+ years building production DApps · Currently deep in smart contract security & auditing · Italy-based · Open to remote/onsite Europe',
         contact: 'Download CV'
       },
       menu: {
@@ -41,25 +41,33 @@ function App() {
       },
       about: {
         title: 'About Me',
-        description: 'I am a FullStack Developer with 4 years of experience building scalable web applications. My expertise spans from frontend to backend, using technologies like JavaScript, Node.js, and React to create robust and efficient solutions. I also specialize in Web3, applying my FullStack experience to develop decentralized solutions, Smart Contracts with Solidity, and integrate blockchain technologies using Hardhat/Foundry and Ethers.js/Web3.js. I work with scalable software architecture using AWS and Docker, always focusing on creating applications that combine traditional web excellence with blockchain innovation.'
+        description: 'Brazilian engineer in Italy, open to remote and onsite roles across Europe. I build end-to-end web applications and decentralized platforms (DApps), with strong emphasis on secure smart contract development and blockchain architecture. Core stack: Frontend (React · Next.js · TypeScript), Backend (Node.js · Express/NestJS · SQL · REST/GraphQL), Blockchain (Solidity · Hardhat · Foundry · ethers.js · Web3.js), Security (Secure smart contract patterns · Audit-ready code · Reentrancy/Honeypot protection), Tools (Docker · Git · CI/CD · Linux). Recent highlights: Deployed production smart contracts on Ethereum and L2s (Bullmex, Smart Token). Deep dive into blockchain security: studying common vulnerabilities (SWC, ConsenSys best practices), formal verification tools, and pentest methodologies. Currently expanding into Blockchain Security & Smart Contract Auditing while delivering high-quality fullstack/Web3 solutions.'
       },
       experience: {
         title: 'Professional Experience',
-        bullmex: {
-          company: 'Bullmex',
-          role: 'Web3 Developer',
-          period: '2021 - 2022',
-          location: 'Brazil',
-          description: 'Developed and deployed smart contracts with Solidity and Hardhat, integrating Web3 applications with the Ethereum blockchain. Technologies: JavaScript, Solidity, Hardhat, Web3.js.',
-          technologies: ['JavaScript', 'Solidity', 'Hardhat', 'Web3.js']
+        blockchainSecurity: {
+          company: 'Self-Employed',
+          role: 'Blockchain Security Researcher',
+          period: 'Mar 2024 - Present',
+          location: 'Ragusa, Sicily, Italy · Remote',
+          description: 'Deep dive into smart contract vulnerabilities (SWC Registry, ConsenSys, OpenZeppelin best practices). Building personal audit toolkit using Foundry, Slither, Mythril and custom Python static analysis scripts. Writing proof-of-concept exploits and public write-ups (reentrancy, delegatecall, front-running, phishing, access control issues). Researching formal verification tools and preparing for professional smart contract auditing roles and bug bounty programs.',
+          technologies: ['Solidity', 'Foundry', 'Python', 'Slither', 'Mythril', 'Hardhat', 'OpenZeppelin', 'Echidna']
         },
         smartToken: {
           company: 'Smart Token',
-          role: 'Full Stack Developer',
-          period: '2023 - 2024',
-          location: 'Florianópolis, Brazil',
-          description: 'Built full-stack applications with JavaScript, Node.js, and React, integrating blockchain solutions and data analytics using PowerBI. Technologies: JavaScript, Node.js, React, SQL, Docker.',
-          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker']
+          role: 'Full Stack',
+          period: 'Jan 2023 - Feb 2024',
+          location: 'Florianópolis, SC · On-site',
+          description: 'Developed end-to-end Web3 platforms with React + Next.js (frontend) and Node.js/NestJS (backend). Integrated on-chain data with The Graph and real-time dashboards using WebSockets + PowerBI. Containerized applications with Docker and set up CI/CD pipelines via GitHub Actions. Worked on blockchain bridges and multi-chain support (Ethereum ↔ Polygon).',
+          technologies: ['React', 'Next.js', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Docker', 'ethers.js']
+        },
+        bullmex: {
+          company: 'Bullmex',
+          role: 'Web3 Developer',
+          period: 'Feb 2021 - Nov 2022',
+          location: 'Florianópolis, SC · On-site',
+          description: 'Designed and deployed production-grade smart contracts on Ethereum and BSC using Solidity + Hardhat. Built full-stack DApps with React + TypeScript frontend consuming contracts via ethers.js and web3.js. Implemented secure coding patterns (reentrancy guards, access control, Checks-Effects-Interactions). Wrote unit and integration tests with Foundry/Waffle (test coverage >90%).',
+          technologies: ['Solidity', 'Hardhat', 'Foundry', 'ethers.js', 'React', 'TypeScript', 'Node.js', 'OpenZeppelin']
         }
       },
       skills: {
@@ -128,7 +136,7 @@ function App() {
       },
       footer: {
         name: 'Pablo Sodré',
-        description: 'FullStack Developer specialized in JavaScript, Node.js, React, and Web3 technologies including Solidity, Ethereum, and Smart Contracts.',
+        description: 'Mid-Level Fullstack & Web3 Engineer | Blockchain Security. Specialized in JavaScript, Node.js, React, TypeScript, Solidity, and Smart Contract Security.',
         quickLinks: 'Quick Links',
         about: 'About',
         skills: 'Skills',
@@ -140,8 +148,8 @@ function App() {
     },
     pt: {
       hero: {
-        title: 'FullStack Developer | Web3',
-        description: 'Sou um Desenvolvedor Full Stack brasileiro com mais de 4 anos de experiência construindo aplicações web escaláveis. Especializado em desenvolvimento Full Stack e Web3, criando soluções robustas que combinam tecnologias web tradicionais com inovação blockchain.',
+        title: 'Mid-Level Fullstack & Web3 Engineer | Blockchain Security',
+        description: '4+ years building production DApps · Currently deep in smart contract security & auditing · Italy-based · Open to remote/onsite Europe',
         contact: 'Baixar CV'
       },
       menu: {
@@ -153,25 +161,33 @@ function App() {
       },
       about: {
         title: 'Sobre Mim',
-        description: 'Sou um Desenvolvedor FullStack com 4 anos de experiência construindo aplicações web escaláveis. Minha expertise abrange do frontend ao backend, utilizando tecnologias como JavaScript, Node.js e React para criar soluções robustas e eficientes. Também me especializo em Web3, aplicando minha experiência FullStack no desenvolvimento de soluções descentralizadas, Smart Contracts com Solidity, e integração de tecnologias blockchain usando Hardhat/Foundry e Ethers.js/Web3.js. Trabalho com arquitetura de software escalável utilizando AWS e Docker, sempre focando em criar aplicações que combinam excelência web tradicional com inovação blockchain.'
+        description: 'Engenheiro brasileiro na Itália, aberto a oportunidades remotas e presenciais em toda a Europa. Construo aplicações web de ponta a ponta e plataformas descentralizadas (DApps), com forte ênfase no desenvolvimento seguro de smart contracts e arquitetura blockchain. Stack principal: Frontend (React · Next.js · TypeScript), Backend (Node.js · Express/NestJS · SQL · REST/GraphQL), Blockchain (Solidity · Hardhat · Foundry · ethers.js · Web3.js), Segurança (Padrões seguros de smart contracts · Código pronto para auditoria · Proteção contra reentrancy/honeypot), Ferramentas (Docker · Git · CI/CD · Linux). Destaques recentes: Implantei smart contracts em produção no Ethereum e L2s (Bullmex, Smart Token). Mergulho profundo em segurança blockchain: estudando vulnerabilidades comuns (SWC, melhores práticas ConsenSys), ferramentas de verificação formal e metodologias de pentest. Atualmente expandindo para Segurança Blockchain e Auditoria de Smart Contracts enquanto entrego soluções fullstack/Web3 de alta qualidade.'
       },
       experience: {
         title: 'Experiência Profissional',
-        bullmex: {
-          company: 'Bullmex',
-          role: 'Desenvolvedor Web3',
-          period: '2021 - 2022',
-          location: 'Brasil',
-          description: 'Developed and deployed smart contracts with Solidity and Hardhat, integrating Web3 applications with the Ethereum blockchain. Technologies: JavaScript, Solidity, Hardhat, Web3.js.',
-          technologies: ['JavaScript', 'Solidity', 'Hardhat', 'Web3.js']
+        blockchainSecurity: {
+          company: 'Autônomo',
+          role: 'Blockchain Security Researcher',
+          period: 'Mar 2024 - Presente',
+          location: 'Ragusa, Sicília, Itália · Remoto',
+          description: 'Mergulho profundo em vulnerabilidades de smart contracts (SWC Registry, ConsenSys, melhores práticas OpenZeppelin). Construindo toolkit pessoal de auditoria usando Foundry, Slither, Mythril e scripts Python customizados de análise estática. Escrevendo exploits proof-of-concept e write-ups públicos (reentrancy, delegatecall, front-running, phishing, problemas de controle de acesso). Pesquisando ferramentas de verificação formal e me preparando para funções profissionais de auditoria de smart contracts e programas de bug bounty.',
+          technologies: ['Solidity', 'Foundry', 'Python', 'Slither', 'Mythril', 'Hardhat', 'OpenZeppelin', 'Echidna']
         },
         smartToken: {
           company: 'Smart Token',
-          role: 'Full Stack Developer',
-          period: '2023 - 2024',
-          location: 'Florianópolis, Brasil',
-          description: 'Built full-stack applications with JavaScript, Node.js, and React, integrating blockchain solutions and data analytics using PowerBI. Technologies: JavaScript, Node.js, React, SQL, Docker.',
-          technologies: ['JavaScript', 'Node.js', 'React', 'SQL', 'Docker']
+          role: 'Full Stack',
+          period: 'Jan 2023 - Fev 2024',
+          location: 'Florianópolis, SC · Presencial',
+          description: 'Desenvolvi plataformas Web3 de ponta a ponta com React + Next.js (frontend) e Node.js/NestJS (backend). Integrei dados on-chain com The Graph e dashboards em tempo real usando WebSockets + PowerBI. Containerizei aplicações com Docker e configurei pipelines CI/CD via GitHub Actions. Trabalhei em bridges blockchain e suporte multi-chain (Ethereum ↔ Polygon).',
+          technologies: ['React', 'Next.js', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Docker', 'ethers.js']
+        },
+        bullmex: {
+          company: 'Bullmex',
+          role: 'Desenvolvedor Web3',
+          period: 'Fev 2021 - Nov 2022',
+          location: 'Florianópolis, SC · Presencial',
+          description: 'Projetei e implantei smart contracts de nível de produção no Ethereum e BSC usando Solidity + Hardhat. Construí DApps full-stack com frontend React + TypeScript consumindo contratos via ethers.js e web3.js. Implementei padrões de codificação seguros (reentrancy guards, controle de acesso, Checks-Effects-Interactions). Escrevi testes unitários e de integração com Foundry/Waffle (cobertura de testes >90%).',
+          technologies: ['Solidity', 'Hardhat', 'Foundry', 'ethers.js', 'React', 'TypeScript', 'Node.js', 'OpenZeppelin']
         }
       },
       skills: {
@@ -240,7 +256,7 @@ function App() {
       },
       footer: {
         name: 'Pablo Sodré',
-        description: 'Desenvolvedor FullStack especializado em JavaScript, Node.js, React e tecnologias Web3 incluindo Solidity, Ethereum e Smart Contracts.',
+        description: 'Mid-Level Fullstack & Web3 Engineer | Blockchain Security. Especializado em JavaScript, Node.js, React, TypeScript, Solidity e Segurança de Smart Contracts.',
         quickLinks: 'Quick Links',
         about: 'Sobre',
         skills: 'Habilidades',
@@ -657,6 +673,7 @@ function App() {
       backgroundSize: '50px 50px'
     }}></div>
   </div>
+  
   <div className="max-w-4xl mx-auto text-center relative z-10">
     <div className="mb-8 relative">
       <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-gray-700">
@@ -849,7 +866,7 @@ function App() {
               {/* Continuous vertical line */}
               <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDarkMode ? 'bg-orange-500/50' : 'bg-orange-400/50'}`} style={{ transform: 'translateX(-50%)' }}></div>
               
-              {/* Bullmex Experience */}
+              {/* Blockchain Security Researcher Experience */}
               <div className={`relative pl-12`}>
                 <div className={`absolute left-4 top-0 w-8 h-8 rounded-full border-4 flex items-center justify-center ${isDarkMode ? 'bg-gray-900 border-orange-500' : 'bg-white border-orange-400'}`} style={{ transform: 'translateX(-50%)' }}>
                   <Briefcase size={16} className={isDarkMode ? 'text-orange-400' : 'text-orange-600'} />
@@ -858,27 +875,27 @@ function App() {
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                     <div>
                       <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                        {t.experience.bullmex.company}
+                        {t.experience.blockchainSecurity.company}
                       </h3>
                       <p className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
-                        {t.experience.bullmex.role}
+                        {t.experience.blockchainSecurity.role}
                       </p>
                     </div>
                     <div className="flex flex-col items-start md:items-end gap-2">
                       <span className={`text-sm font-medium px-3 py-1 rounded-full ${isDarkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-100 text-orange-700'}`}>
-                        {t.experience.bullmex.period}
+                        {t.experience.blockchainSecurity.period}
                       </span>
                       <span className={`text-sm flex items-center gap-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                         <MapPin size={14} />
-                        {t.experience.bullmex.location}
+                        {t.experience.blockchainSecurity.location}
                       </span>
                     </div>
                   </div>
                   <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    {t.experience.bullmex.description}
+                    {t.experience.blockchainSecurity.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {t.experience.bullmex.technologies.map((tech, index) => (
+                    {t.experience.blockchainSecurity.technologies.map((tech, index) => (
                       <span key={index} className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-gray-300'}`}>
                         {tech}
                       </span>
@@ -924,6 +941,45 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Bullmex Experience */}
+              <div className={`relative pl-12`}>
+                <div className={`absolute left-4 top-0 w-8 h-8 rounded-full border-4 flex items-center justify-center ${isDarkMode ? 'bg-gray-900 border-orange-500' : 'bg-white border-orange-400'}`} style={{ transform: 'translateX(-50%)' }}>
+                  <Briefcase size={16} className={isDarkMode ? 'text-orange-400' : 'text-orange-600'} />
+                </div>
+                <div className={`rounded-lg p-6 ${isDarkMode ? 'bg-gray-900/50 border border-gray-800' : 'bg-gray-50 border border-gray-200'}`}>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {t.experience.bullmex.company}
+                      </h3>
+                      <p className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                        {t.experience.bullmex.role}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-start md:items-end gap-2">
+                      <span className={`text-sm font-medium px-3 py-1 rounded-full ${isDarkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-100 text-orange-700'}`}>
+                        {t.experience.bullmex.period}
+                      </span>
+                      <span className={`text-sm flex items-center gap-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <MapPin size={14} />
+                        {t.experience.bullmex.location}
+                      </span>
+                    </div>
+                  </div>
+                  <p className={`text-base leading-relaxed mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {t.experience.bullmex.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {t.experience.bullmex.technologies.map((tech, index) => (
+                      <span key={index} className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-gray-300'}`}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
