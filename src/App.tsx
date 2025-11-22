@@ -711,7 +711,7 @@ function App() {
           <div className="flex flex-col items-center gap-6 mb-12">
             {/* 🔹 Download CV - Destaque principal */}
             <a
-              href="https://drive.google.com/file/d/18mubDkPZFq-r3LoD22I1349Nw1vbU34y/view"
+              href="https://drive.google.com/file/d/16d5cqeTxvZx8YBhNNitQIV8vieS7TxjR/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className={`px-8 py-3 rounded-lg transition-all duration-300 flex items-center gap-2 ${
